@@ -1,0 +1,59 @@
+{
+    "editor.minimap.enabled": true,
+    "editor.tabSize": 2,
+    "editor.renderIndentGuides": true,
+    "explorer.autoReveal": false,
+    "workbench.sideBar.location": "left",
+    "files.trimTrailingWhitespace": true,
+    "files.exclude": {
+        "app/public/**": true,
+        ".*cache": true,
+        ".vscode/.chrome": true
+    },
+    "search.exclude": {
+        ".ignore": true
+    },
+    "editor.fontSize": 10,
+    "terminal.integrated.fontSize": 10,
+    "terminal.external.osxExec": "Iterm.app",
+    "editor.rulers": [
+        80,
+        120
+    ],
+    "typescript.tsserver.trace": "verbose",
+    "colorInfo.languages": [
+        {
+            "selector": "css",
+            "colors": "css"
+        },
+        {
+            "selector": "sass",
+            "colors": "css"
+        },
+        {
+            "selector": "scss",
+            "colors": "css"
+        },
+        {
+            "selector": "less",
+            "colors": "css"
+        }
+    ],
+    "prettier.singleQuote": true,
+    "workbench.iconTheme": "vs-seti",
+    "[git-commit]": {
+        "editor.rulers": [
+            50,
+            72
+        ],
+        "rewrap.wrappingColumn": 72
+    },
+    "[git-rebase]": {
+        "editor.rulers": [
+            50,
+            72
+        ]
+    },
+    // This breaks rulers if not 0. See #9634
+    "window.zoomLevel": 0
+}
