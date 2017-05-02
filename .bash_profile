@@ -1,20 +1,3 @@
-# ~/.bash_profile
-
-[[ -s ~/.bashrc ]] && source ~/.bashrc
-
-# Setting PATH for Python 3.5
-# The original version is saved in .bash_profile.pysave
-PATH="/Library/Frameworks/Python.framework/Versions/3.5/bin:${PATH}"
-export PATH
-
-[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-  
-# Bash completion for lots of stuff, including git. Veeeeery useful.
-[ -f $(brew --prefix)/etc/bash_completion ] && . $(brew --prefix)/etc/bash_completion
-
 export LSCOLORS=GxFxCxDxBxegedabagaced
 
 alias ls='ls -GFh'
