@@ -19,6 +19,7 @@
 	autoSquash = true
 [alias]
 	s = status
+	ls = log --oneline
 	l = log develop.. --oneline
 	co = checkout
 	c = commit
