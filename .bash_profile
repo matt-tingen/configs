@@ -13,6 +13,15 @@ alias .......="cd ../../../../../.."
 # alias code='code-insiders'
 alias production-redis='heroku redis:cli --app wta -c wta'
 
+killPort() {
+	if [ -z "$1" ]; then
+    echo "Usage: killPort [port]" >&2
+    return 1
+	fi
+	lsof -i TCP:$1 | grep LISTEN | awk '{print $2}' | xargs kill -9
+	echo "Process using port" $1 "killed."
+}
+
 function prompt() {
 	local BLACK="\[\033[0;30m\]"
 	local BLACKBOLD="\[\033[1;30m\]"
