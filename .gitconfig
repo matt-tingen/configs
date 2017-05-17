@@ -32,6 +32,12 @@
 	# Rebase commits since branching
 	rb = "!git rbn $(git l | wc -l | xargs)"
 	pushup = "!git push -u origin `git_branch`"
-	recent = "!git branch --sort=-committerdate | nl | more"
+	# Display recently committed branches and prompt for one to checkout
+	recent = "! \
+		git branch --sort=-committerdate | head -n 15 | nl; \
+		read -p \"Enter branch index: \" branch_num; \
+		if [[ ! -z $branch_num ]]; then \
+			git cor $branch_num; \
+		fi"
 	# Checkout nth most recently committed
 	cor = "!sh -c \"git checkout $(git branch --sort=-committerdate | sed -n $1p | sed 's/\\*//')\" -"
