@@ -10,9 +10,6 @@ alias .....="cd ../../../.."
 alias ......="cd ../../../../.."
 alias .......="cd ../../../../../.."
 
-# alias code='code-insiders'
-alias production-redis='heroku redis:cli --app wta -c wta'
-
 killPort() {
 	if [ -z "$1" ]; then
     echo "Usage: killPort [port]" >&2
@@ -103,7 +100,7 @@ function prompt() {
 			bits="<${bits}"
 		fi
 		if [ "${renamed}" == "0" ]; then
-			bits="*${bits}"
+			bits="r${bits}"
 		fi
 		if [ "${newfile}" == "0" ]; then
 			bits="+${bits}"
