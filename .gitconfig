@@ -36,3 +36,5 @@
 	recent = "for-each-ref --count=12 --sort=-committerdate refs/heads/ --format=\"%(refname:short)\""
 	# Checkout nth most recently committed
 	cor = "!select br in $(git recent); do git co $br; break; done"
+	today = "!git log --since=midnight --author=\"$(git config user.name)\" --oneline"
+	yesterday = "!git log --since="yesterday.midnight" --until=midnight --author=\"$(git config user.name)\" --oneline"
