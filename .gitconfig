@@ -33,11 +33,7 @@
 	rb = "!git rbn $(git l | wc -l | xargs)"
 	pushup = "!git push -u origin `git_branch`"
 	# Display recently committed branches and prompt for one to checkout
-	recent = "! \
-		git branch --sort=-committerdate | head -n 15 | nl; \
-		read -p \"Enter branch index: \" branch_num; \
-		if [[ ! -z $branch_num ]]; then \
-			git cor $branch_num; \
-		fi"
+	recent = "for-each-ref --count=12 --sort=-committerdate refs/heads/ --format=\"%(refname:short)\""
 	# Checkout nth most recently committed
-	cor = "!sh -c \"git checkout $(git branch --sort=-committerdate | sed -n $1p | sed 's/\\*//')\" -"
+	cor = "!select br in $(git recent); do git co $br; break; done"
+
