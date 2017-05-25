@@ -22,7 +22,7 @@
 	ls = log --oneline
 	l = log develop.. --oneline
 	co = checkout
-	c = commit
+	c = commit -n
 	fix = commit --amend --no-edit
 	stashkeep = "!git stash && git stash apply"
 	# Rebase n most recent commits
@@ -36,4 +36,3 @@
 	recent = "for-each-ref --count=12 --sort=-committerdate refs/heads/ --format=\"%(refname:short)\""
 	# Checkout nth most recently committed
 	cor = "!select br in $(git recent); do git co $br; break; done"
-
