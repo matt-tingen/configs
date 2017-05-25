@@ -3,7 +3,7 @@
 	editor = code --wait
 [user]
 	name = Matt Tingen
-	email = matt.tingen@willowtreeapps.com
+	email = matt.tingen@gmail.com
 [commit]
 	template = /Users/matttingen/.stCommitMsg
 [push]
