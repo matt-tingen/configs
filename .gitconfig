@@ -1,12 +1,6 @@
 [core]
 	excludesfile = /Users/matttingen/.gitignore_global
 	editor = code --wait
-[difftool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/araxiscompare-w.sh -2 \"$LOCAL\" \"$REMOTE\"
-	path =
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/araxisgitmerge-w.sh \"$REMOTE\" \"$BASE\" \"$LOCAL\" \"$MERGED\"
-	trustExitCode = true
 [user]
 	name = Matt Tingen
 	email = matt.tingen@willowtreeapps.com
