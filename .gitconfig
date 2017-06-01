@@ -14,7 +14,7 @@
 [alias]
 	s = status
 	ls = log --oneline
-	l = log develop.. --oneline
+	l = log master.. --oneline
 	co = checkout
 	c = commit -n
 	fix = commit --amend --no-edit
