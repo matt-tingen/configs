@@ -16,7 +16,7 @@
 	ls = log --oneline
 	l = log master.. --oneline
 	co = checkout
-	c = commit -n
+	c = commit
 	fix = commit --amend --no-edit
 	stashkeep = "!git stash && git stash apply"
 	# Rebase n most recent commits
