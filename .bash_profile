@@ -19,6 +19,10 @@ killPort() {
 	echo "Process using port" $1 "killed."
 }
 
+pw() {
+	python ~/Development/pw/pw.py "$@" | tr -d '\n' | pbcopy
+}
+
 function prompt() {
 	local BLACK="\[\033[0;30m\]"
 	local BLACKBOLD="\[\033[1;30m\]"
