@@ -10,6 +10,8 @@ alias .....="cd ../../../.."
 alias ......="cd ../../../../.."
 alias .......="cd ../../../../../.."
 
+alias config='code ~/Development/configs'
+
 killPort() {
 	if [ -z "$1" ]; then
     echo "Usage: killPort [port]" >&2
