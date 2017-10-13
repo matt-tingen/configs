@@ -23,6 +23,14 @@ pw() {
 	python ~/Development/pw/pw.py "$@" | tr -d '\n' | pbcopy
 }
 
+genFile() {
+	if [ -z "$1" ]; then
+    echo "Usage: genFile [# MB] [name]" >&2
+    return 1
+	fi
+	dd if=/dev/zero of=$2 bs=1m count=$1
+}
+
 function prompt() {
 	local BLACK="\[\033[0;30m\]"
 	local BLACKBOLD="\[\033[1;30m\]"
