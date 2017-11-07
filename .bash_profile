@@ -14,6 +14,8 @@ alias .......="cd ../../../../../.."
 
 alias config='code $config_dir'
 
+alias trim="tr -d '[:space:]'"
+
 killPort() {
 	if [ -z "$1" ]; then
     echo "Usage: killPort [port]" >&2
