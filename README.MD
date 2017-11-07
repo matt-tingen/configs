@@ -1,4 +1,8 @@
-`.bash_profile` can be included with `source /path/to/configs/.bash_profile`.
+`.bash_profile` can be included with
+```sh
+config_dir=~/Development/configs
+source "$config_dir/.bash_profile"
+```
 
 `.gitconfig` can be included with
 ```ini
