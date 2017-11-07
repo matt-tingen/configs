@@ -2,6 +2,8 @@ export LSCOLORS=GxFxCxDxBxegedabagaced
 
 source "$config_dir/prompt.bash"
 
+[ -f $(brew --prefix)/etc/bash_completion ] && . $(brew --prefix)/etc/bash_completion
+
 alias ls='ls -GFh'
 alias ll='ls -l'
 
