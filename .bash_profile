@@ -15,8 +15,8 @@ alias ......="cd ../../../../.."
 alias .......="cd ../../../../../.."
 
 alias config='code $config_dir'
-
 alias trim="tr -d '[:space:]'"
+alias g="git"
 
 killPort() {
 	if [ -z "$1" ]; then
