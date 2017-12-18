@@ -38,3 +38,16 @@ genFile() {
 	fi
 	dd if=/dev/random of=$2 bs=1m count=$1
 }
+
+# Run Python one-liner expressions
+# Useful as a calculator
+calc() {
+	if [ -z "$1" ]; then
+    echo "Usage: calc 2 + 2 - 1" >&2
+    return 1
+	fi
+
+	# Use python2 because it has more calculator-like number handling
+	# e.g. `1` is a float.
+	python2 -c "print $*"
+}
