@@ -14,6 +14,7 @@ alias .....="cd ../../../.."
 alias ......="cd ../../../../.."
 alias .......="cd ../../../../../.."
 
+alias refreshConfig='source $base_config'
 alias config='code $config_dir'
 alias trim="tr -d '[:space:]'"
 alias g="git"
