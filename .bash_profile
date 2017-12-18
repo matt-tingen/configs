@@ -36,5 +36,5 @@ genFile() {
     echo "Usage: genFile [# MB] [name]" >&2
     return 1
 	fi
-	dd if=/dev/zero of=$2 bs=1m count=$1
+	dd if=/dev/random of=$2 bs=1m count=$1
 }
