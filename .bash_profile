@@ -21,8 +21,8 @@ alias g="git"
 
 killPort() {
 	if [ -z "$1" ]; then
-    echo "Usage: killPort [port]" >&2
-    return 1
+		echo "Usage: killPort [port]" >&2
+		return 1
 	fi
 	lsof -i TCP:$1 | grep LISTEN | awk '{print $2}' | xargs kill -9
 	echo "Process using port" $1 "killed."
@@ -34,8 +34,8 @@ pw() {
 
 genFile() {
 	if [ -z "$1" ]; then
-    echo "Usage: genFile [# MB] [name]" >&2
-    return 1
+		echo "Usage: genFile [# MB] [name]" >&2
+		return 1
 	fi
 	dd if=/dev/random of=$2 bs=1m count=$1
 }
@@ -44,11 +44,11 @@ genFile() {
 # Useful as a calculator
 calc() {
 	if [ -z "$1" ]; then
-    echo "Usage: calc 2 + 2 - 1" >&2
-    return 1
+		echo "Usage: calc 2 + 2 - 1" >&2
+		return 1
 	fi
 
-	# Use python2 because it has more calculator-like number handling
-	# e.g. `1` is a float.
-	python2 -c "print $*"
+	# Use python3 because it has float division by default
+	# e.g. `1 / 3` is `.333333`.
+	python3 -c "print($*)"
 }
