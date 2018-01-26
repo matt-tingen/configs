@@ -1,0 +1,10 @@
+{
+  "name": "configs",
+  "version": "0.1.0",
+  "main": "index.js",
+  "repository": "https://github.com/matt-tingen/configs.git",
+  "author": "Matt Tingen <matt.tingen@gmail.com>",
+  "dependencies": {
+    "lodash": "^4.17.5"
+  }
+}
