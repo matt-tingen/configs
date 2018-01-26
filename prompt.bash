@@ -65,38 +65,43 @@ function prompt() {
 		newfile=`echo -n "${status}" 2> /dev/null | grep "new file:" &> /dev/null; echo "$?"`
 		renamed=`echo -n "${status}" 2> /dev/null | grep "renamed:" &> /dev/null; echo "$?"`
 		deleted=`echo -n "${status}" 2> /dev/null | grep "deleted:" &> /dev/null; echo "$?"`
-		bits=''
+		statusBits=''
+		fileBits=''
 
 		if [ "${diverged}" == "0" ]; then
-			bits=":${bits}"
+			statusBits="${statusBits}:"
 		elif [ ! "${upstream}" == "0" ]; then
-			bits="v${bits}"
-		fi
-		if [ "${ahead}" == "0" ]; then
-			bits=">${bits}"
+			statusBits="${statusBits}v"
 		fi
 		if [ "${behind}" == "0" ]; then
-			bits="<${bits}"
+			statusBits="${statusBits}<"
+		fi
+		if [ "${ahead}" == "0" ]; then
+			statusBits="${statusBits}>"
+		fi
+
+		if [ "${dirty}" == "0" ]; then
+			fileBits="${fileBits}M"
 		fi
 		if [ "${renamed}" == "0" ]; then
-			bits="r${bits}"
+			fileBits="${fileBits}R"
 		fi
 		if [ "${newfile}" == "0" ]; then
-			bits="+${bits}"
-		fi
-		if [ "${untracked}" == "0" ]; then
-			bits="?${bits}"
+			fileBits="${fileBits}A"
 		fi
 		if [ "${deleted}" == "0" ]; then
-			bits="x${bits}"
+			fileBits="${fileBits}D"
 		fi
-		if [ "${dirty}" == "0" ]; then
-			bits="!${bits}"
+		if [ "${untracked}" == "0" ]; then
+			fileBits="${fileBits}?"
 		fi
-		if [ ! "${bits}" == "" ]; then
-			echo " ${bits}"
-		else
-			echo ""
+
+		if [ ! "${fileBits}" == "" ]; then
+			echo -n " ${fileBits}"
+		fi
+
+		if [ ! "${statusBits}" == "" ]; then
+			echo -n " ${statusBits}"
 		fi
 	}
 
