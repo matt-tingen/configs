@@ -1,6 +1,12 @@
 export LSCOLORS=GxFxCxDxBxegedabagaced
+# export PS1=`~/.nvm/versions/node/v8.7.0/bin/node $config_dir/prompt`
+# export PS1=`python $config_dir/prompt.py`
 
-source "$config_dir/prompt.bash"
+function prompt_command {
+  export PS1=$(~/.nvm/versions/node/v8.7.0/bin/node $config_dir/prompt)
+}
+export PROMPT_COMMAND=prompt_command
+
 
 # Use Homebrew install path first.
 export PATH=/usr/local/bin:$PATH
@@ -24,6 +30,8 @@ alias config='code $config_dir'
 alias trim="tr -d '[:space:]'"
 alias g="git"
 alias c="calc"
+
+
 
 killPort() {
 	if [ -z "$1" ]; then
