@@ -11,6 +11,8 @@
 [rebase]
 	missingCommitsCheck = error
 	autoSquash = true
+[custom]
+	basebranch = master
 [alias]
 	s = status
 	ls = log --oneline
