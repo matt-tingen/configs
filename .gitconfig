@@ -1,11 +1,8 @@
 [core]
-	excludesfile = /Users/matttingen/.gitignore_global
 	editor = code --wait
 [user]
 	name = Matt Tingen
 	email = matt.tingen@gmail.com
-[commit]
-	template = /Users/matttingen/.stCommitMsg
 [push]
 	default = current
 [rebase]
