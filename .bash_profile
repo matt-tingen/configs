@@ -2,6 +2,9 @@ export LSCOLORS=GxFxCxDxBxegedabagaced
 
 source "$config_dir/prompt.bash"
 
+# Use Homebrew install path first.
+export PATH=/usr/local/bin:$PATH
+
 [ -f $(brew --prefix)/etc/bash_completion ] && . $(brew --prefix)/etc/bash_completion
 
 alias ls='ls -GFh'
