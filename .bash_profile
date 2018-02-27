@@ -23,6 +23,7 @@ alias refreshConfig='source $base_config'
 alias config='code $config_dir'
 alias trim="tr -d '[:space:]'"
 alias g="git"
+alias c="calc"
 
 killPort() {
 	if [ -z "$1" ]; then
