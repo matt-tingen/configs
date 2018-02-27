@@ -31,7 +31,6 @@ killPort() {
 		return 1
 	fi
 	lsof -i TCP:$1 | grep LISTEN | awk '{print $2}' | xargs kill -9
-	echo "Process using port" $1 "killed."
 }
 
 pw() {
