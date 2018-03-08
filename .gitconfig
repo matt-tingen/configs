@@ -8,6 +8,11 @@
 [rebase]
 	missingCommitsCheck = error
 	autoSquash = true
+[diff]
+	tool = code
+	guitool = code
+[difftool "code"]
+	cmd = code --wait --diff $LOCAL $REMOTE
 [custom]
 	basebranch = master
 [alias]
@@ -18,6 +23,7 @@
 	c = commit
 	fix = commit --amend --no-edit
 	root = rev-parse --show-toplevel
+	d = difftool --gui --no-prompt
 	stashkeep = "!git stash && git stash apply"
 	# Rebase n most recent commits
 	rbn = "!sh -c \"git rebase -i @~$1\" -"
