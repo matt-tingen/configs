@@ -57,3 +57,13 @@ calc() {
 	# e.g. `1 / 3` is `.333333`.
 	python3 -c "print($*)"
 }
+
+# Convert a unix timestamp to a human readable date.
+timestamp() {
+	if [ -z "$1" ]; then
+		echo "Usage: timestamp [seconds|milliseconds]" >&2
+		return 1
+	fi
+
+	date -r $(echo $1| cut -c 1-10)
+}
