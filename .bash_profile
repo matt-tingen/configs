@@ -1,10 +1,10 @@
 export LSCOLORS=GxFxCxDxBxegedabagaced
-# export PS1=`~/.nvm/versions/node/v8.7.0/bin/node $config_dir/prompt`
-# export PS1=`python $config_dir/prompt.py`
 
 function prompt_command {
-  export PS1=$(~/.nvm/versions/node/v8.7.0/bin/node $config_dir/prompt)
+	# Using nvm exec outputs a message from nvm before running node.
+  export PS1=$(eval $config_node_cmd $config_dir/prompt)
 }
+config_node_cmd=$(nvm which $(cat $config_dir/.nvmrc))
 export PROMPT_COMMAND=prompt_command
 
 
