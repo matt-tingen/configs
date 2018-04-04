@@ -1,5 +1,7 @@
 const git = require('./git');
+const color = require('./color');
 
-const branch = () => git('rev-parse --abbrev-ref HEAD').catch(() => null);
+const branch = ({ branch: { ref, detached } }) =>
+  detached ? color('red')(ref.substr(0, 7)) : color('blue')(ref);
 
 module.exports = branch;
