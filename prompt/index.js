@@ -3,7 +3,7 @@ const _ = require('lodash');
 const color = require('./color');
 const getBranch = require('./branch');
 const getFlags = require('./flags');
-// const getRemote = require('./remote');
+const getUpstream = require('./upstream');
 
 const gitStatus = async () => {
   const branch = await getBranch();
@@ -13,13 +13,13 @@ const gitStatus = async () => {
   }
 
   const flags = await getFlags();
-  // const remote = await getRemote();
+  const upstream = await getUpstream();
 
   return [
     color('gray')(' ['),
     color('blue')(branch),
-    flags && ` ${flags}`,
-    // ` ${remote}`,
+    upstream && ` ${upstream}`,
+    flags && [color('gray')(' - '), flags],
     color('gray')(']'),
   ];
 };
