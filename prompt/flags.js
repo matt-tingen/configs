@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const git = require('./git');
 const color = require('./color');
 
@@ -30,11 +31,15 @@ const flags = async () => {
   const status = await git('status --porcelain');
   const entries = parseStatus(status);
 
-  // Favor the flag from the index over the one for the work tree.
-  const flags = new Set(entries.map(entry => entry.x || entry.y));
-  const array = Array.from(flags.values());
+  // Favor the flag for the index over the one for the work tree.
+  const flags = entries.map(entry => entry.x || entry.y);
+  const counts = _.countBy(flags);
 
-  return array.map(char => color(flagColors[char])(char)).join('');
+  const components = Object.entries(counts).map(([flag, count]) =>
+    color(flagColors[flag])(count + flag)
+  );
+
+  return components.join(' ');
 };
 
 module.exports = flags;
