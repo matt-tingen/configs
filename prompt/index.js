@@ -1,10 +1,9 @@
-const _ = require('lodash');
-
 const color = require('./color');
 const gitStatus = require('./gitStatus');
 const getBranch = require('./branch');
 const getFlags = require('./flags');
 const getUpstream = require('./upstream');
+const flattenDeep = require('./flattenDeep');
 
 const gitDisplay = async () => {
   const status = await gitStatus();
@@ -33,7 +32,7 @@ const buildPrompt = async () => {
     ' ',
   ];
 
-  const filtered = _.flattenDeep(components).filter(
+  const filtered = flattenDeep(components).filter(
     comp => comp && typeof comp === 'string'
   );
 
