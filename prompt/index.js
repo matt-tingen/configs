@@ -1,23 +1,25 @@
 const _ = require('lodash');
 
 const color = require('./color');
+const gitStatus = require('./gitStatus');
 const getBranch = require('./branch');
 const getFlags = require('./flags');
 const getUpstream = require('./upstream');
 
-const gitStatus = async () => {
-  const branch = await getBranch();
+const gitDisplay = async () => {
+  const status = await gitStatus();
 
-  if (!branch) {
+  if (!status) {
     return '';
   }
 
-  const flags = await getFlags();
-  const upstream = await getUpstream();
+  const branch = getBranch(status);
+  const flags = getFlags(status);
+  const upstream = getUpstream(status);
 
   return [
     color('gray')(' ['),
-    color('blue')(branch),
+    branch,
     upstream && ` ${upstream}`,
     flags && [color('gray')(' - '), flags],
     color('gray')(']'),
@@ -27,7 +29,7 @@ const gitStatus = async () => {
 const buildPrompt = async () => {
   const components = [
     color('cyan')('\\w'), // Working dir
-    await gitStatus(),
+    await gitDisplay(),
     ' ',
   ];
 

@@ -27,12 +27,9 @@ const parseStatus = message => {
   }));
 };
 
-const flags = async () => {
-  const status = await git('status --porcelain');
-  const entries = parseStatus(status);
-
+const flags = ({ changes }) => {
   // Favor the flag for the index over the one for the work tree.
-  const flags = entries.map(entry => entry.x || entry.y);
+  const flags = changes.map(change => change.x || change.y);
   const counts = _.countBy(flags);
 
   const components = Object.entries(counts).map(([flag, count]) =>

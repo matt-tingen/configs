@@ -22,7 +22,7 @@ const parseStatus = message => {
   };
 };
 
-const formatStatus = ({ ahead, behind }) => {
+const format = ({ ahead, behind }) => {
   return [
     ahead && color('green')(`+${ahead}`),
     behind && color('red')(`-${behind}`),
@@ -31,9 +31,8 @@ const formatStatus = ({ ahead, behind }) => {
     .join(' ');
 };
 
-const upstream = async () => {
-  const status = parseStatus(await git('status --porcelain=v2 --branch'));
-  const result = status ? formatStatus(status) : color('yellow')('local');
+const upstream = ({ branch }) => {
+  const result = branch.upstream ? format(branch) : color('yellow')('local');
   return result;
 };
 
