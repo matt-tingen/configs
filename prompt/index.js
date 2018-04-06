@@ -19,7 +19,7 @@ const gitDisplay = async () => {
   return [
     color('gray')(' ['),
     branch,
-    upstream && ` ${upstream}`,
+    !status.branch.detached && upstream && ` ${upstream}`,
     flags && [color('gray')(' - '), flags],
     color('gray')(']'),
   ];
