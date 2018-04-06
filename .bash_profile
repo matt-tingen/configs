@@ -57,7 +57,7 @@ genFile() {
 # Useful as a calculator
 calc() {
 	if [ -z "$1" ]; then
-		echo "Usage: calc 2 + 2 - 1" >&2
+		echo "Usage: calc \"2 + 2 - 1\"" >&2
 		return 1
 	fi
 
