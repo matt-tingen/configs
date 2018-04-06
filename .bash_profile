@@ -31,7 +31,7 @@ alias trim="tr -d '[:space:]'"
 alias g="git"
 alias c="calc"
 
-
+alias cra="create-react-app --scripts-version @matt-tingen/react-scripts"
 
 killPort() {
 	if [ -z "$1" ]; then
