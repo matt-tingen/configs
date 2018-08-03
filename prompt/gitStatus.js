@@ -1,5 +1,4 @@
 const git = require('./git');
-const color = require('./color');
 
 // https://git-scm.com/docs/git-status#_branch_headers
 const parseStatus = message => {

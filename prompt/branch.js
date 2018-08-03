@@ -1,4 +1,3 @@
-const git = require('./git');
 const color = require('./color');
 
 const branch = ({ branch: { ref, detached } }) =>

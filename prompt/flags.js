@@ -13,20 +13,6 @@ const flagColors = {
   '!': 'purple',
 };
 
-// https://git-scm.com/docs/git-status#_short_format
-const parseStatus = message => {
-  if (!message) {
-    return [];
-  }
-
-  const entries = message.split('\n');
-
-  return entries.map(line => ({
-    x: line[0].trim(),
-    y: line[1].trim(),
-  }));
-};
-
 const flags = ({ changes }) => {
   // Favor the flag for the index over the one for the work tree.
   const flags = changes.map(change => change.x || change.y);
