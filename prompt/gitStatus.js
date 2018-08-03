@@ -14,8 +14,8 @@ const parseStatus = message => {
 
 const parseBranchStatus = lines => {
   if (lines.length === 3) {
-    // TODO: What causes this? What should be displayed?
-    throw new Error('upstream is set, but commit is not present');
+    // Upstream is set, but commit is not present.
+    return { empty: true };
   }
 
   const upstream = lines.length > 2;

@@ -1,6 +1,7 @@
 const color = require('./color');
 const gitStatus = require('./gitStatus');
 const getBranch = require('./branch');
+const getEmpty = require('./empty');
 const getFlags = require('./flags');
 const getUpstream = require('./upstream');
 const flattenDeep = require('./flattenDeep');
@@ -13,14 +14,17 @@ const gitDisplay = async () => {
   }
 
   const branch = getBranch(status);
+  const empty = getEmpty(status);
   const flags = getFlags(status);
   const upstream = getUpstream(status);
 
   return [
     color('gray')(' ['),
-    branch,
-    !status.branch.detached && upstream && ` ${upstream}`,
-    flags && [color('gray')(' - '), flags],
+    empty || [
+      branch,
+      !status.branch.detached && upstream && ` ${upstream}`,
+      flags && [color('gray')(' - '), flags],
+    ],
     color('gray')(']'),
   ];
 };
