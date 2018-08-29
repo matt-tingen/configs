@@ -19,6 +19,7 @@
 	s = status
 	ls = log --oneline
 	l = "!git log \"$(git basebranch)\".. --oneline"
+	base = "!git co \"$(git basebranch)\""
 	co = checkout
 	c = commit
 	fix = commit --amend --no-edit
