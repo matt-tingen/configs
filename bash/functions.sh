@@ -7,7 +7,7 @@ killPort() {
 }
 
 pw() {
-	python ~/Development/pw/pw.py "$@" | tr -d '\n' | pbcopy
+	python $config_dir/pw/pw.py "$@" | tr -d '\n' | pbcopy
 }
 
 genFile() {
