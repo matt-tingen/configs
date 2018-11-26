@@ -1,19 +1,31 @@
-`.bash_profile` can be included with
+# Bash
+
+## `.bash_profile`
 
 ```sh
-base_config=~/.bash_profile
-config_dir=~/Development/configs
+base_config=$HOME/.bashrc
+config_dir=$HOME/Development/configs
 source "$config_dir/.bash_profile"
 ```
 
-Git files can be included with
+## `.bashrc`
+
+```sh
+source "$config_dir/.bashrc"
+```
+
+# Git
+
+## `.git_config`
 
 ```ini
 [include]
     path = /path/to/.gitconfig
 [core]
-	excludesfile = /path/to/.gitignore_global
+    excludesfile = /path/to/.gitignore_global
 ```
+
+## Hooks
 
 Hooks are installed per-repo. To install:
 
