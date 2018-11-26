@@ -3,7 +3,6 @@
 ## `.bash_profile`
 
 ```sh
-base_config=$HOME/.bashrc
 config_dir=$HOME/Development/configs
 source "$config_dir/.bash_profile"
 ```
