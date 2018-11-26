@@ -15,5 +15,3 @@ alias config='code $config_dir'
 alias trim="tr -d '[:space:]'"
 alias g="git"
 alias c="calc"
-
-alias cra="create-react-app --scripts-version @matt-tingen/react-scripts"
