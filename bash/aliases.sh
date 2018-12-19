@@ -1,5 +1,5 @@
 alias ls='ls -GFh'
-alias ll='ls -l'
+alias ll='ls -la'
 
 alias ..="cd .."
 alias ...="cd ../.."
