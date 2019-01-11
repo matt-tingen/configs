@@ -35,8 +35,9 @@ Hooks are installed per-repo. To install:
 
 # Configs
 
-Config files can be linked to the home directory:
+Config files can be linked to their corresponding directory:
 
 ```sh
-ln -s $config_dir/.prettierrc ~/.prettierrc
+ln -si $config_dir/.prettierrc ~/.prettierrc
+ln -si $config_dir/karabiner.json ~/.config/karabiner/karabiner.json
 ```
