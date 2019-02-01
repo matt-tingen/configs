@@ -23,6 +23,7 @@
 	co = checkout
 	c = commit
 	fix = commit --amend --no-edit
+	edit = commit --amend --only --no-verify
 	root = rev-parse --show-toplevel
 	d = difftool --gui --no-prompt
 	stashkeep = "!git stash && git stash apply"
