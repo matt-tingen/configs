@@ -39,5 +39,5 @@ Config files can be linked to their corresponding directory:
 
 ```sh
 ln -si $config_dir/.prettierrc ~/.prettierrc
-ln -si $config_dir/karabiner.json ~/.config/karabiner/karabiner.json
+ln -si $config_dir/karabiner ~/.config
 ```
