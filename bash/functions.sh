@@ -40,3 +40,16 @@ timestamp() {
 
 	date -r $(echo $1| cut -c 1-10)
 }
+
+# Wrap git. On errors, print an additional line in red.
+# Based on https://stackoverflow.com/a/35904417.
+git(){
+    command git "$@"
+    local exitCode=$?
+		# Ignores most error codes because they can correspond to things like
+		# quitting `more` or cancelling `git cor`.
+    if [ $exitCode -eq 1 ]; then
+        printf "\033[0;31mERROR: git exited with code $exitCode\033[0m\n"
+        return $exitCode
+    fi
+}
