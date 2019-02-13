@@ -4,6 +4,7 @@ const getBranch = require('./branch');
 const getEmpty = require('./empty');
 const getFlags = require('./flags');
 const getUpstream = require('./upstream');
+const getState = require('./state');
 const flattenDeep = require('./flattenDeep');
 
 const gitDisplay = async () => {
@@ -17,13 +18,17 @@ const gitDisplay = async () => {
   const empty = getEmpty(status);
   const flags = getFlags(status);
   const upstream = getUpstream(status);
+  const state = getState(status);
+
+  const separator = color('gray')(' - ');
 
   return [
     color('gray')(' ['),
     empty || [
+      state && [state, separator],
       branch,
       !status.branch.detached && upstream && ` ${upstream}`,
-      flags && [color('gray')(' - '), flags],
+      flags && [separator, flags],
     ],
     color('gray')(']'),
   ];
@@ -37,7 +42,7 @@ const buildPrompt = async () => {
   ];
 
   const filtered = flattenDeep(components).filter(
-    comp => comp && typeof comp === 'string'
+    comp => comp && typeof comp === 'string',
   );
 
   const prompt = filtered.join('');

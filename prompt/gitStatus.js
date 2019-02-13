@@ -1,4 +1,6 @@
 const git = require('./git');
+const fs = require('fs');
+const path = require('path');
 
 // https://git-scm.com/docs/git-status#_branch_headers
 const parseStatus = message => {
@@ -58,6 +60,23 @@ const parseChangeStatus = lines => {
   });
 };
 
+const getState = async () => {
+  const gitRoot = await git('root');
+  const exists = item => fs.existsSync(path.join(gitRoot, '.git', item));
+
+  if (exists('rebase-merge') || exists('rebase-apply')) {
+    return 'rebase';
+  }
+
+  if (exists('MERGE_HEAD')) {
+    return 'merge';
+  }
+
+  if (exists('BISECT_LOG')) {
+    return 'bisect';
+  }
+};
+
 const status = async () => {
   let message;
 
@@ -67,7 +86,10 @@ const status = async () => {
     return null;
   }
 
-  return parseStatus(message);
+  return {
+    ...parseStatus(message),
+    state: await getState(),
+  };
 };
 
 module.exports = status;
