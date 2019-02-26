@@ -1,5 +1,13 @@
 # Bash
 
+## Setup
+```sh
+cd configs
+nvm install
+```
+
+See [Windows setup guide](./WINDOWS.md) for adjustments needed on Windows.
+
 ## `.bash_profile`
 
 ```sh
