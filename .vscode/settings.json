@@ -1,0 +1,5 @@
+{
+    "search.exclude": {
+        "pw/dict.txt": true
+    }
+}
