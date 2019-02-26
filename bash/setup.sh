@@ -1,8 +1,10 @@
-# Use Homebrew install path first.
-export PATH=/usr/local/bin:$PATH
+if [ -x "$(command -v brew)" ]; then
+    # Use Homebrew install path first.
+    export PATH=/usr/local/bin:$PATH
 
-# Autocomplete
-[ -f $(brew --prefix)/etc/bash_completion ] && . $(brew --prefix)/etc/bash_completion
+    # Autocomplete
+    [ -f $(brew --prefix)/etc/bash_completion ] && . $(brew --prefix)/etc/bash_completion
+fi
 
 # Autocomplete git alias
 source $config_dir/git-completion.bash
