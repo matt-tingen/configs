@@ -42,6 +42,7 @@
 	yesterday = "!git log --since="yesterday.midnight" --until=midnight --author=\"$(git config user.name)\" --oneline"
 	msg = "log --format=%B -n 1"
 	uncommit = "!git msg HEAD | pbcopy && git reset --mixed HEAD~1"
+	hash = "rev-parse --verify HEAD"
 
 	# The base branch for a repo is used by git aliases for e.g. abbreviated
 	# logging and quick interactive rebases.
