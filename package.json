@@ -3,5 +3,9 @@
   "version": "0.1.0",
   "main": "index.js",
   "repository": "https://github.com/matt-tingen/configs.git",
-  "author": "Matt Tingen <matt.tingen@gmail.com>"
+  "author": "Matt Tingen <matt.tingen@gmail.com>",
+  "scripts": {
+    "build": "npm run build:karabiner",
+    "build:karabiner": "node util/karabinerConfig.js > karabiner/karabiner.json"
+  }
 }
