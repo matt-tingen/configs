@@ -47,7 +47,7 @@ function spaceFN(from, to) {
         },
       },
       parameters: {
-        'basic.simultaneous_threshold_milliseconds': 500 /* Default: 1000 */,
+        'basic.simultaneous_threshold_milliseconds': 1000,
       },
       to: [
         {

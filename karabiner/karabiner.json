@@ -46,7 +46,7 @@
                   }
                 },
                 "parameters": {
-                  "basic.simultaneous_threshold_milliseconds": 500
+                  "basic.simultaneous_threshold_milliseconds": 1000
                 },
                 "to": [
                   {
@@ -129,7 +129,7 @@
                   }
                 },
                 "parameters": {
-                  "basic.simultaneous_threshold_milliseconds": 500
+                  "basic.simultaneous_threshold_milliseconds": 1000
                 },
                 "to": [
                   {
@@ -212,7 +212,7 @@
                   }
                 },
                 "parameters": {
-                  "basic.simultaneous_threshold_milliseconds": 500
+                  "basic.simultaneous_threshold_milliseconds": 1000
                 },
                 "to": [
                   {
@@ -295,7 +295,7 @@
                   }
                 },
                 "parameters": {
-                  "basic.simultaneous_threshold_milliseconds": 500
+                  "basic.simultaneous_threshold_milliseconds": 1000
                 },
                 "to": [
                   {
@@ -378,7 +378,7 @@
                   }
                 },
                 "parameters": {
-                  "basic.simultaneous_threshold_milliseconds": 500
+                  "basic.simultaneous_threshold_milliseconds": 1000
                 },
                 "to": [
                   {
@@ -461,7 +461,7 @@
                   }
                 },
                 "parameters": {
-                  "basic.simultaneous_threshold_milliseconds": 500
+                  "basic.simultaneous_threshold_milliseconds": 1000
                 },
                 "to": [
                   {
@@ -544,7 +544,7 @@
                   }
                 },
                 "parameters": {
-                  "basic.simultaneous_threshold_milliseconds": 500
+                  "basic.simultaneous_threshold_milliseconds": 1000
                 },
                 "to": [
                   {
