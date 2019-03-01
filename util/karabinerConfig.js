@@ -295,6 +295,8 @@ const DEFAULT_PROFILE = applyExemptions({
           ...spaceFN('k', 'down_arrow'),
           ...spaceFN('j', 'left_arrow'),
           ...spaceFN('i', 'up_arrow'),
+          ...spaceFN('semicolon', 'delete_or_backspace'),
+          ...spaceFN('quote', 'delete_forward'),
         ],
       },
       {

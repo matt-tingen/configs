@@ -597,6 +597,172 @@
                   }
                 ],
                 "type": "basic"
+              },
+              {
+                "from": {
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  },
+                  "simultaneous": [
+                    {
+                      "key_code": "spacebar"
+                    },
+                    {
+                      "key_code": "semicolon"
+                    }
+                  ],
+                  "simultaneous_options": {
+                    "key_down_order": "strict",
+                    "key_up_order": "strict_inverse",
+                    "to_after_key_up": [
+                      {
+                        "set_variable": {
+                          "name": "SpaceFN",
+                          "value": 0
+                        }
+                      }
+                    ]
+                  }
+                },
+                "parameters": {
+                  "basic.simultaneous_threshold_milliseconds": 1000
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "SpaceFN",
+                      "value": 1
+                    }
+                  },
+                  {
+                    "key_code": "delete_or_backspace"
+                  }
+                ],
+                "type": "basic",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_unless",
+                    "bundle_identifiers": [
+                      "^com\\.factorio$",
+                      "^com\\.feralinteractive\\.dirtrally$"
+                    ]
+                  }
+                ]
+              },
+              {
+                "conditions": [
+                  {
+                    "name": "SpaceFN",
+                    "type": "variable_if",
+                    "value": 1
+                  },
+                  {
+                    "type": "frontmost_application_unless",
+                    "bundle_identifiers": [
+                      "^com\\.factorio$",
+                      "^com\\.feralinteractive\\.dirtrally$"
+                    ]
+                  }
+                ],
+                "from": {
+                  "key_code": "semicolon",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "delete_or_backspace"
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "from": {
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  },
+                  "simultaneous": [
+                    {
+                      "key_code": "spacebar"
+                    },
+                    {
+                      "key_code": "quote"
+                    }
+                  ],
+                  "simultaneous_options": {
+                    "key_down_order": "strict",
+                    "key_up_order": "strict_inverse",
+                    "to_after_key_up": [
+                      {
+                        "set_variable": {
+                          "name": "SpaceFN",
+                          "value": 0
+                        }
+                      }
+                    ]
+                  }
+                },
+                "parameters": {
+                  "basic.simultaneous_threshold_milliseconds": 1000
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "SpaceFN",
+                      "value": 1
+                    }
+                  },
+                  {
+                    "key_code": "delete_forward"
+                  }
+                ],
+                "type": "basic",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_unless",
+                    "bundle_identifiers": [
+                      "^com\\.factorio$",
+                      "^com\\.feralinteractive\\.dirtrally$"
+                    ]
+                  }
+                ]
+              },
+              {
+                "conditions": [
+                  {
+                    "name": "SpaceFN",
+                    "type": "variable_if",
+                    "value": 1
+                  },
+                  {
+                    "type": "frontmost_application_unless",
+                    "bundle_identifiers": [
+                      "^com\\.factorio$",
+                      "^com\\.feralinteractive\\.dirtrally$"
+                    ]
+                  }
+                ],
+                "from": {
+                  "key_code": "quote",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "delete_forward"
+                  }
+                ],
+                "type": "basic"
               }
             ]
           },
