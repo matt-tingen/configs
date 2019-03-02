@@ -15,162 +15,15 @@
         },
         "rules": [
           {
-            "description": "SpaceFN layer",
+            "description": "Second layer",
             "manipulators": [
               {
                 "from": {
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  },
-                  "simultaneous": [
-                    {
-                      "key_code": "spacebar"
-                    },
-                    {
-                      "key_code": "b"
-                    }
-                  ],
-                  "simultaneous_options": {
-                    "key_down_order": "strict",
-                    "key_up_order": "strict_inverse",
-                    "to_after_key_up": [
-                      {
-                        "set_variable": {
-                          "name": "SpaceFN",
-                          "value": 0
-                        }
-                      }
-                    ]
-                  }
-                },
-                "parameters": {
-                  "basic.simultaneous_threshold_milliseconds": 1000
-                },
-                "to": [
-                  {
-                    "set_variable": {
-                      "name": "SpaceFN",
-                      "value": 1
-                    }
-                  },
-                  {
-                    "key_code": "spacebar"
-                  }
-                ],
-                "type": "basic",
-                "conditions": [
-                  {
-                    "type": "frontmost_application_unless",
-                    "bundle_identifiers": [
-                      "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
-                    ]
-                  }
-                ]
-              },
-              {
-                "conditions": [
-                  {
-                    "name": "SpaceFN",
-                    "type": "variable_if",
-                    "value": 1
-                  },
-                  {
-                    "type": "frontmost_application_unless",
-                    "bundle_identifiers": [
-                      "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
-                    ]
-                  }
-                ],
-                "from": {
-                  "key_code": "b",
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "spacebar"
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  },
-                  "simultaneous": [
-                    {
-                      "key_code": "spacebar"
-                    },
-                    {
-                      "key_code": "h"
-                    }
-                  ],
-                  "simultaneous_options": {
-                    "key_down_order": "strict",
-                    "key_up_order": "strict_inverse",
-                    "to_after_key_up": [
-                      {
-                        "set_variable": {
-                          "name": "SpaceFN",
-                          "value": 0
-                        }
-                      }
-                    ]
-                  }
-                },
-                "parameters": {
-                  "basic.simultaneous_threshold_milliseconds": 1000
-                },
-                "to": [
-                  {
-                    "set_variable": {
-                      "name": "SpaceFN",
-                      "value": 1
-                    }
-                  },
-                  {
-                    "key_code": "page_up"
-                  }
-                ],
-                "type": "basic",
-                "conditions": [
-                  {
-                    "type": "frontmost_application_unless",
-                    "bundle_identifiers": [
-                      "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
-                    ]
-                  }
-                ]
-              },
-              {
-                "conditions": [
-                  {
-                    "name": "SpaceFN",
-                    "type": "variable_if",
-                    "value": 1
-                  },
-                  {
-                    "type": "frontmost_application_unless",
-                    "bundle_identifiers": [
-                      "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
-                    ]
-                  }
-                ],
-                "from": {
                   "key_code": "h",
                   "modifiers": {
+                    "mandatory": [
+                      "right_command"
+                    ],
                     "optional": [
                       "any"
                     ]
@@ -179,50 +32,6 @@
                 "to": [
                   {
                     "key_code": "page_up"
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  },
-                  "simultaneous": [
-                    {
-                      "key_code": "spacebar"
-                    },
-                    {
-                      "key_code": "n"
-                    }
-                  ],
-                  "simultaneous_options": {
-                    "key_down_order": "strict",
-                    "key_up_order": "strict_inverse",
-                    "to_after_key_up": [
-                      {
-                        "set_variable": {
-                          "name": "SpaceFN",
-                          "value": 0
-                        }
-                      }
-                    ]
-                  }
-                },
-                "parameters": {
-                  "basic.simultaneous_threshold_milliseconds": 1000
-                },
-                "to": [
-                  {
-                    "set_variable": {
-                      "name": "SpaceFN",
-                      "value": 1
-                    }
-                  },
-                  {
-                    "key_code": "page_down"
                   }
                 ],
                 "type": "basic",
@@ -237,23 +46,12 @@
                 ]
               },
               {
-                "conditions": [
-                  {
-                    "name": "SpaceFN",
-                    "type": "variable_if",
-                    "value": 1
-                  },
-                  {
-                    "type": "frontmost_application_unless",
-                    "bundle_identifiers": [
-                      "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
-                    ]
-                  }
-                ],
                 "from": {
                   "key_code": "n",
                   "modifiers": {
+                    "mandatory": [
+                      "right_command"
+                    ],
                     "optional": [
                       "any"
                     ]
@@ -264,50 +62,6 @@
                     "key_code": "page_down"
                   }
                 ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  },
-                  "simultaneous": [
-                    {
-                      "key_code": "spacebar"
-                    },
-                    {
-                      "key_code": "l"
-                    }
-                  ],
-                  "simultaneous_options": {
-                    "key_down_order": "strict",
-                    "key_up_order": "strict_inverse",
-                    "to_after_key_up": [
-                      {
-                        "set_variable": {
-                          "name": "SpaceFN",
-                          "value": 0
-                        }
-                      }
-                    ]
-                  }
-                },
-                "parameters": {
-                  "basic.simultaneous_threshold_milliseconds": 1000
-                },
-                "to": [
-                  {
-                    "set_variable": {
-                      "name": "SpaceFN",
-                      "value": 1
-                    }
-                  },
-                  {
-                    "key_code": "right_arrow"
-                  }
-                ],
                 "type": "basic",
                 "conditions": [
                   {
@@ -320,23 +74,12 @@
                 ]
               },
               {
-                "conditions": [
-                  {
-                    "name": "SpaceFN",
-                    "type": "variable_if",
-                    "value": 1
-                  },
-                  {
-                    "type": "frontmost_application_unless",
-                    "bundle_identifiers": [
-                      "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
-                    ]
-                  }
-                ],
                 "from": {
                   "key_code": "l",
                   "modifiers": {
+                    "mandatory": [
+                      "right_command"
+                    ],
                     "optional": [
                       "any"
                     ]
@@ -347,50 +90,6 @@
                     "key_code": "right_arrow"
                   }
                 ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  },
-                  "simultaneous": [
-                    {
-                      "key_code": "spacebar"
-                    },
-                    {
-                      "key_code": "k"
-                    }
-                  ],
-                  "simultaneous_options": {
-                    "key_down_order": "strict",
-                    "key_up_order": "strict_inverse",
-                    "to_after_key_up": [
-                      {
-                        "set_variable": {
-                          "name": "SpaceFN",
-                          "value": 0
-                        }
-                      }
-                    ]
-                  }
-                },
-                "parameters": {
-                  "basic.simultaneous_threshold_milliseconds": 1000
-                },
-                "to": [
-                  {
-                    "set_variable": {
-                      "name": "SpaceFN",
-                      "value": 1
-                    }
-                  },
-                  {
-                    "key_code": "down_arrow"
-                  }
-                ],
                 "type": "basic",
                 "conditions": [
                   {
@@ -403,23 +102,12 @@
                 ]
               },
               {
-                "conditions": [
-                  {
-                    "name": "SpaceFN",
-                    "type": "variable_if",
-                    "value": 1
-                  },
-                  {
-                    "type": "frontmost_application_unless",
-                    "bundle_identifiers": [
-                      "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
-                    ]
-                  }
-                ],
                 "from": {
                   "key_code": "k",
                   "modifiers": {
+                    "mandatory": [
+                      "right_command"
+                    ],
                     "optional": [
                       "any"
                     ]
@@ -430,50 +118,6 @@
                     "key_code": "down_arrow"
                   }
                 ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  },
-                  "simultaneous": [
-                    {
-                      "key_code": "spacebar"
-                    },
-                    {
-                      "key_code": "j"
-                    }
-                  ],
-                  "simultaneous_options": {
-                    "key_down_order": "strict",
-                    "key_up_order": "strict_inverse",
-                    "to_after_key_up": [
-                      {
-                        "set_variable": {
-                          "name": "SpaceFN",
-                          "value": 0
-                        }
-                      }
-                    ]
-                  }
-                },
-                "parameters": {
-                  "basic.simultaneous_threshold_milliseconds": 1000
-                },
-                "to": [
-                  {
-                    "set_variable": {
-                      "name": "SpaceFN",
-                      "value": 1
-                    }
-                  },
-                  {
-                    "key_code": "left_arrow"
-                  }
-                ],
                 "type": "basic",
                 "conditions": [
                   {
@@ -486,23 +130,12 @@
                 ]
               },
               {
-                "conditions": [
-                  {
-                    "name": "SpaceFN",
-                    "type": "variable_if",
-                    "value": 1
-                  },
-                  {
-                    "type": "frontmost_application_unless",
-                    "bundle_identifiers": [
-                      "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
-                    ]
-                  }
-                ],
                 "from": {
                   "key_code": "j",
                   "modifiers": {
+                    "mandatory": [
+                      "right_command"
+                    ],
                     "optional": [
                       "any"
                     ]
@@ -513,50 +146,6 @@
                     "key_code": "left_arrow"
                   }
                 ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  },
-                  "simultaneous": [
-                    {
-                      "key_code": "spacebar"
-                    },
-                    {
-                      "key_code": "i"
-                    }
-                  ],
-                  "simultaneous_options": {
-                    "key_down_order": "strict",
-                    "key_up_order": "strict_inverse",
-                    "to_after_key_up": [
-                      {
-                        "set_variable": {
-                          "name": "SpaceFN",
-                          "value": 0
-                        }
-                      }
-                    ]
-                  }
-                },
-                "parameters": {
-                  "basic.simultaneous_threshold_milliseconds": 1000
-                },
-                "to": [
-                  {
-                    "set_variable": {
-                      "name": "SpaceFN",
-                      "value": 1
-                    }
-                  },
-                  {
-                    "key_code": "up_arrow"
-                  }
-                ],
                 "type": "basic",
                 "conditions": [
                   {
@@ -569,23 +158,12 @@
                 ]
               },
               {
-                "conditions": [
-                  {
-                    "name": "SpaceFN",
-                    "type": "variable_if",
-                    "value": 1
-                  },
-                  {
-                    "type": "frontmost_application_unless",
-                    "bundle_identifiers": [
-                      "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
-                    ]
-                  }
-                ],
                 "from": {
                   "key_code": "i",
                   "modifiers": {
+                    "mandatory": [
+                      "right_command"
+                    ],
                     "optional": [
                       "any"
                     ]
@@ -596,50 +174,6 @@
                     "key_code": "up_arrow"
                   }
                 ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  },
-                  "simultaneous": [
-                    {
-                      "key_code": "spacebar"
-                    },
-                    {
-                      "key_code": "semicolon"
-                    }
-                  ],
-                  "simultaneous_options": {
-                    "key_down_order": "strict",
-                    "key_up_order": "strict_inverse",
-                    "to_after_key_up": [
-                      {
-                        "set_variable": {
-                          "name": "SpaceFN",
-                          "value": 0
-                        }
-                      }
-                    ]
-                  }
-                },
-                "parameters": {
-                  "basic.simultaneous_threshold_milliseconds": 1000
-                },
-                "to": [
-                  {
-                    "set_variable": {
-                      "name": "SpaceFN",
-                      "value": 1
-                    }
-                  },
-                  {
-                    "key_code": "delete_or_backspace"
-                  }
-                ],
                 "type": "basic",
                 "conditions": [
                   {
@@ -652,23 +186,12 @@
                 ]
               },
               {
-                "conditions": [
-                  {
-                    "name": "SpaceFN",
-                    "type": "variable_if",
-                    "value": 1
-                  },
-                  {
-                    "type": "frontmost_application_unless",
-                    "bundle_identifiers": [
-                      "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
-                    ]
-                  }
-                ],
                 "from": {
                   "key_code": "semicolon",
                   "modifiers": {
+                    "mandatory": [
+                      "right_command"
+                    ],
                     "optional": [
                       "any"
                     ]
@@ -677,50 +200,6 @@
                 "to": [
                   {
                     "key_code": "delete_or_backspace"
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  },
-                  "simultaneous": [
-                    {
-                      "key_code": "spacebar"
-                    },
-                    {
-                      "key_code": "quote"
-                    }
-                  ],
-                  "simultaneous_options": {
-                    "key_down_order": "strict",
-                    "key_up_order": "strict_inverse",
-                    "to_after_key_up": [
-                      {
-                        "set_variable": {
-                          "name": "SpaceFN",
-                          "value": 0
-                        }
-                      }
-                    ]
-                  }
-                },
-                "parameters": {
-                  "basic.simultaneous_threshold_milliseconds": 1000
-                },
-                "to": [
-                  {
-                    "set_variable": {
-                      "name": "SpaceFN",
-                      "value": 1
-                    }
-                  },
-                  {
-                    "key_code": "delete_forward"
                   }
                 ],
                 "type": "basic",
@@ -735,23 +214,12 @@
                 ]
               },
               {
-                "conditions": [
-                  {
-                    "name": "SpaceFN",
-                    "type": "variable_if",
-                    "value": 1
-                  },
-                  {
-                    "type": "frontmost_application_unless",
-                    "bundle_identifiers": [
-                      "^com\\.factorio$",
-                      "^com\\.feralinteractive\\.dirtrally$"
-                    ]
-                  }
-                ],
                 "from": {
                   "key_code": "quote",
                   "modifiers": {
+                    "mandatory": [
+                      "right_command"
+                    ],
                     "optional": [
                       "any"
                     ]
@@ -762,7 +230,16 @@
                     "key_code": "delete_forward"
                   }
                 ],
-                "type": "basic"
+                "type": "basic",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_unless",
+                    "bundle_identifiers": [
+                      "^com\\.factorio$",
+                      "^com\\.feralinteractive\\.dirtrally$"
+                    ]
+                  }
+                ]
               }
             ]
           },

@@ -18,72 +18,22 @@ function bundleIdentifier(identifier) {
   return '^' + identifier.replace(/\./g, '\\.') + '$'
 }
 
-function spaceFN(from, to) {
-  return [
-    {
-      from: {
-        modifiers: {
-          optional: ['any'],
-        },
-        simultaneous: [
-          {
-            key_code: 'spacebar',
-          },
-          {
-            key_code: from,
-          },
-        ],
-        simultaneous_options: {
-          key_down_order: 'strict',
-          key_up_order: 'strict_inverse',
-          to_after_key_up: [
-            {
-              set_variable: {
-                name: 'SpaceFN',
-                value: 0,
-              },
-            },
-          ],
-        },
+function buildSecondLayerMapping(from, to) {
+  return {
+    from: {
+      key_code: from,
+      modifiers: {
+        mandatory: ['right_command'],
+        optional: ['any'],
       },
-      parameters: {
-        'basic.simultaneous_threshold_milliseconds': 1000,
-      },
-      to: [
-        {
-          set_variable: {
-            name: 'SpaceFN',
-            value: 1,
-          },
-        },
-        {
-          key_code: to,
-        },
-      ],
-      type: 'basic',
     },
-    {
-      conditions: [
-        {
-          name: 'SpaceFN',
-          type: 'variable_if',
-          value: 1,
-        },
-      ],
-      from: {
-        key_code: from,
-        modifiers: {
-          optional: ['any'],
-        },
+    to: [
+      {
+        key_code: to,
       },
-      to: [
-        {
-          key_code: to,
-        },
-      ],
-      type: 'basic',
-    },
-  ]
+    ],
+    type: 'basic',
+  }
 }
 
 function swap(a, b) {
@@ -286,17 +236,16 @@ const DEFAULT_PROFILE = applyExemptions({
     },
     rules: [
       {
-        description: 'SpaceFN layer',
+        description: 'Second layer',
         manipulators: [
-          ...spaceFN('b', 'spacebar'),
-          ...spaceFN('h', 'page_up'),
-          ...spaceFN('n', 'page_down'),
-          ...spaceFN('l', 'right_arrow'),
-          ...spaceFN('k', 'down_arrow'),
-          ...spaceFN('j', 'left_arrow'),
-          ...spaceFN('i', 'up_arrow'),
-          ...spaceFN('semicolon', 'delete_or_backspace'),
-          ...spaceFN('quote', 'delete_forward'),
+          buildSecondLayerMapping('h', 'page_up'),
+          buildSecondLayerMapping('n', 'page_down'),
+          buildSecondLayerMapping('l', 'right_arrow'),
+          buildSecondLayerMapping('k', 'down_arrow'),
+          buildSecondLayerMapping('j', 'left_arrow'),
+          buildSecondLayerMapping('i', 'up_arrow'),
+          buildSecondLayerMapping('semicolon', 'delete_or_backspace'),
+          buildSecondLayerMapping('quote', 'delete_forward'),
         ],
       },
       {
