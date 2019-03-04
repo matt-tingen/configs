@@ -1,14 +1,14 @@
 // Based on https://github.com/wincent/wincent/blob/master/roles/dotfiles/support/karabiner.js
 // Commit e8a0341db0d27fee07395397137c68c3100eed37
 
-function fromTo(from, to) {
+function fromTo(from, to, toType = 'key_code') {
   return [
     {
       from: {
         key_code: from,
       },
       to: {
-        key_code: to,
+        [toType]: to,
       },
     },
   ]
@@ -72,22 +72,8 @@ const APPLE_EXTERNAL_US = {
   ignore: false,
   manipulate_caps_lock_led: true,
   simple_modifications: [
-    {
-      from: {
-        key_code: 'f14',
-      },
-      to: {
-        consumer_key_code: 'play_or_pause',
-      },
-    },
-    {
-      from: {
-        key_code: 'f15',
-      },
-      to: {
-        consumer_key_code: 'fastforward',
-      },
-    },
+    ...fromTo('f14', 'play_or_pause', 'consumer_key_code'),
+    ...fromTo('f15', 'fastforward', 'consumer_key_code'),
   ],
 }
 
@@ -314,7 +300,7 @@ const DEFAULT_PROFILE = applyExemptions({
       },
     ],
   },
-  devices: [APPLE_INTERNAL_US],
+  devices: [APPLE_INTERNAL_US, APPLE_EXTERNAL_US],
   name: 'Default',
   selected: true,
 })
