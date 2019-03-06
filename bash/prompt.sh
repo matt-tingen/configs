@@ -1,8 +1,12 @@
 export LSCOLORS=GxFxCxDxBxegedabagaced
 
 function prompt_command {
-	# Using nvm exec outputs a message from nvm before running node.
-  export PS1=$(eval $config_node_path $config_dir/prompt)
+  if [ -d $(pwd) ]; then
+    # Using nvm exec outputs a message from nvm before running node.
+    export PS1=$(eval $config_node_path $config_dir/prompt)
+  else
+    export PS1="\w [\[\e[31m\]ENOENT\[\e[m\]] "
+  fi
 }
 
 if [ -z "$config_node_path" ]; then
