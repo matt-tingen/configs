@@ -16,6 +16,7 @@
 [custom]
 	basebranch = master
 [alias]
+	debug = !GIT_TRACE=1 git
 	s = status
 	ls = log --oneline
 	l = "!git log \"$(git basebranch)\".. --oneline"
@@ -46,6 +47,13 @@
 	# Undo a commit, copying the commit message and staging the changes
 	uncommit = "!git msg HEAD | pbcopy && git unwip"
 	hash = "rev-parse --verify HEAD"
+	baseconfig = "!git config --file $config_dir/.gitconfig"
+	# Claim existing changes on the branch as personal changes
+	claimbranch = "!git reauthor --old-email \"$(git config --get user.email)\" --correct-email \"$(git baseconfig --get user.email)\""
+	# Claim future changes in the repo as personal changes
+	claimrepo = "!git config --replace-all user.email \"$(git baseconfig --get user.email)\""
+	claim = "!git claimbranch && git claimrepo"
+
 
 	# The base branch for a repo is used by git aliases for e.g. abbreviated
 	# logging and quick interactive rebases.

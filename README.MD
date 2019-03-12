@@ -1,6 +1,7 @@
 # Bash
 
 ## Setup
+
 ```sh
 cd configs
 nvm install
@@ -11,7 +12,7 @@ See [Windows setup guide](./WINDOWS.md) for adjustments needed on Windows.
 ## `.bash_profile`
 
 ```sh
-config_dir=$HOME/Development/configs
+export config_dir=$HOME/Development/configs
 source "$config_dir/.bash_profile"
 ```
 
