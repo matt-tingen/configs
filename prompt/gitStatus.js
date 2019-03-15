@@ -60,6 +60,14 @@ const parseChangeStatus = lines => {
   });
 };
 
+const getNotes = async () => {
+  try {
+    return await git('log -n 1 --pretty=format:%s');
+  } catch (e) {
+    return null;
+  }
+};
+
 const getState = async () => {
   const gitRoot = await git('root');
   const exists = item => fs.existsSync(path.join(gitRoot, '.git', item));
@@ -88,6 +96,7 @@ const status = async () => {
 
   return {
     ...parseStatus(message),
+    notes: await getNotes(),
     state: await getState(),
   };
 };
