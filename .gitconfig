@@ -3,6 +3,8 @@
 [user]
 	name = Matt Tingen
 	email = matt.tingen@gmail.com
+[commit]
+	cleanup = strip
 [push]
 	default = current
 [rebase]
