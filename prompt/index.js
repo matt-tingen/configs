@@ -6,8 +6,14 @@ const getFlags = require('./flags');
 const getUpstream = require('./upstream');
 const getState = require('./state');
 const flattenDeep = require('./flattenDeep');
+const cwd = require('./cwd');
 
-const gitDisplay = async () => {
+const processPrompt = components =>
+  flattenDeep(components)
+    .filter(comp => comp && typeof comp === 'string')
+    .join('');
+
+const buildGitPrompt = async () => {
   const status = await gitStatus();
 
   if (!status) {
@@ -22,8 +28,8 @@ const gitDisplay = async () => {
 
   const separator = color('gray')(' - ');
 
-  return [
-    color('gray')(' ['),
+  return processPrompt([
+    color('gray')('['),
     empty || [
       state && [state, separator],
       branch,
@@ -31,22 +37,17 @@ const gitDisplay = async () => {
       flags && [separator, flags],
     ],
     color('gray')(']'),
-  ];
+  ]);
 };
 
 const buildPrompt = async () => {
-  const components = [
-    color('cyan')('\\w'), // Working dir
-    await gitDisplay(),
+  const gitPrompt = await buildGitPrompt();
+
+  return processPrompt([
+    await cwd(!!gitPrompt),
+    gitPrompt && [' ', gitPrompt],
     ' ',
-  ];
-
-  const filtered = flattenDeep(components).filter(
-    comp => comp && typeof comp === 'string',
-  );
-
-  const prompt = filtered.join('');
-  return prompt;
+  ]);
 };
 
 buildPrompt()
