@@ -21,6 +21,8 @@
 	debug = !GIT_TRACE=1 git
 	s = status
 	ls = log --oneline
+	# Show child commits leading to the specified commitish
+	lsto = "! git ls --reverse --ancestry-path HEAD^..$1"
 	l = "!git log \"$(git basebranch)\".. --oneline"
 	base = "!git co \"$(git basebranch)\""
 	co = checkout
