@@ -22,8 +22,10 @@ const formatChanges = changes => {
   return components.join(' ');
 };
 
-const getWorkTreeFlag = ({ y: flag }) => (flag === '?' ? 'A' : flag);
-const getIndexFlag = ({ x: flag }) => (flag === '?' ? null : flag);
+const getWorkTreeFlag = ({ x: index, y: flag }) =>
+  flag === '?' ? 'A' : [index, flag].includes('U') ? null : flag;
+const getIndexFlag = ({ x: flag, y: workTree }) =>
+  flag === '?' ? null : workTree === 'U' ? 'U' : flag;
 
 const flags = ({ changes }) => {
   const workTreeFlags = formatChanges(changes.map(getWorkTreeFlag));
