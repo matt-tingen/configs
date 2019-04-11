@@ -106,6 +106,8 @@ const getTag = async () => {
   };
 };
 
+const shortenHash = hash => git('rev-parse', '--short', hash);
+
 const status = async () => {
   let message;
 
@@ -116,6 +118,8 @@ const status = async () => {
   }
 
   const status = parseStatus(message);
+
+  status.branch.hash = await shortenHash(status.branch.hash);
 
   return {
     ...status,

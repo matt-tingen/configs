@@ -4,9 +4,10 @@ const truncate = require('./truncate');
 const formatNotes = notes => color('gray')('“' + truncate(notes, 20) + '”');
 
 const branch = ({
-  branch: { name: branch },
+  branch: { name: branch, hash },
   tag: { isTagged, description },
   notes,
+  state,
 }) => {
   if (branch) {
     return color('blue')(branch);
@@ -16,7 +17,10 @@ const branch = ({
     return color('yellow')(description);
   }
 
-  return color('red')(description) + (notes ? ' ' + formatNotes(notes) : '');
+  return (
+    color('red')(state === 'rebase' ? hash : description) +
+    (notes ? ' ' + formatNotes(notes) : '')
+  );
 };
 
 module.exports = branch;

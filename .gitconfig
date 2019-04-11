@@ -1,5 +1,6 @@
 [core]
 	editor = code --wait
+	abbrev = 7
 [user]
 	name = Matt Tingen
 	email = matt.tingen@gmail.com
