@@ -40,10 +40,18 @@ const buildGitPrompt = async () => {
   ]);
 };
 
+const buildTimestamp = () => {
+  const time = new Date().toLocaleTimeString();
+
+  return [color('gray')('['), color('white')(time), color('gray')(']')];
+};
+
 const buildPrompt = async () => {
+  const showTimestamp = process.env.PROMPT_TIMESTAMP === '1';
   const gitPrompt = await buildGitPrompt();
 
   return processPrompt([
+    showTimestamp && [buildTimestamp(), ' '],
     await cwd(!!gitPrompt),
     gitPrompt && [' ', gitPrompt],
     ' ',
