@@ -30,11 +30,11 @@ const parseBranchStatus = lines => {
     behind = parseInt(abMatch[2]);
   }
 
-  const oid = lines[0].slice(13); // # branch.oid <oid>
+  const hash = lines[0].slice(13); // # branch.oid <oid>
   const head = lines[1].slice(14); // # branch.head <head>
   const detached = head === '(detached)';
-  const hash = oid;
   const name = detached ? null : head;
+  const empty = hash === '(initial)';
 
   return {
     upstream,
@@ -43,6 +43,7 @@ const parseBranchStatus = lines => {
     detached,
     ahead,
     behind,
+    empty,
   };
 };
 
@@ -97,7 +98,11 @@ const doesPromiseSucceed = async promise => {
 };
 
 const getTag = async () => {
-  const description = await git('describe', '--tags', '--always');
+  let description;
+
+  try {
+    description = await git('describe', '--tags', '--always');
+  } catch (ignore) {}
   const isTagged = await doesPromiseSucceed(git('describe', '--exact-match'));
 
   return {
@@ -119,7 +124,9 @@ const status = async () => {
 
   const status = parseStatus(message);
 
-  status.branch.hash = await shortenHash(status.branch.hash);
+  if (!status.branch.empty) {
+    status.branch.hash = await shortenHash(status.branch.hash);
+  }
 
   return {
     ...status,
