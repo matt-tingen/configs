@@ -11,11 +11,11 @@ function fromTo(from, to, toType = 'key_code') {
         [toType]: to,
       },
     },
-  ]
+  ];
 }
 
 function bundleIdentifier(identifier) {
-  return '^' + identifier.replace(/\./g, '\\.') + '$'
+  return '^' + identifier.replace(/\./g, '\\.') + '$';
 }
 
 function buildSecondLayerMapping(from, to) {
@@ -33,11 +33,11 @@ function buildSecondLayerMapping(from, to) {
       },
     ],
     type: 'basic',
-  }
+  };
 }
 
 function swap(a, b) {
-  return [...fromTo(a, b), ...fromTo(b, a)]
+  return [...fromTo(a, b), ...fromTo(b, a)];
 }
 
 const DEVICE_DEFAULTS = {
@@ -46,12 +46,12 @@ const DEVICE_DEFAULTS = {
   ignore: false,
   manipulate_caps_lock_led: true,
   simple_modifications: [],
-}
+};
 
 const IDENTIFIER_DEFAULTS = {
   is_keyboard: true,
   is_pointing_device: false,
-}
+};
 
 const APPLE_INTERNAL_US = {
   ...DEVICE_DEFAULTS,
@@ -60,7 +60,7 @@ const APPLE_INTERNAL_US = {
     product_id: 628,
     vendor_id: 1452,
   },
-}
+};
 
 const APPLE_EXTERNAL_US = {
   ...DEVICE_DEFAULTS,
@@ -75,14 +75,14 @@ const APPLE_EXTERNAL_US = {
     ...fromTo('f14', 'play_or_pause', 'consumer_key_code'),
     ...fromTo('f15', 'fastforward', 'consumer_key_code'),
   ],
-}
+};
 
 const PARAMETER_DEFAULTS = {
   'basic.simultaneous_threshold_milliseconds': 50,
   'basic.to_delayed_action_delay_milliseconds': 500,
   'basic.to_if_alone_timeout_milliseconds': 1000,
   'basic.to_if_held_down_threshold_milliseconds': 500,
-}
+};
 
 const VANILLA_PROFILE = {
   complex_modifications: {
@@ -111,25 +111,25 @@ const VANILLA_PROFILE = {
     caps_lock_delay_milliseconds: 0,
     keyboard_type: 'ansi',
   },
-}
+};
 
 function isObject(item) {
   return (
     item !== null && Object.prototype.toString.call(item) === '[object Object]'
-  )
+  );
 }
 
 function deepCopy(item) {
   if (Array.isArray(item)) {
-    return item.map(deepCopy)
+    return item.map(deepCopy);
   } else if (isObject(item)) {
-    const copy = {}
+    const copy = {};
     Object.entries(item).forEach(([k, v]) => {
-      copy[k] = deepCopy(v)
-    })
-    return copy
+      copy[k] = deepCopy(v);
+    });
+    return copy;
   }
-  return item
+  return item;
 }
 
 /**
@@ -147,51 +147,51 @@ function deepCopy(item) {
 function visit(item, path, updater) {
   const match = path.match(
     /^(?<root>\$)|\.(?<child>\w+)|\[(?<slice>.+?)\]|(?<done>$)/,
-  )
+  );
   const {
     groups: { root, child, slice },
-  } = match
-  const subpath = path.slice(match[0].length)
+  } = match;
+  const subpath = path.slice(match[0].length);
   if (root) {
-    return visit(item, subpath, updater)
+    return visit(item, subpath, updater);
   } else if (child) {
-    const next = visit(item[child], subpath, updater)
+    const next = visit(item[child], subpath, updater);
     if (next !== undefined) {
       return {
         ...item,
         [child]: next,
-      }
+      };
     }
   } else if (slice) {
     const {
       groups: { start, end },
-    } = slice.match(/^(?<start>\d+):(?<end>\d+)?$/)
-    let array
+    } = slice.match(/^(?<start>\d+):(?<end>\d+)?$/);
+    let array;
     for (let i = start, max = end == null ? item.length : end; i < max; i++) {
-      const next = visit(item[i], subpath, updater)
+      const next = visit(item[i], subpath, updater);
       if (next !== undefined) {
         if (!array) {
-          array = item.slice(0, i)
+          array = item.slice(0, i);
         }
-        array[i] = next
+        array[i] = next;
       } else if (array) {
-        array[i] = item[i]
+        array[i] = item[i];
       }
     }
-    return array
+    return array;
   } else {
-    const next = updater(item)
-    return next === item ? undefined : next
+    const next = updater(item);
+    return next === item ? undefined : next;
   }
 }
 
-const EXEMPTIONS = ['com.factorio', 'com.feralinteractive.dirtrally']
+const EXEMPTIONS = ['com.factorio', 'com.feralinteractive.dirtrally'];
 
 function applyExemptions(profile) {
   const exemptions = {
     type: 'frontmost_application_unless',
     bundle_identifiers: EXEMPTIONS.map(bundleIdentifier),
-  }
+  };
 
   return visit(
     profile,
@@ -203,14 +203,14 @@ function applyExemptions(profile) {
             condition => condition.type === 'frontmost_application_if',
           )
         ) {
-          return conditions
+          return conditions;
         }
-        return [...deepCopy(conditions), exemptions]
+        return [...deepCopy(conditions), exemptions];
       } else {
-        return [exemptions]
+        return [exemptions];
       }
     },
-  )
+  );
 }
 
 const DEFAULT_PROFILE = applyExemptions({
@@ -303,7 +303,7 @@ const DEFAULT_PROFILE = applyExemptions({
   devices: [APPLE_INTERNAL_US, APPLE_EXTERNAL_US],
   name: 'Default',
   selected: true,
-})
+});
 
 const CONFIG = {
   global: {
@@ -312,11 +312,11 @@ const CONFIG = {
     show_profile_name_in_menu_bar: false,
   },
   profiles: [DEFAULT_PROFILE, VANILLA_PROFILE],
-}
+};
 
 if (require.main === module) {
   // Script is being executed directly.
-  process.stdout.write(JSON.stringify(CONFIG, null, 2) + '\n')
+  process.stdout.write(JSON.stringify(CONFIG, null, 2) + '\n');
 } else {
   // File is being `require`-ed as a module.
   module.exports = {
@@ -324,5 +324,5 @@ if (require.main === module) {
     deepCopy,
     isObject,
     visit,
-  }
+  };
 }
