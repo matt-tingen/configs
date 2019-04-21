@@ -27,11 +27,14 @@ function buildSecondLayerMapping(from, to) {
         optional: ['any'],
       },
     },
-    to: [
-      {
-        key_code: to,
-      },
-    ],
+    // https://pqrs.org/osx/karabiner/json.html#typical-complex_modifications-examples-disable-command-l-on-finder
+    ...(to && {
+      to: [
+        {
+          key_code: to,
+        },
+      ],
+    }),
     type: 'basic',
   };
 }
@@ -232,6 +235,7 @@ const DEFAULT_PROFILE = applyExemptions({
           buildSecondLayerMapping('i', 'up_arrow'),
           buildSecondLayerMapping('semicolon', 'delete_or_backspace'),
           buildSecondLayerMapping('quote', 'delete_forward'),
+          buildSecondLayerMapping('tab', null),
         ],
       },
       {
