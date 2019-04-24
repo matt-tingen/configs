@@ -5,6 +5,8 @@
 ```sh
 cd configs
 nvm install
+npm run build
+echo 'npm run build' > .git/hooks/post-merge && chmod +x .git/hooks/post-merge
 ```
 
 See [Windows setup guide](./WINDOWS.md) for adjustments needed on Windows.
