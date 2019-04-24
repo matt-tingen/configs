@@ -14,18 +14,18 @@ const formatter = dir => {
 const replaceUserDir = dir =>
   dir.startsWith(HOME_DIR) ? dir.replace(HOME_DIR, '~') : dir;
 
-const cwd = async abbreviate => {
+const cwd = async () => {
   const cwd = process.cwd();
 
-  if (!abbreviate) {
-    return formatter(replaceUserDir(cwd));
-  }
+  try {
+    const gitRoot = await git('root');
+    // Show the git root and any lower directories.
+    const abbreviated = path.relative(path.resolve(gitRoot, '..'), cwd);
 
-  const gitRoot = await git('root');
-  // Show the git root and any lower directories.
-  const abbreviated = path.relative(path.resolve(gitRoot, '..'), cwd);
+    return formatter(abbreviated);
+  } catch (ignore) {}
 
-  return formatter(abbreviated);
+  return formatter(replaceUserDir(cwd));
 };
 
 module.exports = cwd;

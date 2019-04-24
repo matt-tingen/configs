@@ -52,7 +52,7 @@ const buildPrompt = async () => {
 
   return processPrompt([
     showTimestamp && [buildTimestamp(), ' '],
-    await cwd(!!gitPrompt),
+    await cwd(),
     gitPrompt && [' ', gitPrompt],
     ' ',
   ]);
