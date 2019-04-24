@@ -3,13 +3,16 @@ const color = require('./color');
 const git = require('./git');
 const os = require('os');
 
+const HOME_DIR = os.homedir();
+
 const formatter = dir => {
   const parts = dir.split(' ');
 
   return parts.map(color('cyan')).join(color('gray')('_'));
 };
 
-const replaceUserDir = dir => dir.replace(os.homedir(), '~');
+const replaceUserDir = dir =>
+  dir.startsWith(HOME_DIR) ? dir.replace(HOME_DIR, '~') : dir;
 
 const cwd = async abbreviate => {
   const cwd = process.cwd();
