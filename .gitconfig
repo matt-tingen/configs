@@ -47,6 +47,7 @@
 	today = "!git log --since=midnight --author=\"$(git config user.name)\" --oneline"
 	yesterday = "!git log --since="yesterday.midnight" --until=midnight --author=\"$(git config user.name)\" --oneline"
 	msg = "log --format=%B -n 1"
+	wip = !sh -c 'git add . && git commit -nm \"WIP $1\"' -
 	# Undo a "WIP" commit, staging the changes
 	unwip = "reset --mixed HEAD~1"
 	# Undo a commit, copying the commit message and staging the changes
