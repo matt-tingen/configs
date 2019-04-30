@@ -101,9 +101,9 @@ const getTag = async () => {
   let description;
 
   try {
-    description = await git('describe', '--tags', '--always');
+    description = await git('describe --tags --always');
   } catch (ignore) {}
-  const isTagged = await doesPromiseSucceed(git('describe', '--exact-match'));
+  const isTagged = await doesPromiseSucceed(git('describe --exact-match'));
 
   return {
     description,
@@ -111,7 +111,7 @@ const getTag = async () => {
   };
 };
 
-const shortenHash = hash => git('rev-parse', '--short', hash);
+const shortenHash = hash => git(`rev-parse --short ${hash}`);
 
 const status = async () => {
   let message;

@@ -1,5 +1,6 @@
 const exec = require('./exec');
+const memoize = require('./memoize');
 
-const git = (...commandParts) => exec(['git', ...commandParts].join(' '));
+const git = memoize(command => exec(`git ${command}`));
 
 module.exports = git;
