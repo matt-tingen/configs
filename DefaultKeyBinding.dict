@@ -1,0 +1,14 @@
+{
+  /*
+  Swallow ctrl+cmd+(right|down|left) because they make an audible beep and are used as text editor
+  shortcuts. See:
+    - https://github.com/microsoft/vscode/issues/46149
+    - https://github.com/atom/atom/issues/1669
+    - https://github.com/electron/electron/issues/2617
+    - https://bugs.chromium.org/p/chromium/issues/detail?id=916460
+    - https://discussions.apple.com/thread/250304211
+  */
+  "^@\UF701" = "noop:";
+  "^@\UF702" = "noop:";
+  "^@\UF703" = "noop:";
+}

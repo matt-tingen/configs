@@ -51,4 +51,6 @@ Config files can be linked to their corresponding directory:
 ```sh
 ln -si $config_dir/.prettierrc ~/.prettierrc
 ln -si $config_dir/karabiner ~/.config
+mkdir -p ~/Library/KeyBindings
+ln -si $config_dir/DefaultKeyBinding.dict ~/Library/KeyBindings/DefaultKeyBinding.dict
 ```
