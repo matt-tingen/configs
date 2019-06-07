@@ -14,3 +14,5 @@ if [ -z "$config_node_path" ]; then
 fi
 
 export PROMPT_COMMAND=prompt_command
+
+[ ${ZSH_VERSION} ] && precmd() { prompt_command; }

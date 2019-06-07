@@ -17,3 +17,7 @@ alias trim="awk '{\$1=\$1};1'"
 alias strip="awk '{printf $1}'"
 alias g="git"
 alias c="calc"
+
+if [ ${ZSH_VERSION} ]; then
+  alias history="history -t '{echo $HISTTIMEFORMAT}'"
+fi
