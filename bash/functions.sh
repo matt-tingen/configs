@@ -7,7 +7,15 @@ killPort() {
 }
 
 pw() {
-	python $config_dir/pw/pw.py "$@" | tr -d '\n' | pbcopy
+	local password=`node $config_dir/pw/pw.js "$@"`
+	local exitCode=$?
+
+	if [ $exitCode -ne 0 ]; then
+		return $exitCode
+	else
+		echo $password | tr -d '\n' | pbcopy
+		return 0
+	fi
 }
 
 genFile() {
