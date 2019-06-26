@@ -4,10 +4,12 @@ const path = require('path');
 function generate(dictionary, options) {
   const { numWords, length, seperator } = options;
   const lengthWithoutSeparators = length - (numWords - 1) * seperator.length;
-  // Sorting is not strictly required, but is useful for debugging.
-  const availableWordLengths = sort(uniq(dictionary.map(word => word.length)));
+  const availableWordsByLength = groupBy(dictionary, word => word.length);
+  const wordLengthWeights = Object.entries(availableWordsByLength).map(
+    ([length, words]) => ({ length: parseInt(length), weight: words.length }),
+  );
   const possibleWordLengths = getPossibleWordLengths(
-    availableWordLengths,
+    wordLengthWeights,
     numWords,
     lengthWithoutSeparators,
   );
@@ -20,7 +22,9 @@ function generate(dictionary, options) {
 
   const wordLengths = choice(possibleWordLengths);
   // TODO: Disallow re-using words
-  const words = wordLengths.map(length => getWord(dictionary, length));
+  const words = wordLengths.map(length =>
+    choice(availableWordsByLength[length]),
+  );
   const password = words.join(seperator);
   return password;
 }
@@ -29,22 +33,49 @@ function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-function choice(items) {
-  const i = randomInt(0, items.length);
-  return items[i];
+function sum(values) {
+  return values.reduce((sum, value) => sum + value, 0);
 }
 
-function getWord(dictionary, length) {
-  const eligibleWords = dictionary.filter(word => word.length === length);
-  return choice(eligibleWords);
+function choice(items, getWeight = () => 1) {
+  const weights = items.map(getWeight);
+  const totalWeight = sum(weights);
+  let remainingWeight = randomInt(0, totalWeight);
+
+  for (let i = 0; i < items.length; i++) {
+    const weight = weights[i];
+    remainingWeight -= weight;
+
+    if (remainingWeight < 0) {
+      return items[i];
+    }
+  }
 }
 
-function uniq(items) {
-  return Array.from(new Set(items).values());
+function shuffle(items) {
+  const shuffled = [...items];
+
+  // Fisher-Yates shuffle
+  for (let i = items.length - 1; i >= 1; i--) {
+    const j = randomInt(0, i + 1);
+    const temp = shuffled[i];
+    shuffled[i] = shuffled[j];
+    shuffled[j] = temp;
+  }
+
+  return shuffled;
 }
 
-function sort(values) {
-  return [...values].sort((a, b) => a - b);
+function groupBy(items, iteree) {
+  const grouped = {};
+
+  items.forEach(item => {
+    const key = iteree(item);
+    const group = (grouped[key] = grouped[key] || []);
+    group.push(item);
+  });
+
+  return grouped;
 }
 
 function flatten(items) {
@@ -56,15 +87,18 @@ function flatMap(items, iteree) {
   return flatten(mapped);
 }
 
+/** @typedef {{length: number, weight: number}} WordLengthWeight */
+
 /**
  * Find all the possible series of word lengths which can satisfy the provided
  * constraints
- * @param {string[]} availableWordLengths The word lengths which can be used
+ * @param {WordLengthWeight[]} wordLengthWeights The available word lengths
+ * along with their corresponding weights
  * @param {number} numWords The desired number of words
  * @param {number} totalLength The desired sum of the result word lengths
  * @returns {number[][]} A list of word lengths
  */
-function getPossibleWordLengths(availableWordLengths, numWords, totalLength) {
+function getPossibleWordLengths(wordLengthWeights, numWords, totalLength) {
   if (numWords === 1) {
     // TODO: Allow flexibility without introducing bias wrt word length in
     // relation to order of word length selection (i.e. recursion depth). For
