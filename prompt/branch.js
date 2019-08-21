@@ -18,7 +18,7 @@ const branch = ({
   }
 
   return (
-    color('red')(state === 'rebase' ? hash : description) +
+    color('yellow')(state === 'rebase' ? hash : description) +
     (notes ? ' ' + formatNotes(notes) : '')
   );
 };
