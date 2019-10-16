@@ -235,6 +235,7 @@ const DEFAULT_PROFILE = applyExemptions({
           buildSecondLayerMapping('i', 'up_arrow'),
           buildSecondLayerMapping('semicolon', 'delete_or_backspace'),
           buildSecondLayerMapping('quote', 'delete_forward'),
+          buildSecondLayerMapping('caps_lock', 'caps_lock'),
           buildSecondLayerMapping('tab', null),
         ],
       },
@@ -269,36 +270,6 @@ const DEFAULT_PROFILE = applyExemptions({
                 key_code: 'escape',
               },
             ],
-          },
-        ],
-      },
-      {
-        description: 'Left and Right Shift together toggle Caps Lock',
-        manipulators: [
-          {
-            from: {
-              modifiers: {
-                optional: ['any'],
-              },
-              simultaneous: [
-                {
-                  key_code: 'left_shift',
-                },
-                {
-                  key_code: 'right_shift',
-                },
-              ],
-              simultaneous_options: {
-                key_down_order: 'insensitive',
-                key_up_order: 'insensitive',
-              },
-            },
-            to: [
-              {
-                key_code: 'caps_lock',
-              },
-            ],
-            type: 'basic',
           },
         ],
       },
