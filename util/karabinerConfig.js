@@ -1,9 +1,6 @@
 // Based on https://github.com/wincent/wincent/blob/master/roles/dotfiles/support/karabiner.js
 // Commit e8a0341db0d27fee07395397137c68c3100eed37
 
-const secondLayerModifier = 'right_command';
-const numpadVariable = 'is_numpad_active';
-
 function fromTo(from, to, toType = 'key_code') {
   return [
     {
@@ -27,7 +24,7 @@ function buildBaseSecondLayerMapping(from) {
     from: {
       key_code: from,
       modifiers: {
-        mandatory: [secondLayerModifier],
+        mandatory: ['right_command'],
         optional: ['any'],
       },
     },
@@ -140,63 +137,6 @@ function powerSet(originalSet) {
   }
 
   return subSets;
-}
-
-function buildToggle(variable, from) {
-  return [
-    {
-      type: 'basic',
-      conditions: [
-        {
-          type: 'variable_if',
-          name: variable,
-          value: 0,
-        },
-      ],
-      from,
-      to: [
-        {
-          set_variable: {
-            name: variable,
-            value: 1,
-          },
-        },
-      ],
-    },
-    {
-      type: 'basic',
-      conditions: [
-        {
-          type: 'variable_if',
-          name: variable,
-          value: 1,
-        },
-      ],
-      from,
-      to: [
-        {
-          set_variable: {
-            name: variable,
-            value: 0,
-          },
-        },
-      ],
-    },
-  ];
-}
-
-function buildNumpadMapping(from, to) {
-  return {
-    type: 'basic',
-    conditions: [
-      {
-        type: 'variable_if',
-        name: numpadVariable,
-        value: 1,
-      },
-    ],
-    ...fromTo(from, to)[0],
-  };
 }
 
 const DEVICE_DEFAULTS = {
@@ -416,32 +356,6 @@ const DEFAULT_PROFILE = applyExemptions({
           buildSecondLayerMapping('9', 'f9'),
           buildSecondLayerMapping('0', 'f10'),
           buildSecondLayerMapping('tab', null),
-        ],
-      },
-      {
-        description: 'Toggled numpad',
-        manipulators: [
-          ...buildToggle(numpadVariable, {
-            key_code: 'caps_lock',
-            modifiers: {
-              mandatory: [secondLayerModifier],
-            },
-          }),
-          buildNumpadMapping('m', 'keypad_1'),
-          buildNumpadMapping('comma', 'keypad_2'),
-          buildNumpadMapping('period', 'keypad_3'),
-          buildNumpadMapping('j', 'keypad_4'),
-          buildNumpadMapping('k', 'keypad_5'),
-          buildNumpadMapping('l', 'keypad_6'),
-          buildNumpadMapping('u', 'keypad_7'),
-          buildNumpadMapping('i', 'keypad_8'),
-          buildNumpadMapping('o', 'keypad_9'),
-          buildNumpadMapping('spacebar', 'keypad_0'),
-          buildNumpadMapping('semicolon', 'keypad_plus'),
-          buildNumpadMapping('slash', 'keypad_slash'),
-          buildNumpadMapping('8', 'keypad_asterisk'),
-          buildNumpadMapping('quote', 'keypad_period'),
-          buildNumpadMapping('enter', 'keypad_enter'),
         ],
       },
       {
