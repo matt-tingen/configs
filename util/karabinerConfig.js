@@ -2,7 +2,7 @@
 // Commit e8a0341db0d27fee07395397137c68c3100eed37
 
 const secondLayerModifier = 'right_command';
-const numpadVariable = 'is_numpad_active'
+const numpadVariable = 'is_numpad_active';
 
 function fromTo(from, to, toType = 'key_code') {
   return [
@@ -22,6 +22,51 @@ function bundleIdentifier(identifier) {
 }
 
 function buildSecondLayerMapping(from, to) {
+  const baseMapping = {
+    type: 'basic',
+    from: {
+      key_code: from,
+      modifiers: {
+        mandatory: [secondLayerModifier],
+        optional: ['any'],
+      },
+    },
+  };
+
+  if (!to) {
+    // https://pqrs.org/osx/karabiner/json.html#typical-complex_modifications-examples-disable-command-l-on-finder
+    return [baseMapping];
+  }
+
+  const modifiers = secondLayerModifiers.map(([, to]) => to);
+  // Reverse the power set so that larger sets take precedence over smaller sets.
+  const modifierSets = powerSet(modifiers).reverse();
+
+  return modifierSets.map(modifiers => ({
+    ...baseMapping,
+    ...(modifiers.length && {
+      conditions: modifiers.map(modifier => ({
+        type: 'variable_if',
+        name: secondLayerModifierVariableName(modifier),
+        value: 1,
+      })),
+    }),
+    to: [
+      {
+        key_code: to,
+        modifiers: modifiers.map(modifier => `left_${modifier}`),
+      },
+    ],
+  }));
+}
+
+function secondLayerModifierVariableName(pseudoKey) {
+  return `second_layer_${pseudoKey}`;
+}
+
+function buildSecondLayerModifierMapping(from, to) {
+  const variableName = secondLayerModifierVariableName(to);
+
   return {
     from: {
       key_code: from,
@@ -30,16 +75,62 @@ function buildSecondLayerMapping(from, to) {
         optional: ['any'],
       },
     },
-    // https://pqrs.org/osx/karabiner/json.html#typical-complex_modifications-examples-disable-command-l-on-finder
-    ...(to && {
-      to: [
-        {
-          key_code: to,
+    to: [
+      {
+        set_variable: {
+          name: variableName,
+          value: 1,
         },
-      ],
-    }),
+      },
+    ],
+    to_after_key_up: [
+      {
+        set_variable: {
+          name: variableName,
+          value: 0,
+        },
+      },
+    ],
     type: 'basic',
   };
+}
+
+// https://github.com/trekhleb/javascript-algorithms/blob/master/src/algorithms/sets/power-set/bwPowerSet.js
+function powerSet(originalSet) {
+  const subSets = [];
+
+  // We will have 2^n possible combinations (where n is a length of original set).
+  // It is because for every element of original set we will decide whether to include
+  // it or not (2 options for each set element).
+  const numberOfCombinations = 2 ** originalSet.length;
+
+  // Each number in binary representation in a range from 0 to 2^n does exactly what we need:
+  // it shows by its bits (0 or 1) whether to include related element from the set or not.
+  // For example, for the set {1, 2, 3} the binary number of 0b010 would mean that we need to
+  // include only "2" to the current set.
+  for (
+    let combinationIndex = 0;
+    combinationIndex < numberOfCombinations;
+    combinationIndex += 1
+  ) {
+    const subSet = [];
+
+    for (
+      let setElementIndex = 0;
+      setElementIndex < originalSet.length;
+      setElementIndex += 1
+    ) {
+      // Decide whether we need to include current element into the subset or not.
+      if (combinationIndex & (1 << setElementIndex)) {
+        subSet.push(originalSet[setElementIndex]);
+      }
+    }
+
+    // Add current subset to the list of all subsets.
+    subSets.push(subSet);
+  }
+
+  return subSets;
 }
 
 function buildToggle(variable, from) {
@@ -272,6 +363,14 @@ function applyExemptions(profile) {
   );
 }
 
+// https://github.com/tekezo/Karabiner-Elements/issues/1293
+const secondLayerModifiers = [
+  ['a', 'shift'],
+  ['s', 'control'],
+  ['d', 'option'],
+  ['f', 'command'],
+];
+
 const DEFAULT_PROFILE = applyExemptions({
   ...VANILLA_PROFILE,
   complex_modifications: {
@@ -283,26 +382,28 @@ const DEFAULT_PROFILE = applyExemptions({
       {
         description: 'Second layer',
         manipulators: [
-          buildSecondLayerMapping('h', 'page_up'),
-          buildSecondLayerMapping('n', 'page_down'),
-          buildSecondLayerMapping('l', 'right_arrow'),
-          buildSecondLayerMapping('k', 'down_arrow'),
-          buildSecondLayerMapping('j', 'left_arrow'),
-          buildSecondLayerMapping('i', 'up_arrow'),
-          buildSecondLayerMapping('semicolon', 'delete_or_backspace'),
-          buildSecondLayerMapping('quote', 'delete_forward'),
-          // buildSecondLayerMapping('caps_lock', 'caps_lock'),
-          buildSecondLayerMapping('1', 'f1'),
-          buildSecondLayerMapping('2', 'f2'),
-          buildSecondLayerMapping('3', 'f3'),
-          buildSecondLayerMapping('4', 'f4'),
-          buildSecondLayerMapping('5', 'f5'),
-          buildSecondLayerMapping('6', 'f6'),
-          buildSecondLayerMapping('7', 'f7'),
-          buildSecondLayerMapping('8', 'f8'),
-          buildSecondLayerMapping('9', 'f9'),
-          buildSecondLayerMapping('0', 'f10'),
-          buildSecondLayerMapping('tab', null),
+          ...secondLayerModifiers.map(([from, to]) =>
+            buildSecondLayerModifierMapping(from, to),
+          ),
+          ...buildSecondLayerMapping('h', 'page_up'),
+          ...buildSecondLayerMapping('n', 'page_down'),
+          ...buildSecondLayerMapping('l', 'right_arrow'),
+          ...buildSecondLayerMapping('k', 'down_arrow'),
+          ...buildSecondLayerMapping('j', 'left_arrow'),
+          ...buildSecondLayerMapping('i', 'up_arrow'),
+          ...buildSecondLayerMapping('semicolon', 'delete_or_backspace'),
+          ...buildSecondLayerMapping('quote', 'delete_forward'),
+          ...buildSecondLayerMapping('1', 'f1'),
+          ...buildSecondLayerMapping('2', 'f2'),
+          ...buildSecondLayerMapping('3', 'f3'),
+          ...buildSecondLayerMapping('4', 'f4'),
+          ...buildSecondLayerMapping('5', 'f5'),
+          ...buildSecondLayerMapping('6', 'f6'),
+          ...buildSecondLayerMapping('7', 'f7'),
+          ...buildSecondLayerMapping('8', 'f8'),
+          ...buildSecondLayerMapping('9', 'f9'),
+          ...buildSecondLayerMapping('0', 'f10'),
+          ...buildSecondLayerMapping('tab', null),
         ],
       },
       {
