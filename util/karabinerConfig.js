@@ -21,8 +21,8 @@ function bundleIdentifier(identifier) {
   return '^' + identifier.replace(/\./g, '\\.') + '$';
 }
 
-function buildSecondLayerMapping(from, to) {
-  const baseMapping = {
+function buildBaseSecondLayerMapping(from) {
+  return {
     type: 'basic',
     from: {
       key_code: from,
@@ -32,12 +32,10 @@ function buildSecondLayerMapping(from, to) {
       },
     },
   };
+}
 
-  if (!to) {
-    // https://pqrs.org/osx/karabiner/json.html#typical-complex_modifications-examples-disable-command-l-on-finder
-    return [baseMapping];
-  }
-
+function buildModifiableSecondLayerMappings(from, to) {
+  const baseMapping = buildBaseSecondLayerMapping(from);
   const modifiers = secondLayerModifiers.map(([, to]) => to);
   // Reverse the power set so that larger sets take precedence over smaller sets.
   const modifierSets = powerSet(modifiers).reverse();
@@ -60,6 +58,24 @@ function buildSecondLayerMapping(from, to) {
   }));
 }
 
+function buildSecondLayerMapping(from, to) {
+  const baseMapping = buildBaseSecondLayerMapping(from);
+
+  return addToClause(baseMapping, to);
+}
+
+function addToClause(baseMapping, to) {
+  if (!to) {
+    // https://pqrs.org/osx/karabiner/json.html#typical-complex_modifications-examples-disable-command-l-on-finder
+    return baseMapping;
+  }
+
+  return {
+    ...baseMapping,
+    to: typeof to === 'string' ? { key_code: to } : to,
+  };
+}
+
 function secondLayerModifierVariableName(pseudoKey) {
   return `second_layer_${pseudoKey}`;
 }
@@ -68,13 +84,7 @@ function buildSecondLayerModifierMapping(from, to) {
   const variableName = secondLayerModifierVariableName(to);
 
   return {
-    from: {
-      key_code: from,
-      modifiers: {
-        mandatory: [secondLayerModifier],
-        optional: ['any'],
-      },
-    },
+    ...buildBaseSecondLayerMapping(from),
     to: [
       {
         set_variable: {
@@ -91,7 +101,6 @@ function buildSecondLayerModifierMapping(from, to) {
         },
       },
     ],
-    type: 'basic',
   };
 }
 
@@ -385,25 +394,28 @@ const DEFAULT_PROFILE = applyExemptions({
           ...secondLayerModifiers.map(([from, to]) =>
             buildSecondLayerModifierMapping(from, to),
           ),
-          ...buildSecondLayerMapping('h', 'page_up'),
-          ...buildSecondLayerMapping('n', 'page_down'),
-          ...buildSecondLayerMapping('l', 'right_arrow'),
-          ...buildSecondLayerMapping('k', 'down_arrow'),
-          ...buildSecondLayerMapping('j', 'left_arrow'),
-          ...buildSecondLayerMapping('i', 'up_arrow'),
-          ...buildSecondLayerMapping('semicolon', 'delete_or_backspace'),
-          ...buildSecondLayerMapping('quote', 'delete_forward'),
-          ...buildSecondLayerMapping('1', 'f1'),
-          ...buildSecondLayerMapping('2', 'f2'),
-          ...buildSecondLayerMapping('3', 'f3'),
-          ...buildSecondLayerMapping('4', 'f4'),
-          ...buildSecondLayerMapping('5', 'f5'),
-          ...buildSecondLayerMapping('6', 'f6'),
-          ...buildSecondLayerMapping('7', 'f7'),
-          ...buildSecondLayerMapping('8', 'f8'),
-          ...buildSecondLayerMapping('9', 'f9'),
-          ...buildSecondLayerMapping('0', 'f10'),
-          ...buildSecondLayerMapping('tab', null),
+
+          ...buildModifiableSecondLayerMappings('l', 'right_arrow'),
+          ...buildModifiableSecondLayerMappings('k', 'down_arrow'),
+          ...buildModifiableSecondLayerMappings('j', 'left_arrow'),
+          ...buildModifiableSecondLayerMappings('i', 'up_arrow'),
+          ...buildModifiableSecondLayerMappings(
+            'semicolon',
+            'delete_or_backspace',
+          ),
+          ...buildModifiableSecondLayerMappings('quote', 'delete_forward'),
+
+          buildSecondLayerMapping('1', 'f1'),
+          buildSecondLayerMapping('2', 'f2'),
+          buildSecondLayerMapping('3', 'f3'),
+          buildSecondLayerMapping('4', 'f4'),
+          buildSecondLayerMapping('5', 'f5'),
+          buildSecondLayerMapping('6', 'f6'),
+          buildSecondLayerMapping('7', 'f7'),
+          buildSecondLayerMapping('8', 'f8'),
+          buildSecondLayerMapping('9', 'f9'),
+          buildSecondLayerMapping('0', 'f10'),
+          buildSecondLayerMapping('tab', null),
         ],
       },
       {
