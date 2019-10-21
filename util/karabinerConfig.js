@@ -101,6 +101,26 @@ function buildSecondLayerModifierMapping(from, to) {
   };
 }
 
+function addCondition(rule, condition) {
+  const conditions = [...(rule.conditions || []), condition];
+
+  return { ...rule, conditions}
+}
+
+function applicationWhitelist(...applicationIds) {
+  return {
+    type: 'frontmost_application_if',
+    bundle_identifiers: applicationIds.map(bundleIdentifier),
+  };
+}
+
+function applicationBlacklist(...applicationIds) {
+  return {
+    type: 'frontmost_application_unless',
+    bundle_identifiers: applicationIds.map(bundleIdentifier),
+  };
+}
+
 // https://github.com/trekhleb/javascript-algorithms/blob/master/src/algorithms/sets/power-set/bwPowerSet.js
 function powerSet(originalSet) {
   const subSets = [];
@@ -284,13 +304,16 @@ function visit(item, path, updater) {
   }
 }
 
-const EXEMPTIONS = ['com.factorio', 'com.feralinteractive.dirtrally'];
+// To obtain IDs, use EventViewer > Frontmost application
+const apps = {
+  vscode: 'com.microsoft.VSCode',
+  factorio: 'com.factorio'
+}
+
+const EXEMPTIONS = [apps.factorio];
 
 function applyExemptions(profile) {
-  const exemptions = {
-    type: 'frontmost_application_unless',
-    bundle_identifiers: EXEMPTIONS.map(bundleIdentifier),
-  };
+  const exemptions = applicationBlacklist(EXEMPTIONS)
 
   return visit(
     profile,
@@ -310,6 +333,10 @@ function applyExemptions(profile) {
       }
     },
   );
+}
+
+const vscodeShortcuts = {
+  goToDefinition: 'f12'
 }
 
 // https://github.com/tekezo/Karabiner-Elements/issues/1293
@@ -356,6 +383,11 @@ const DEFAULT_PROFILE = applyExemptions({
           buildSecondLayerMapping('9', 'f9'),
           buildSecondLayerMapping('0', 'f10'),
           buildSecondLayerMapping('tab', null),
+
+          addCondition(
+            buildSecondLayerMapping('g', vscodeShortcuts.goToDefinition),
+            applicationWhitelist(apps.vscode),
+          ),
         ],
       },
       {
