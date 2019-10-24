@@ -104,7 +104,7 @@ function buildSecondLayerModifierMapping(from, to) {
 function addCondition(rule, condition) {
   const conditions = [...(rule.conditions || []), condition];
 
-  return { ...rule, conditions}
+  return { ...rule, conditions };
 }
 
 function applicationWhitelist(...applicationIds) {
@@ -307,13 +307,13 @@ function visit(item, path, updater) {
 // To obtain IDs, use EventViewer > Frontmost application
 const apps = {
   vscode: 'com.microsoft.VSCode',
-  factorio: 'com.factorio'
-}
+  factorio: 'com.factorio',
+};
 
 const EXEMPTIONS = [apps.factorio];
 
 function applyExemptions(profile) {
-  const exemptions = applicationBlacklist(EXEMPTIONS)
+  const exemptions = applicationBlacklist(...EXEMPTIONS);
 
   return visit(
     profile,
@@ -336,8 +336,8 @@ function applyExemptions(profile) {
 }
 
 const vscodeShortcuts = {
-  goToDefinition: 'f12'
-}
+  goToDefinition: 'f12',
+};
 
 // https://github.com/tekezo/Karabiner-Elements/issues/1293
 const secondLayerModifiers = [
