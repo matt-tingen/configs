@@ -188,12 +188,20 @@ const APPLE_EXTERNAL_US = {
     product_id: 620,
     vendor_id: 76,
   },
-  ignore: false,
-  manipulate_caps_lock_led: true,
   simple_modifications: [
     ...fromTo('f14', 'play_or_pause', 'consumer_key_code'),
     ...fromTo('f15', 'fastforward', 'consumer_key_code'),
   ],
+};
+
+// https://github.com/tekezo/Karabiner-Elements/issues/1547#issuecomment-456706361
+const UNNAMED_DEVICE = {
+  ...DEVICE_DEFAULTS,
+  identifiers: {
+    ...IDENTIFIER_DEFAULTS,
+    product_id: 34304,
+    vendor_id: 1452,
+  },
 };
 
 const PARAMETER_DEFAULTS = {
@@ -391,14 +399,14 @@ const DEFAULT_PROFILE = applyExemptions({
         ],
       },
       {
-        description: 'caps_lock without shift to escape',
+        description: 'caps_lock without right_shift to escape',
         manipulators: [
           {
             type: 'basic',
             from: {
               key_code: 'caps_lock',
               modifiers: {
-                mandatory: ['shift'],
+                mandatory: ['right_shift'],
                 optional: ['caps_lock'],
               },
             },
@@ -426,7 +434,7 @@ const DEFAULT_PROFILE = applyExemptions({
       },
     ],
   },
-  devices: [APPLE_INTERNAL_US, APPLE_EXTERNAL_US],
+  devices: [APPLE_INTERNAL_US, APPLE_EXTERNAL_US, UNNAMED_DEVICE],
   name: 'Default',
   selected: true,
 });
