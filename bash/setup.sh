@@ -17,3 +17,6 @@ HISTTIMEFORMAT="%a %F %I:%M:%S %p - " # Thu 2019-05-16 02:44:14 PM
 
 # https://github.com/zloirock/core-js/issues/548#issuecomment-495388335
 export ADBLOCK="1"
+
+# https://docs.brew.sh/Analytics#opting-out
+export HOMEBREW_NO_ANALYTICS=1
