@@ -18,6 +18,8 @@
 	cmd = code --wait --diff $LOCAL $REMOTE
 [custom]
 	basebranch = master
+[advice]
+	detachedHead = false
 [alias]
 	debug = !GIT_TRACE=1 git
 	s = status
