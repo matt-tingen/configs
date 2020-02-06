@@ -46,8 +46,9 @@
 	recent = "for-each-ref --count=12 --sort=-committerdate refs/heads/ --format=\"%(refname:short)\""
 	# Checkout nth most recently committed
 	cor = "!select br in $(git recent); do git co $br; break; done"
-	today = "!git log --since=midnight --author=\"$(git config user.name)\" --oneline"
-	yesterday = "!git log --since="yesterday.midnight" --until=midnight --author=\"$(git config user.name)\" --oneline"
+	logrecent = "!git log --branches --date='format:%R' --format='%Cgreen%ad%Creset %s' --author=\"$(git config user.name)\""
+	today = "logrecent --since=midnight"
+	yesterday = "logrecent --since="yesterday.midnight" --until=midnight"
 	msg = "log --format=%B -n 1"
 	wip = !sh -c 'git add . && git commit -nm \"WIP $1\"' -
 	# Undo a "WIP" commit, staging the changes
