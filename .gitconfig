@@ -31,7 +31,8 @@
 	co = checkout
 	c = commit
 	fix = commit --amend --no-edit
-	edit = commit --amend --only --no-verify
+	reword = commit --amend --only --no-verify
+	rw = reword
 	root = rev-parse --show-toplevel
 	d = difftool --gui --no-prompt
 	stashkeep = "!git stash && git stash apply"
