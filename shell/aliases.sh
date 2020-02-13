@@ -18,3 +18,4 @@ alias strip="awk '{printf $1}'"
 alias g="git"
 alias c="calc"
 alias history='history -t $HISTTIMEFORMAT'
+alias rgf='rg --files | rg'
