@@ -1,5 +1,6 @@
 {
-    "search.exclude": {
-        "pw/dict.txt": true
-    }
+  "search.exclude": {
+    "pw/dict.txt": true
+  },
+  "shellcheck.customArgs": ["--shell=ksh"]
 }

@@ -13,4 +13,4 @@ if [ -z "$config_node_path" ]; then
   config_node_path=$(nvm which $(cat $config_dir/.nvmrc))
 fi
 
-export PROMPT_COMMAND=prompt_command
+precmd_functions=(prompt_command)

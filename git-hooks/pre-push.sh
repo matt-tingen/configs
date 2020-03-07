@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 # Warn before pushing to protected branches
 # Bypass with git push --no-verify
 

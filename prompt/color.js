@@ -1,28 +1,18 @@
-const colorValues = {
-  black: 30,
-  red: 31,
-  green: 32,
-  yellow: 33,
-  blue: 34,
-  purple: 35,
-  cyan: 36,
-  white: 37,
-  gray: 90,
+// https://unix.stackexchange.com/questions/124407/what-color-codes-can-i-use-in-my-ps1-prompt/124409#124409
+const colorMap = {
+  purple: 'magenta',
+  gray: '008',
 };
 
-const RESET = '\\[\\e[00m\\]';
-const escapeSequence = (color, bold) => `\\[\\e[${bold ? 1 : 0};${color}m\\]`;
+const RESET = '%f%b';
+const escapeSequence = (color, bold) => `%{%F{${color}}%}${bold ? '%B' : ''}`;
 
 const format = (color, bold) => text => {
   if (!text) {
     return '';
   }
 
-  const colorValue = colorValues[color];
-
-  if (!colorValue) {
-    return text;
-  }
+  const colorValue = colorMap[color] || color;
 
   const prefix = escapeSequence(colorValue, bold);
   return prefix + text + RESET;

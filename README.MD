@@ -1,4 +1,4 @@
-# Bash
+# Shell
 
 ## Setup
 
@@ -11,17 +11,16 @@ echo 'npm run build' > .git/hooks/post-merge && chmod +x .git/hooks/post-merge
 
 See [Windows setup guide](./WINDOWS.md) for adjustments needed on Windows.
 
-## `.bash_profile`
+## `.zshenv`
 
 ```sh
 export config_dir=$HOME/Development/configs
-source "$config_dir/.bash_profile"
 ```
 
-## `.bashrc`
+## `.zshrc`
 
 ```sh
-source "$config_dir/.bashrc"
+source "$config_dir/.zshrc"
 ```
 
 # Git
