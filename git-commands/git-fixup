@@ -1,0 +1,4 @@
+#!/bin/zsh
+local target
+target=$(git fzc) || return
+git commit "$@" --fixup "$target"
