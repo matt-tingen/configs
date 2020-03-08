@@ -1,5 +1,7 @@
 export LSCOLORS=GxFxCxDxBxegedabagaced
 
+RPROMPT="%{%F{008}%}%D{%m/%d}%t"
+
 function prompt_command {
   if [ -d "$PWD" ]; then
     # Using nvm exec outputs a message from nvm before running node.
