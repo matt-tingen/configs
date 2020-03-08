@@ -12,7 +12,6 @@ if [ -x "$(command -v brew)" ]; then
     export PATH=/usr/local/bin:$PATH
 fi
 
-
 # Variables
 base_config=$HOME/.zshrc
 

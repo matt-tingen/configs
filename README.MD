@@ -56,14 +56,22 @@ ln -si $config_dir/DefaultKeyBinding.dict ~/Library/KeyBindings/DefaultKeyBindin
 
 # Tools
 
-Install:
-
-- [Homebrew](https://brew.sh/)
-- [nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Homebrew formulae:
+nvm:
 
 ```sh
+# https://github.com/nvm-sh/nvm/blob/master/README.md#manual-install
+export NVM_DIR="$HOME/.nvm" && (
+  git clone https://github.com/nvm-sh/nvm.git "$NVM_DIR"
+  cd "$NVM_DIR"
+  git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
+) && \. "$NVM_DIR/nvm.sh"
+```
+
+Homebrew:
+
+```sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+
 brew install \
 autojump \
 ripgrep \
