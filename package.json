@@ -6,6 +6,7 @@
   "author": "Matt Tingen <matt.tingen@gmail.com>",
   "scripts": {
     "build": "npm run build:karabiner",
-    "build:karabiner": "node --harmony util/karabinerConfig.js > karabiner/karabiner.json"
+    "build:karabiner": "node --harmony util/karabinerConfig.js > karabiner/karabiner.json",
+    "chmod": "chmod +x git-commands/git-*"
   }
 }
