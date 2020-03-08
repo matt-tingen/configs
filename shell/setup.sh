@@ -1,3 +1,5 @@
+autoload -Uz compinit && compinit
+
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 
 export NVM_DIR="$HOME/.nvm"
@@ -10,6 +12,7 @@ fi
 
 # Variables
 base_config=$HOME/.zshrc
+
 # http://man7.org/linux/man-pages/man3/strftime.3.html
 HISTTIMEFORMAT="%a %F %I:%M:%S %p - " # Thu 2019-05-16 02:44:14 PM
 
