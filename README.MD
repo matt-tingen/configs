@@ -68,5 +68,8 @@ brew install \
 autojump \
 ripgrep \
 jq \
-shellcheck
+shellcheck \
+fzf
+
+/usr/local/opt/fzf/install --key-bindings --completion --no-update-rc
 ```

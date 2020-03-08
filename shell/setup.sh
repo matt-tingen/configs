@@ -1,5 +1,6 @@
 autoload -Uz compinit && compinit
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 
 export NVM_DIR="$HOME/.nvm"
