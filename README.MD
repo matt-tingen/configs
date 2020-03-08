@@ -53,3 +53,20 @@ ln -si $config_dir/karabiner ~/.config
 mkdir -p ~/Library/KeyBindings
 ln -si $config_dir/DefaultKeyBinding.dict ~/Library/KeyBindings/DefaultKeyBinding.dict
 ```
+
+# Tools
+
+Install:
+
+- [Homebrew](https://brew.sh/)
+- [nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+
+Homebrew formulae:
+
+```sh
+brew install \
+autojump \
+ripgrep \
+jq \
+shellcheck
+```
