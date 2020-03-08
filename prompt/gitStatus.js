@@ -1,6 +1,7 @@
 const git = require('./git');
 const fs = require('fs');
 const path = require('path');
+const { checkCache, updateCache } = require('./cache');
 
 // https://git-scm.com/docs/git-status#_branch_headers
 const parseStatus = message => {
@@ -122,18 +123,28 @@ const status = async () => {
     return null;
   }
 
+  const cached = await checkCache(message);
+
+  if (cached) {
+    return cached;
+  }
+
   const status = parseStatus(message);
 
   if (!status.branch.empty) {
     status.branch.hash = await shortenHash(status.branch.hash);
   }
 
-  return {
+  const output = {
     ...status,
     tag: await getTag(),
     notes: await getNotes(),
     state: await getState(),
   };
+
+  void updateCache(message, output);
+
+  return output;
 };
 
 module.exports = status;
