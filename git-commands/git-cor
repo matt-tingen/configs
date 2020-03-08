@@ -1,0 +1,4 @@
+#!/bin/zsh
+local target
+target=$(git fzb) || return
+git checkout "$@" "$target"
