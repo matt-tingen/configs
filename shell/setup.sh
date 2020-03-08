@@ -12,6 +12,10 @@ if [ -x "$(command -v brew)" ]; then
     export PATH=/usr/local/bin:$PATH
 fi
 
+# Including this in the path allows git to effectively create automatic aliases
+# for `git-X` executables so they can be run with `git-X`.
+export PATH=$config_dir/git-commands:$PATH
+
 # Variables
 base_config=$HOME/.zshrc
 

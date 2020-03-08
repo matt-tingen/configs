@@ -44,9 +44,7 @@
 	rb = "!git rbn $(git l | wc -l | xargs)"
 	pushup = "!git push -u origin `git_branch`"
 	# Display recently committed branches and prompt for one to checkout
-	recent = "for-each-ref --count=12 --sort=-committerdate refs/heads/ --format=\"%(refname:short)\""
-	# Checkout nth most recently committed
-	cor = "!select br in $(git recent); do git co $br; break; done"
+	recent = !sh -c 'git for-each-ref --count=\"${1:-12}\" --sort=-committerdate refs/heads/ --format=\"%(refname:short)\"' -
 	logrecent = "!git log --branches --date='format:%R' --format='%Cgreen%ad%Creset %s' --author=\"$(git config user.name)\""
 	today = "logrecent --since=midnight"
 	yesterday = "logrecent --since="yesterday.midnight" --until=midnight"
@@ -63,11 +61,10 @@
 	# Claim future changes in the repo as personal changes
 	claimrepo = "!git config --replace-all user.email \"$(git baseconfig --get user.email)\""
 	claim = "!git claimbranch && git claimrepo"
-	findcommit = !sh -c 'git ls --no-abbrev-commit | grep -i \"$1\" | head -1 | cut -d\" \" -f 1' -
 	findcommitinbranch = !sh -c 'git l --no-abbrev-commit | grep -i \"$1\" | head -1 | cut -d\" \" -f 1' -
 	fixup = !sh -c 'git c --fixup $(git findcommitinbranch $1)' -
-	# Checkout by find
-	cf = !sh -c 'git checkout $(git findcommit $1)' -
+	# Fuzzy find branch
+	fzb = !sh -c 'git recent 50 | fzf --preview \"git --no-pager l {}\"' -
 
 
 	# The base branch for a repo is used by git aliases for e.g. abbreviated
