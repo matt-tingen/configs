@@ -39,3 +39,8 @@ HISTSIZE=2000
 
 setopt CORRECT
 setopt CORRECT_ALL
+
+# Key-bindings
+bindkey "^[[H" beginning-of-line
+bindkey "^[[F" end-of-line
+bindkey "^[[3~" delete-char
