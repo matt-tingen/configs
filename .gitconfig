@@ -26,7 +26,7 @@
 	ls = log --oneline
 	# Show child commits leading to the specified commitish
 	lsto = "! git ls --reverse --ancestry-path HEAD^..$1"
-	l = "!git log \"$(git basebranch)\".. --oneline"
+	l = !sh -c 'git log --oneline \"$(git basebranch)\"..\"${1}\"' -
 	base = "!git co \"$(git basebranch)\""
 	co = checkout
 	c = commit
