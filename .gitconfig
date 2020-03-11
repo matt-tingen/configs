@@ -64,7 +64,7 @@
 	# Fuzzy find branch
 	fzb = !sh -c 'git recent 50 | fzf --preview \"git --no-pager l {}\"' -
 	# Fuzzy find commit
-	fzc = !sh -c 'git --no-pager l --format=\"%H %s\" | fzf --with-nth 2.. --preview \"git --no-pager show --color=always {1}\" | awk \"{print \\$1}\"' -
+	fzc = !sh -c 'git --no-pager l HEAD --format=\"%H %s\" | fzf --with-nth 2.. --preview \"git --no-pager show --color=always {1}\" | awk \"{print \\$1}\"' -
 	empty = commit --allow-empty
 
 	# The base branch for a repo is used by git aliases for e.g. abbreviated
