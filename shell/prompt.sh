@@ -1,6 +1,6 @@
 export LSCOLORS=GxFxCxDxBxegedabagaced
 
-RPROMPT="%{%F{008}%}%D{%m/%d}%t"
+RPROMPT="%{%F{008}%}%D{%m/%d} %t"
 
 prompt_command_node=$(cd $config_dir && echo $(nodenv which node))
 
