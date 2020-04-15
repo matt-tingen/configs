@@ -10,7 +10,7 @@ function prompt_command {
     # https://github.com/ouchxp/nodenv-nvmrc/issues/5
     export PS1=$(eval $prompt_command_node $config_dir/prompt)
   else
-    export PS1="\w [\[\e[31m\]ENOENT\[\e[m\]] "
+    export PS1="%F{red}ENOENT%f "
   fi
 }
 
