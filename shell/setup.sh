@@ -1,8 +1,11 @@
 autoload -Uz compinit && compinit
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 
+if [ -d "$PWD" ]; then
+    [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+    eval "$(nodenv init -)"
+fi
 
 if [ -x "$(command -v brew)" ]; then
     export PATH=/usr/local/bin:$PATH
@@ -11,8 +14,6 @@ fi
 # Including this in the path allows git to effectively create automatic aliases
 # for `git-X` executables so they can be run with `git-X`.
 export PATH=$config_dir/git-commands:$PATH
-
-eval "$(nodenv init -)"
 
 # Variables
 base_config=$HOME/.zshrc
