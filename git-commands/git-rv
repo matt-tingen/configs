@@ -1,0 +1,4 @@
+#!/bin/zsh
+local target
+target=$(git fzc) || return
+git revert --no-edit "$target"
