@@ -59,11 +59,14 @@ Homebrew:
 ```sh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
+brew tap ouchxp/nodenv
+
 brew install \
 autojump \
 ripgrep \
 jq \
 nodenv \
+nodenv-nvmrc \
 shellcheck \
 fzf
 
