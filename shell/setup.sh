@@ -26,7 +26,6 @@ export HOMEBREW_NO_ANALYTICS=1
 # History
 # https://scriptingosx.com/2019/06/moving-to-zsh-part-3-shell-options/
 setopt EXTENDED_HISTORY
-setopt SHARE_HISTORY
 setopt APPEND_HISTORY
 setopt HIST_REDUCE_BLANKS
 # http://man7.org/linux/man-pages/man3/strftime.3.html
