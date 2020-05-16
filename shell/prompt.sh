@@ -2,9 +2,13 @@ export LSCOLORS=GxFxCxDxBxegedabagaced
 
 RPROMPT="%{%F{008}%}%D{%m/%d}%t"
 
+prompt_command_node=$(cd $config_dir && echo $(nodenv which node))
+
 function prompt_command {
   if [ -d "$PWD" ]; then
-    export PS1=$(eval node $config_dir/prompt)
+    # `NODENV_VERSION` cannot be used because of
+    # https://github.com/ouchxp/nodenv-nvmrc/issues/5
+    export PS1=$(eval $prompt_command_node $config_dir/prompt)
   else
     export PS1="\w [\[\e[31m\]ENOENT\[\e[m\]] "
   fi
