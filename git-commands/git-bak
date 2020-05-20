@@ -1,0 +1,5 @@
+#!/bin/zsh
+
+local branch=$(git branch --show-current) || return
+
+git branch -c "$branch-bak"
