@@ -10,7 +10,7 @@ alias .......="cd ../../../../../.."
 
 alias localip="ipconfig getifaddr en0"
 alias ip="curl -s http://checkip.dyndns.org/ | sed 's/[a-zA-Z<>/ :]//g'"
-alias refreshConfig='source $base_config'
+alias refreshConfig='exec zsh -l'
 alias config='e $config_dir'
 alias trim="awk '{\$1=\$1};1'"
 # Remove trailing new line
