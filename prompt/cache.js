@@ -1,11 +1,11 @@
 const fs = require('fs').promises;
 const path = require('path');
-const os = require('os');
 
-const ENABLED = process.env.DISABLE_PROMPT_CACHE !== '1';
+// The cache has a bug where it does not invalidate when aborting e.g. rebase.
+const ENABLED = false; // process.env.DISABLE_PROMPT_CACHE !== '1';
 const CACHE_FILE = path.resolve(__dirname, '.cache');
 
-const checkCache = async status => {
+const checkCache = async (status) => {
   if (!ENABLED) {
     return null;
   }
