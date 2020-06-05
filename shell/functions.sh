@@ -61,3 +61,7 @@ e(){
 		command code "$@"
 	fi
 }
+
+cdr(){
+	cd $(git root)
+}
