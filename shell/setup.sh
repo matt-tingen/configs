@@ -36,8 +36,8 @@ HISTFILE=$HOME/.zsh_history
 SAVEHIST=5000
 HISTSIZE=2000
 
+# Correct commands
 setopt CORRECT
-setopt CORRECT_ALL
 
 # Key-bindings
 bindkey "^[[H" beginning-of-line
