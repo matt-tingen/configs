@@ -2,13 +2,13 @@ autoload -Uz compinit && compinit
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+if [ -x "$(command -v brew)" ]; then
+    export PATH=/usr/local/bin:$PATH
+fi
+
 if [ -d "$PWD" ]; then
     [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
     eval "$(nodenv init -)"
-fi
-
-if [ -x "$(command -v brew)" ]; then
-    export PATH=/usr/local/bin:$PATH
 fi
 
 # Including this in the path allows git to effectively create automatic aliases
