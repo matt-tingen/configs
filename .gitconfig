@@ -35,7 +35,7 @@
 	rw = reword
 	root = rev-parse --show-toplevel
 	d = difftool --gui --no-prompt
-	stashkeep = "!git stash && git stash apply"
+	stashkeep = "!git stash -u && git stash apply"
 	# Rebase n most recent commits
 	rbn = "!sh -c \"git rebase -i @~$1\" -"
 	# Rebase from a specific commit forward
