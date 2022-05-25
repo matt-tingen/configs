@@ -17,9 +17,11 @@
 [difftool "code"]
 	cmd = code --wait --diff $LOCAL $REMOTE
 [custom]
-	basebranch = master
+	basebranch = main
 [advice]
 	detachedHead = false
+[init]
+	defaultBranch = main
 [alias]
 	debug = !GIT_TRACE=1 git
 	s = status
