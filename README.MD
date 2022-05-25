@@ -47,6 +47,8 @@ Config files can be linked to their corresponding directory:
 
 ```sh
 ln -si $config_dir/.prettierrc ~/.prettierrc
+ln -si $config_dir/vscode/settings.json ~/Library/Application\ Support/Code/User/settings.json
+ln -si $config_dir/vscode/keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json
 ln -si $config_dir/karabiner ~/.config
 mkdir -p ~/Library/KeyBindings
 ln -si $config_dir/DefaultKeyBinding.dict ~/Library/KeyBindings/DefaultKeyBinding.dict

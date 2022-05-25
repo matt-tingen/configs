@@ -1,0 +1,185 @@
+{
+  // #region Telemetry
+  "ecdc.collectTelemetry": false,
+  "gitlens.advanced.telemetry.enabled": false,
+  "partialDiff.enableTelemetry": false,
+  "redhat.telemetry.enabled": false,
+  "telemetry.telemetryLevel": "off",
+  // #endregion
+
+  // #region Workarounds
+  // https://github.com/microsoft/TypeScript/issues/47302
+  "javascript.preferences.jsxAttributeCompletionStyle": "none",
+  "typescript.preferences.jsxAttributeCompletionStyle": "none",
+  // #endregion
+
+  // #region Configuration
+  "files.exclude": {
+    ".vscode/.chrome": true,
+    ".*cache": true
+  },
+  "search.exclude": {
+    ".ignore/**": true,
+    "**/bower_components": false,
+    "**/bower_components/**": true,
+    "**/node_modules": false,
+    "**/node_modules/**": true,
+    "**/.*cache": true,
+    "**/dist/**": true,
+    "**/tsconfig.tsbuildinfo": true
+  },
+  "colorInfo.languages": [
+    {
+      "selector": "css",
+      "colors": "css"
+    },
+    {
+      "selector": "sass",
+      "colors": "css"
+    },
+    {
+      "selector": "scss",
+      "colors": "css"
+    },
+    {
+      "selector": "less",
+      "colors": "css"
+    }
+  ],
+  "files.associations": {
+    ".*rc": "jsonc",
+    ".sequelizerc": "javascript",
+    ".pylintrc": "ini",
+    ".djsrc": "ini",
+    ".bashrc": "shellscript",
+    ".zshrc": "shellscript",
+    ".envrc": "shellscript",
+    ".npmrc": "plaintext",
+    ".nvmrc": "plaintext",
+    ".yarnrc": "plaintext",
+    ".lnk": "xml"
+  },
+  "emmet.includeLanguages": {
+    "postcss": "css"
+  },
+  "emmet.syntaxProfiles": {
+    "postcss": "css"
+  },
+  "terminal.external.osxExec": "Iterm.app",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "workbench.editorAssociations": {
+    "git-rebase-todo": "default"
+  },
+  // #endregion
+
+  // #region Language-Specific
+  "[git-commit]": {
+    "editor.rulers": [50, 72],
+    "rewrap.wrappingColumn": 72
+  },
+  "[git-rebase]": {
+    "editor.rulers": [50, 72]
+  },
+  "[plaintext]": {
+    "editor.wordWrap": "bounded",
+    "editor.wrappingIndent": "same",
+    "editor.wordWrapColumn": 120
+  },
+  // #endregion
+
+  "editor.tabSize": 2,
+  "editor.tokenColorCustomizations": {
+    "[Default Dark+]": {
+      "textMateRules": [
+        {
+          "scope": "meta.decorator",
+          "settings": {
+            "fontStyle": "italic"
+          }
+        },
+        {
+          "scope": "punctuation.decorator",
+          "settings": {
+            "foreground": "#569CD6"
+          }
+        },
+        // https://github.com/microsoft/vscode/issues/97373#issuecomment-626832698
+        {
+          "scope": ["variable.other.constant", "variable.other.enummember"],
+          "settings": { "foreground": "#9CDCFE" }
+        }
+      ]
+    }
+  },
+  "explorer.autoReveal": false,
+  "workbench.sideBar.location": "left",
+  "files.trimTrailingWhitespace": true,
+  "terminal.integrated.fontSize": 12,
+  "editor.rulers": [80, 120],
+  "rewrap.wrappingColumn": 80,
+
+  "git.confirmSync": false,
+  "git.enableSmartCommit": true,
+
+  "editor.formatOnSave": true,
+  "gitlens.advanced.messages": {
+    "suppressCommitHasNoPreviousCommitWarning": false,
+    "suppressCommitNotFoundWarning": false,
+    "suppressFileNotUnderSourceControlWarning": false,
+    "suppressGitVersionWarning": false,
+    "suppressLineUncommittedWarning": false,
+    "suppressNoRepositoryWarning": false
+  },
+  "python.disablePromptForFeatures": ["pylint"],
+  "extensions.ignoreRecommendations": false,
+  "git.autofetch": true,
+  "workbench.statusBar.feedback.visible": false,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "breadcrumbs.enabled": true,
+  "workbench.startupEditor": "newUntitledFile",
+  "scrollkey.line1": 5,
+  "scrollkey.line2": 20,
+  "scrollkey.line3": 100,
+  "workbench.editor.showTabs": true,
+  "cssModules.camelCase": true,
+  "window.title": "${rootName}${separator}${activeEditorMedium}",
+  "editor.suggest.showKeywords": false,
+  "prettier.requireConfig": true,
+  "editor.gotoLocation.multipleDeclarations": "goto",
+  "editor.gotoLocation.multipleImplementations": "goto",
+  "editor.acceptSuggestionOnCommitCharacter": false,
+  "merge-conflict.diffViewPosition": "Below",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "editor.minimap.size": "fill",
+  "editor.minimap.enabled": true,
+  "editor.scrollPredominantAxis": true,
+  "emmet.showAbbreviationSuggestions": false,
+  "emmet.showExpandedAbbreviation": "never",
+  "workbench.editor.untitled.hint": "hidden",
+  "terminal.integrated.tabs.enabled": false,
+  "editor.bracketPairColorization.enabled": true,
+  "eslint.rules.customizations": [
+    { "rule": "*", "severity": "warn" },
+    { "rule": "padding-line-between-statements", "severity": "off" },
+    { "rule": "import/order", "severity": "off" },
+    { "rule": "arrow-body-style", "severity": "off" }
+  ],
+  "workbench.editor.languageDetection": false,
+  "editor.guides.bracketPairs": true,
+  "scm.showActionButton": false,
+  "workbench.editor.navigationScope": "editor",
+  "editor.guides.indentation": true,
+  "jumpy.primaryCharset": "qwerasdfzxcvuiopjklnmtyghb",
+  "jumpy.display.backgroundColor": "#eee",
+  "jumpy.display.color": "#444",
+  "jest.autoEnable": false,
+  "workbench.editor.decorations.badges": true,
+  "workbench.editor.decorations.colors": false,
+  "window.dialogStyle": "native",
+  "editor.snippetSuggestions": "none",
+  "problems.sortOrder": "position",
+  "editor.suggest.showSnippets": false,
+  "git.showUnpublishedCommitsButton": "never"
+}

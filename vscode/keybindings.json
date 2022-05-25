@@ -1,0 +1,197 @@
+[
+  {
+    "key": "cmd+k cmd+f",
+    "command": "editor.action.formatSelection",
+    "when": "editorHasDocumentSelectionFormattingProvider && editorHasSelection && editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "cmd+k cmd+f",
+    "command": "editor.action.formatDocument",
+    "when": "editorHasDocumentFormattingProvider && !editorHasSelection && editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "shift+cmd+i",
+    "command": "editor.action.insertCursorAtEndOfEachLineSelected",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "alt+shift+f",
+    "command": "-editor.action.formatDocument",
+    "when": "editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "alt+cmd+/",
+    "command": "editor.action.blockComment",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "cmd+k cmd+u",
+    "command": "extension.changeCase.upper",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "cmd+k cmd+l",
+    "command": "extension.changeCase.lower",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+r",
+    "command": "workbench.action.debug.restart",
+    "when": "inDebugMode"
+  },
+  {
+    "key": "ctrl+alt+enter",
+    "command": "workbench.action.terminal.new"
+  },
+  {
+    "key": "ctrl+shift+`",
+    "command": "-workbench.action.terminal.new"
+  },
+  {
+    "key": "cmd+o",
+    "command": "workbench.action.files.openFileFolder",
+    "when": "!editorIsOpen"
+  },
+  {
+    "key": "cmd+o",
+    "command": "workbench.files.action.showActiveFileInExplorer",
+    "when": "editorIsOpen"
+  },
+  {
+    "key": "cmd+k n",
+    "command": "fileutils.newFile"
+  },
+  {
+    "key": "ctrl+cmd+w",
+    "command": "-workbench.action.toggleTabsVisibility"
+  },
+  {
+    "key": "cmd+k cmd+c",
+    "command": "extension.changeCase.commands"
+  },
+  {
+    "key": "alt+down",
+    "command": "-indentation-level-movement.moveDown",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "alt+right",
+    "command": "-indentation-level-movement.moveRight",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "alt+up",
+    "command": "-indentation-level-movement.moveUp",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "shift+alt+down",
+    "command": "-indentation-level-movement.selectDown"
+  },
+  {
+    "key": "shift+alt+up",
+    "command": "-indentation-level-movement.selectUp"
+  },
+  {
+    "key": "ctrl+cmd+up",
+    "command": "indentation-level-movement.moveUp",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+shift+cmd+down",
+    "command": "indentation-level-movement.selectDown",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+shift+cmd+up",
+    "command": "indentation-level-movement.selectUp",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+cmd+down",
+    "command": "indentation-level-movement.moveDown",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "cmd+k n",
+    "command": "explorer.newFile",
+    "when": "filesExplorerFocus"
+  },
+  {
+    "key": "cmd+k f",
+    "command": "-workbench.action.closeFolder"
+  },
+  {
+    "key": "cmd+shift+j",
+    "command": "extension.jumpy-exit",
+    "when": "editorTextFocus && jumpy.isInJumpMode"
+  },
+  {
+    "key": "cmd+shift+j",
+    "command": "extension.jumpy-enter",
+    "when": "editorTextFocus && !jumpy.isInJumpMode"
+  },
+  {
+    "key": "Escape",
+    "command": "extension.jumpy-exit",
+    "when": "editorTextFocus && jumpy.isInJumpMode"
+  },
+  {
+    "key": "alt+q",
+    "command": "-extension.jumpy-exit",
+    "when": "editorTextFocus && jumpy.isInJumpMode"
+  },
+  {
+    "key": "alt+q",
+    "command": "-extension.jumpy-enter",
+    "when": "editorTextFocus && !jumpy.isInJumpMode"
+  },
+  /*
+      Extension `when` contexts are not currently exposed (https://github.com/Microsoft/vscode/issues/10471)
+      This shortcut overrides `workbench.action.keepEditor` without the `when`.
+      {
+        "key": "cmd+k enter",
+        "command": "gitlens.openWorkingFile",
+        "when": "gitlens:activeIsRevision"
+      },
+    */
+  // This entry has to be after any chords.
+  // https://github.com/Microsoft/vscode/issues/43623#issuecomment-365640987
+  {
+    "key": "cmd+k",
+    "command": "workbench.action.terminal.clear",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "alt+k",
+    "command": "editor.action.marker.next",
+    "when": "editorFocus"
+  },
+  {
+    "key": "alt+f8",
+    "command": "-editor.action.marker.next",
+    "when": "editorFocus"
+  },
+  {
+    "key": "alt+i",
+    "command": "editor.action.marker.prev",
+    "when": "editorFocus"
+  },
+  {
+    "key": "shift+alt+f8",
+    "command": "-editor.action.marker.prev",
+    "when": "editorFocus"
+  },
+  {
+    "key": "alt+cmd+j",
+    "command": "workbench.action.togglePanel"
+  },
+  {
+    "key": "cmd+j",
+    "command": "-workbench.action.togglePanel"
+  },
+  {
+    "key": "cmd+j",
+    "command": "workbench.action.terminal.focus"
+  }
+]
