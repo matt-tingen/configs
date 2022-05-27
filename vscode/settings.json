@@ -181,5 +181,6 @@
   "editor.snippetSuggestions": "none",
   "problems.sortOrder": "position",
   "editor.suggest.showSnippets": false,
-  "git.showUnpublishedCommitsButton": "never"
+  "git.showUnpublishedCommitsButton": "never",
+  "window.zoomLevel": 1
 }
