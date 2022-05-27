@@ -182,5 +182,6 @@
   "problems.sortOrder": "position",
   "editor.suggest.showSnippets": false,
   "git.showUnpublishedCommitsButton": "never",
-  "window.zoomLevel": 1
+  "window.zoomLevel": 1,
+  "window.confirmBeforeClose": "keyboardOnly"
 }
