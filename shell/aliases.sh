@@ -15,6 +15,7 @@ alias config='e $config_dir'
 alias trim="awk '{\$1=\$1};1'"
 # Remove trailing new line
 alias strip="awk '{printf $1}'"
+alias joinspace="paste -sd \" \" -"
 alias g="git"
 alias c="calc"
 alias history='history -t $HISTTIMEFORMAT'
