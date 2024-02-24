@@ -3,7 +3,21 @@
   // Extension identifier format: ${publisher}.${name}. Example: vscode.csharp
 
   // List of extensions which should be recommended for users of this workspace.
-  "recommendations": [],
+  "recommendations": [
+    "wmaurer.change-case",
+    "mikestead.dotenv",
+    "mitchdenny.ecdc",
+    "dbaeumer.vscode-eslint",
+    "sleistner.vscode-fileutils",
+    "wmaurer.vscode-jumpy",
+    "ryu1kn.partial-diff",
+    "esbenp.prettier-vscode",
+    "prisma.prisma",
+    "stkb.rewrap",
+    "emeraldwalk.runonsave",
+    "adpyke.vscode-sql-formatter",
+    "dakara.transformer"
+  ],
   // List of extensions recommended by VS Code that should not be recommended for users of this workspace.
   "unwantedRecommendations": ["dbaeumer.jshint", "hookyqr.beautify"]
 }
