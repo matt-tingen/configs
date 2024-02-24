@@ -183,5 +183,7 @@
   "editor.suggest.showSnippets": false,
   "git.showUnpublishedCommitsButton": "never",
   "window.zoomLevel": 1,
-  "window.confirmBeforeClose": "keyboardOnly"
+  "window.confirmBeforeClose": "keyboardOnly",
+  "scm.showOutgoingChanges": "never",
+  "scm.showIncomingChanges": "never"
 }
