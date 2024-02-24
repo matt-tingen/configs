@@ -2,9 +2,7 @@ autoload -Uz compinit && compinit
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-if [ -x "$(command -v brew)" ]; then
-    export PATH=/usr/local/bin:$PATH
-fi
+export PATH="/opt/homebrew/bin:$PATH"
 
 if [ -d "$PWD" ]; then
     [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
