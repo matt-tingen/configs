@@ -8,9 +8,13 @@
 	cleanup = strip
 [push]
 	default = current
+[merge]
+	conflictstyle = diff3
 [rebase]
 	missingCommitsCheck = error
 	autoSquash = true
+[rerere]
+	enabled = true
 [diff]
 	tool = code
 	guitool = code
