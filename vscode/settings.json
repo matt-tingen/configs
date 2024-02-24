@@ -140,7 +140,7 @@
   "scrollkey.line1": 5,
   "scrollkey.line2": 20,
   "scrollkey.line3": 100,
-  "workbench.editor.showTabs": true,
+  "workbench.editor.showTabs": "multiple",
   "cssModules.camelCase": true,
   "window.title": "${rootName}${separator}${activeEditorMedium}",
   "editor.suggest.showKeywords": false,
@@ -150,14 +150,14 @@
   "editor.acceptSuggestionOnCommitCharacter": false,
   "merge-conflict.diffViewPosition": "Below",
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": "explicit"
   },
   "editor.minimap.size": "fill",
   "editor.minimap.enabled": true,
   "editor.scrollPredominantAxis": true,
   "emmet.showAbbreviationSuggestions": false,
   "emmet.showExpandedAbbreviation": "never",
-  "workbench.editor.untitled.hint": "hidden",
+  "workbench.editor.empty.hint": "hidden",
   "terminal.integrated.tabs.enabled": false,
   "editor.bracketPairColorization.enabled": true,
   "eslint.rules.customizations": [
