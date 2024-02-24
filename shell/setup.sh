@@ -22,6 +22,7 @@ export ADBLOCK="1"
 
 # https://docs.brew.sh/Analytics#opting-out
 export HOMEBREW_NO_ANALYTICS=1
+export DO_NOT_TRACK=1
 
 # History
 # https://scriptingosx.com/2019/06/moving-to-zsh-part-3-shell-options/
