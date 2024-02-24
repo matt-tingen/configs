@@ -23,7 +23,7 @@ source "$config_dir/.zshrc"
 
 # Git
 
-## `.git_config`
+## `.gitconfig`
 
 ```ini
 [include]
