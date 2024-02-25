@@ -25,6 +25,7 @@
     "**/node_modules": false,
     "**/node_modules/**": true,
     "**/.*cache": true,
+    "**/jest-cache": true,
     "**/dist/**": true,
     "**/tsconfig.tsbuildinfo": true
   },
@@ -178,6 +179,7 @@
   "workbench.editor.decorations.badges": true,
   "workbench.editor.decorations.colors": false,
   "window.dialogStyle": "native",
+  "window.commandCenter": false,
   "editor.snippetSuggestions": "none",
   "problems.sortOrder": "position",
   "editor.suggest.showSnippets": false,
