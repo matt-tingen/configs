@@ -66,6 +66,7 @@ brew tap ouchxp/nodenv
 brew install \
 autojump \
 ripgrep \
+fd \
 jq \
 nodenv \
 nodenv-nvmrc \
