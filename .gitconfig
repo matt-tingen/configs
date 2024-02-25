@@ -50,7 +50,7 @@
 	rb = "!git rbn $(git l | wc -l | xargs)"
 	pushup = "!git push -u origin `git_branch`"
 	# Display recently committed branches
-	recent = !sh -c 'git for-each-ref --count=\"${1:-12}\" --sort=-committerdate refs/heads/ --format=\"%(refname:short)\"' -
+	recent = !sh -c 'git for-each-ref --count=\"${1:-12}\" --exclude="refs/heads/bak-*" --sort=-committerdate refs/heads/ --format=\"%(refname:short)\"' -
 	logrecent = "!git log --branches --date='format:%R' --format='%Cgreen%ad%Creset %s' --author=\"$(git config user.name)\""
 	today = "logrecent --since=midnight"
 	yesterday = "logrecent --since="yesterday.midnight" --until=midnight"
