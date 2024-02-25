@@ -65,3 +65,19 @@ e(){
 cdr(){
 	cd $(git root)
 }
+
+# Open the package.json for the specified package
+browsepackage() {
+	if [ -z "$1" ]; then
+		echo "Usage: browsepackage [package_name]" >&2
+		return 1
+	fi
+
+	local file="$(git root)/node_modules/$1/package.json"
+
+	if [ -f "$file" ]; then
+		e "$file"
+	else
+		echo "$1 is not installed in this repo."
+	fi
+}
