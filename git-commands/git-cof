@@ -1,0 +1,4 @@
+#!/bin/zsh
+local target
+target=$(git --no-pager branch --format='%(refname:short)' | fzf) || return
+git checkout "$@" "$target"
