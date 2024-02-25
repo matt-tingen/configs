@@ -1,5 +1,6 @@
 #!/bin/zsh
 
 local branch=$(git branch --show-current) || return
+local timestamp=$(date +"%Y-%m-%dT%H-%M-%S")
 
-git branch -c "$branch-bak"
+git branch -c "bak-$branch-$timestamp"

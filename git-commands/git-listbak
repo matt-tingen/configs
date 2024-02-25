@@ -2,4 +2,4 @@
 
 local branch=$(git branch --show-current) || return
 
-git branch -D "$branch-bak"
+git branch --list "bak-$branch-*"
