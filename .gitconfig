@@ -33,6 +33,8 @@
 	# Show child commits leading to the specified commitish
 	lsto = "! git ls --reverse --ancestry-path HEAD^..$1"
 	l = !sh -c 'git log --oneline \"$(git basebranch)\"..\"${1}\"' -
+	# Log files changed since the base branch
+	lf = !sh -c 'git show --name-only --pretty=\"format:\" \"$(git basebranch)\"..\"${1}\"' -
 	base = "!git co \"$(git basebranch)\""
 	co = checkout
 	c = commit
