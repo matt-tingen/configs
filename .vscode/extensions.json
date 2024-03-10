@@ -19,7 +19,8 @@
     "dakara.transformer",
     "bibhasdn.unique-lines",
     "jgclark.vscode-todo-highlight",
-    "eamodio.gitlens"
+    "eamodio.gitlens",
+    "wmaurer.vscode-jumpy"
   ],
   // List of extensions recommended by VS Code that should not be recommended for users of this workspace.
   "unwantedRecommendations": ["dbaeumer.jshint", "hookyqr.beautify"]

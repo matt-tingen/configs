@@ -128,7 +128,7 @@
   },
   {
     "key": "cmd+shift+j",
-    "command": "extension.jumpy-enter",
+    "command": "extension.jumpy-word",
     "when": "editorTextFocus && !jumpy.isInJumpMode"
   },
   {
@@ -136,16 +136,7 @@
     "command": "extension.jumpy-exit",
     "when": "editorTextFocus && jumpy.isInJumpMode"
   },
-  {
-    "key": "alt+q",
-    "command": "-extension.jumpy-exit",
-    "when": "editorTextFocus && jumpy.isInJumpMode"
-  },
-  {
-    "key": "alt+q",
-    "command": "-extension.jumpy-enter",
-    "when": "editorTextFocus && !jumpy.isInJumpMode"
-  },
+
   /*
       Extension `when` contexts are not currently exposed (https://github.com/Microsoft/vscode/issues/10471)
       This shortcut overrides `workbench.action.keepEditor` without the `when`.
