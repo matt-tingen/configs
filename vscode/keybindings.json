@@ -124,17 +124,17 @@
   {
     "key": "cmd+shift+j",
     "command": "extension.jumpy-exit",
-    "when": "editorTextFocus && jumpy.isInJumpMode"
+    "when": "editorTextFocus && jumpy.isJumpyMode"
   },
   {
     "key": "cmd+shift+j",
     "command": "extension.jumpy-word",
-    "when": "editorTextFocus && !jumpy.isInJumpMode"
+    "when": "editorTextFocus && !jumpy.isJumpyMode"
   },
   {
     "key": "Escape",
     "command": "extension.jumpy-exit",
-    "when": "editorTextFocus && jumpy.isInJumpMode"
+    "when": "editorTextFocus && jumpy.isJumpyMode"
   },
 
   /*
