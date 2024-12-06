@@ -4,7 +4,7 @@
 
 ```sh
 cd configs
-nodenv install
+mise install
 npm run build
 echo 'npm run build' > .git/hooks/post-merge && chmod +x .git/hooks/post-merge
 ```
@@ -60,16 +60,13 @@ Homebrew:
 
 ```sh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-
-brew tap ouchxp/nodenv
+curl https://mise.run | sh
 
 brew install \
 autojump \
 ripgrep \
 fd \
 jq \
-nodenv \
-nodenv-nvmrc \
 shellcheck \
 fzf
 
