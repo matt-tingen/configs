@@ -20,6 +20,7 @@
   },
   "search.exclude": {
     ".ignore/**": true,
+    "**/CHANGELOG.md": true,
     "**/bower_components": false,
     "**/bower_components/**": true,
     "**/node_modules": false,
@@ -86,6 +87,14 @@
     "editor.wrappingIndent": "same",
     "editor.wordWrapColumn": 120
   },
+  "[markdown]": {
+    // https://github.com/microsoft/vscode/issues/165232#issuecomment-1304203167
+    "editor.bracketPairColorization.enabled": false
+  },
+  "[graphql]": {
+    "editor.rulers": [120],
+    "rewrap.wrappingColumn": 120
+  },
   // #endregion
 
   "editor.tabSize": 2,
@@ -144,7 +153,6 @@
   "workbench.editor.showTabs": "multiple",
   "cssModules.camelCase": true,
   "window.title": "${rootName}${separator}${activeEditorMedium}",
-  "editor.suggest.showKeywords": false,
   "prettier.requireConfig": true,
   "editor.gotoLocation.multipleDeclarations": "goto",
   "editor.gotoLocation.multipleImplementations": "goto",
@@ -154,7 +162,6 @@
     "source.fixAll.eslint": "explicit"
   },
   "editor.minimap.size": "fill",
-  "editor.minimap.enabled": true,
   "editor.scrollPredominantAxis": true,
   "emmet.showAbbreviationSuggestions": false,
   "emmet.showExpandedAbbreviation": "never",
@@ -165,7 +172,8 @@
     { "rule": "*", "severity": "warn" },
     { "rule": "padding-line-between-statements", "severity": "off" },
     { "rule": "import/order", "severity": "off" },
-    { "rule": "arrow-body-style", "severity": "off" }
+    { "rule": "arrow-body-style", "severity": "off" },
+    { "rule": "jest/expect-expect", "severity": "off" }
   ],
   "workbench.editor.languageDetection": false,
   "editor.guides.bracketPairs": true,
@@ -186,6 +194,19 @@
   "git.showUnpublishedCommitsButton": "never",
   "window.zoomLevel": 1,
   "window.confirmBeforeClose": "keyboardOnly",
+  "scm.showIncomingChanges": "never",
   "scm.showOutgoingChanges": "never",
-  "scm.showIncomingChanges": "never"
+  "workbench.tree.enableStickyScroll": true,
+  "workbench.layoutControl.enabled": false,
+  "eslint.validate": [
+    "javascript",
+    "typescript",
+    "javascriptreact",
+    "typescriptreact"
+  ],
+  "workbench.editor.customLabels.patterns": {
+    "**/index.*": "/${dirname}.${extname}"
+  },
+  "typescript.tsserver.experimental.useVsCodeWatcher": false,
+  "scm.showHistoryGraph": false
 }
