@@ -194,10 +194,18 @@
   "git.showUnpublishedCommitsButton": "never",
   "window.zoomLevel": 1,
   "window.confirmBeforeClose": "keyboardOnly",
+  "gitlens.ai.experimental.generateCommitMessage.enabled": false,
+  "git.openRepositoryInParentFolders": "never",
   "scm.showIncomingChanges": "never",
   "scm.showOutgoingChanges": "never",
   "workbench.tree.enableStickyScroll": true,
+  "codeium.enableConfig": {
+    "*": true
+  },
   "workbench.layoutControl.enabled": false,
+  "codeium.enableExplainProblem": false,
+  "codeium.enableInComments": false,
+  "codeium.enableCodeLens": false,
   "eslint.validate": [
     "javascript",
     "typescript",
@@ -207,6 +215,14 @@
   "workbench.editor.customLabels.patterns": {
     "**/index.*": "/${dirname}.${extname}"
   },
+  "[go]": {
+    "editor.defaultFormatter": "golang.go"
+  },
+  "codeiumEnterprise.portalUrl": "https://codeium.corp.tanium.com",
+  "codeium.apiServerUrl": "https://codeium.corp.tanium.com/_route/api_server",
+  "codeiumEnterprise.extensionBaseUrl": "https://codeium.corp.tanium.com",
+  "plantuml.render": "PlantUMLServer",
+  "plantuml.server": "https://plantuml.corp.tanium.com",
   "typescript.tsserver.experimental.useVsCodeWatcher": false,
   "scm.showHistoryGraph": false
 }
