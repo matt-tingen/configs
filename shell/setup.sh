@@ -1,6 +1,6 @@
 autoload -Uz compinit && compinit
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source <(fzf --zsh)
 
 export PATH="/opt/homebrew/bin:$PATH"
 
