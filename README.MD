@@ -13,6 +13,7 @@ echo 'npm run build' > .git/hooks/post-merge && chmod +x .git/hooks/post-merge
 
 ```sh
 export config_dir=$HOME/Development/configs
+source "$config_dir/.zshenv"
 ```
 
 ## `.zshrc`
@@ -68,7 +69,8 @@ ripgrep \
 fd \
 jq \
 shellcheck \
-fzf
+fzf \
+tree
 
 /usr/local/opt/fzf/install --key-bindings --completion --no-update-rc
 ```
