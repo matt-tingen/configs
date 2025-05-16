@@ -169,10 +169,8 @@
   "terminal.integrated.tabs.enabled": false,
   "editor.bracketPairColorization.enabled": true,
   "eslint.rules.customizations": [
-    { "rule": "*", "severity": "warn" },
-    { "rule": "padding-line-between-statements", "severity": "off" },
-    { "rule": "import/order", "severity": "off" },
-    { "rule": "arrow-body-style", "severity": "off" },
+    { "rule": "*", "fixable": true, "severity": "off" },
+    { "rule": "*", "fixable": false, "severity": "warn" },
     { "rule": "jest/expect-expect", "severity": "off" }
   ],
   "workbench.editor.languageDetection": false,
