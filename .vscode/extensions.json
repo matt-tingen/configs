@@ -20,7 +20,8 @@
     "bibhasdn.unique-lines",
     "jgclark.vscode-todo-highlight",
     "eamodio.gitlens",
-    "wmaurer.vscode-jumpy"
+    "wmaurer.vscode-jumpy",
+    "orta.vscode-twoslash-queries"
   ],
   // List of extensions recommended by VS Code that should not be recommended for users of this workspace.
   "unwantedRecommendations": ["dbaeumer.jshint", "hookyqr.beautify"]
