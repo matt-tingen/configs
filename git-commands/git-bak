@@ -3,4 +3,4 @@
 local branch=$(git branch --show-current) || return
 local timestamp=$(date +"%Y-%m-%dT%H-%M-%S")
 
-git branch -c "bak-$branch-$timestamp"
+git tag "bak-$branch-$timestamp"
