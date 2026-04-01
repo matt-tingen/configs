@@ -7,6 +7,7 @@ const getUpstream = require('./upstream');
 const getState = require('./state');
 const flattenDeep = require('./flattenDeep');
 const cwd = require('./cwd');
+const vpnStatus = require('./vpn');
 const lockfileStatus = require('./lockfile');
 
 const processPrompt = (components) =>
@@ -52,6 +53,7 @@ const buildPrompt = async () => {
   const gitPrompt = await buildGitPrompt();
 
   return processPrompt([
+    await vpnStatus(),
     await lockfileStatus(),
     showTimestamp && [buildTimestamp(), ' '],
     await cwd(),
