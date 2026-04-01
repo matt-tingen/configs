@@ -1,4 +1,4 @@
 #!/bin/zsh
 local target
-target=$(git --no-pager branch --format='%(refname:short)' | fzf) || return
+target=$(git --no-pager branch --format='%(refname:short)' | fzf --preview "git --no-pager l {}") || return
 git checkout "$@" "$target"
