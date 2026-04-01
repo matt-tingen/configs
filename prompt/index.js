@@ -7,10 +7,11 @@ const getUpstream = require('./upstream');
 const getState = require('./state');
 const flattenDeep = require('./flattenDeep');
 const cwd = require('./cwd');
+const lockfileStatus = require('./lockfile');
 
-const processPrompt = components =>
+const processPrompt = (components) =>
   flattenDeep(components)
-    .filter(comp => comp && typeof comp === 'string')
+    .filter((comp) => comp && typeof comp === 'string')
     .join('');
 
 const buildGitPrompt = async () => {
@@ -51,6 +52,7 @@ const buildPrompt = async () => {
   const gitPrompt = await buildGitPrompt();
 
   return processPrompt([
+    await lockfileStatus(),
     showTimestamp && [buildTimestamp(), ' '],
     await cwd(),
     gitPrompt && [' ', gitPrompt],
@@ -60,7 +62,7 @@ const buildPrompt = async () => {
 
 buildPrompt()
   .then(console.log)
-  .catch(error => {
+  .catch((error) => {
     console.error('Error generating prompt');
     console.error(error);
     console.log('\\w ');

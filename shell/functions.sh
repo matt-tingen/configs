@@ -81,3 +81,8 @@ browsepackage() {
 		echo "$1 is not installed in this repo."
 	fi
 }
+
+pi() {
+	pnpm install
+	sha256sum "$(git root)/pnpm-lock.yaml" > "$(git root)/pnpm-lock.yaml.sha256"
+}
