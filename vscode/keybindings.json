@@ -27,12 +27,12 @@
   {
     "key": "cmd+k cmd+u",
     "command": "extension.changeCase.upper",
-    "when": "editorTextFocus"
+    "when": "editorTextFocus && !editorReadonly"
   },
   {
     "key": "cmd+k cmd+l",
     "command": "extension.changeCase.lower",
-    "when": "editorTextFocus"
+    "when": "editorTextFocus && !editorReadonly"
   },
   {
     "key": "ctrl+r",
