@@ -4,9 +4,9 @@ const path = require('path');
 const { checkCache, updateCache } = require('./cache');
 
 // https://git-scm.com/docs/git-status#_branch_headers
-const parseStatus = message => {
+const parseStatus = (message) => {
   const lines = message.split('\n');
-  const branchLines = lines.filter(line => line.startsWith('#'));
+  const branchLines = lines.filter((line) => line.startsWith('#'));
   const changeLines = lines.slice(branchLines.length);
 
   return {
@@ -15,7 +15,7 @@ const parseStatus = message => {
   };
 };
 
-const parseBranchStatus = lines => {
+const parseBranchStatus = (lines) => {
   if (lines.length === 3) {
     // Upstream is set, but commit is not present.
     return { empty: true };
@@ -49,9 +49,9 @@ const parseBranchStatus = lines => {
 };
 
 // https://git-scm.com/docs/git-status#_changed_tracked_entries
-const parseChangeStatus = lines => {
+const parseChangeStatus = (lines) => {
   const regex = /^(?:[12u] (..)|([\?!]))/;
-  return lines.map(line => {
+  return lines.map((line) => {
     const match = regex.exec(line);
     const flags = match[1] || match[2];
     const x = flags[0];
@@ -74,7 +74,7 @@ const getNotes = async () => {
 
 const getState = async () => {
   const gitRoot = await git('root');
-  const exists = item => fs.existsSync(path.join(gitRoot, '.git', item));
+  const exists = (item) => fs.existsSync(path.join(gitRoot, '.git', item));
 
   if (exists('rebase-merge') || exists('rebase-apply')) {
     return 'rebase';
@@ -89,7 +89,7 @@ const getState = async () => {
   }
 };
 
-const doesPromiseSucceed = async promise => {
+const doesPromiseSucceed = async (promise) => {
   try {
     await promise;
     return true;
@@ -98,13 +98,26 @@ const doesPromiseSucceed = async promise => {
   }
 };
 
-const getTag = async () => {
-  let description;
+const timeout = (promise, ms) =>
+  Promise.race([
+    promise,
+    new Promise((resolve, reject) => {
+      setTimeout(reject, ms);
+    }),
+  ]);
 
-  try {
-    description = await git('describe --tags --always');
-  } catch (ignore) {}
-  const isTagged = await doesPromiseSucceed(git('describe --exact-match'));
+const getTag = async () => {
+  let description = '';
+
+  const isTagged = await doesPromiseSucceed(
+    timeout(git('describe --exact-match'), 50),
+  );
+
+  if (isTagged) {
+    try {
+      description = await git('describe --tags --always');
+    } catch (ignore) {}
+  }
 
   return {
     description,
@@ -112,7 +125,7 @@ const getTag = async () => {
   };
 };
 
-const shortenHash = hash => git(`rev-parse --short ${hash}`);
+const shortenHash = (hash) => git(`rev-parse --short ${hash}`);
 
 const status = async () => {
   let message;
