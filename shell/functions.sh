@@ -83,6 +83,21 @@ browsepackage() {
 }
 
 pi() {
+	local lockfile="$(git root)/pnpm-lock.yaml"
+	local hashfile="$lockfile.sha256"
+
+	# Check if hash file exists and compare
+	if [ -f "$hashfile" ]; then
+		local current_hash=$(sha256sum "$lockfile" | awk '{print $1}')
+		local saved_hash=$(cat "$hashfile" | awk '{print $1}')
+
+		if [ "$current_hash" = "$saved_hash" ]; then
+			echo "pnpm-lock.yaml unchanged, skipping install"
+			return 0
+		fi
+	fi
+
+	# Install and save hash
 	pnpm install
-	sha256sum "$(git root)/pnpm-lock.yaml" > "$(git root)/pnpm-lock.yaml.sha256"
+	sha256sum "$lockfile" > "$hashfile"
 }
