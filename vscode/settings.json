@@ -9,8 +9,8 @@
 
   // #region Workarounds
   // https://github.com/microsoft/TypeScript/issues/47302
-  "javascript.preferences.jsxAttributeCompletionStyle": "none",
-  "typescript.preferences.jsxAttributeCompletionStyle": "none",
+  // "javascript.preferences.jsxAttributeCompletionStyle": "none",
+  // "typescript.preferences.jsxAttributeCompletionStyle": "none",
   // #endregion
 
   // #region Configuration
@@ -72,6 +72,7 @@
   "workbench.editorAssociations": {
     "git-rebase-todo": "default"
   },
+  "go.toolsManagement.autoUpdate": true,
   // #endregion
 
   // #region Language-Specific
@@ -95,8 +96,18 @@
     "editor.rulers": [120],
     "rewrap.wrappingColumn": 120
   },
+  "[go]": {
+    "editor.defaultFormatter": "golang.go"
+  },
   // #endregion
 
+  // #region Tanium
+  "plantuml.render": "PlantUMLServer",
+  "plantuml.server": "https://plantuml.corp.tanium.com",
+  // #endregion
+
+  "workbench.colorTheme": "Dark Modern",
+  "workbench.preferredDarkColorTheme": "Dark Modern",
   "editor.tabSize": 2,
   "editor.tokenColorCustomizations": {
     "[Default Dark+]": {
@@ -131,6 +142,14 @@
   "git.confirmSync": false,
   "git.enableSmartCommit": true,
 
+  "git.blame.editorDecoration.enabled": true,
+  "git.blame.editorDecoration.template": "${authorName}, ${authorDateAgo} · ${subject}",
+  "git.blame.statusBarItem.template": "${authorName} (${authorDate})",
+  "gitblame.statusBarMessageClickAction": "Open tool URL",
+  "gitblame.statusBarMessageFormat": "${commit.hash_short,8} (${committer.date})",
+  "gitblame.inlineMessageFormat": "${author.name}, ${time.c_ago} · ${commit.summary}",
+  "gitblame.currentUserAlias": "You",
+
   "editor.formatOnSave": true,
   "gitlens.advanced.messages": {
     "suppressCommitHasNoPreviousCommitWarning": false,
@@ -140,6 +159,11 @@
     "suppressLineUncommittedWarning": false,
     "suppressNoRepositoryWarning": false
   },
+  "chat.commandCenter.enabled": false,
+  "terminal.integrated.stickyScroll.enabled": false,
+  "workbench.layoutControl.enabled": false,
+  "workbench.editor.enablePreview": false,
+  "biome.suggestInstallingGlobally": false,
   "python.disablePromptForFeatures": ["pylint"],
   "extensions.ignoreRecommendations": false,
   "git.autofetch": true,
@@ -197,13 +221,6 @@
   "scm.showIncomingChanges": "never",
   "scm.showOutgoingChanges": "never",
   "workbench.tree.enableStickyScroll": true,
-  "codeium.enableConfig": {
-    "*": true
-  },
-  "workbench.layoutControl.enabled": false,
-  "codeium.enableExplainProblem": false,
-  "codeium.enableInComments": false,
-  "codeium.enableCodeLens": false,
   "eslint.validate": [
     "javascript",
     "typescript",
@@ -213,14 +230,17 @@
   "workbench.editor.customLabels.patterns": {
     "**/index.*": "/${dirname}.${extname}"
   },
-  "[go]": {
-    "editor.defaultFormatter": "golang.go"
-  },
-  "codeiumEnterprise.portalUrl": "https://codeium.corp.tanium.com",
-  "codeium.apiServerUrl": "https://codeium.corp.tanium.com/_route/api_server",
-  "codeiumEnterprise.extensionBaseUrl": "https://codeium.corp.tanium.com",
-  "plantuml.render": "PlantUMLServer",
-  "plantuml.server": "https://plantuml.corp.tanium.com",
+
   "typescript.tsserver.experimental.useVsCodeWatcher": false,
-  "scm.showHistoryGraph": false
+  "cursor-retrieval.canAttemptGithubLogin": false,
+  "json.schemaDownload.trustedDomains": {
+    "https://schemastore.azurewebsites.net/": true,
+    "https://raw.githubusercontent.com/": true,
+    "https://www.schemastore.org/": true,
+    "https://json.schemastore.org/": true,
+    "https://json-schema.org/": true,
+    "https://biomejs.dev": true
+  },
+  "biome.lsp.trace.server": "verbose",
+  "claudeCode.preferredLocation": "panel"
 }
