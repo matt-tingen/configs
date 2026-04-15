@@ -15,7 +15,6 @@ export PATH=$config_dir/git-commands:$PATH
 
 # Variables
 base_config=$HOME/.zshrc
-export PROMPT_CWD_ALT_ROOT=$HOME/Development
 
 # https://github.com/zloirock/core-js/issues/548#issuecomment-495388335
 export ADBLOCK="1"
