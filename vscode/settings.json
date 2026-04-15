@@ -242,5 +242,6 @@
     "https://biomejs.dev": true
   },
   "biome.lsp.trace.server": "verbose",
-  "claudeCode.preferredLocation": "panel"
+  "claudeCode.preferredLocation": "panel",
+  "chat.disableAIFeatures": true
 }
