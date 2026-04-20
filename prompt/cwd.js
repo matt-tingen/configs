@@ -27,7 +27,7 @@ const abbreviate = (dir, altRoot) => {
 const getGitRoot = async () => {
   try {
     const root = await git('root');
-    return root && path.relative(root, '..');
+    return root && path.resolve(root, '..');
   } catch {}
   return null;
 };
