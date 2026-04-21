@@ -54,7 +54,32 @@ function _prompt_async_handler {
   zle && zle reset-prompt
 }
 
+# Background rebuild trigger. Atomic `mkdir` serves as the lock: only one
+# build runs at a time across all shells. Stale locks (crashed builds) are
+# cleared after a TTL. The rebuild itself is fully detached (`&!`) so it
+# survives shell exit and doesn't appear in the jobs table.
+zmodload zsh/datetime 2>/dev/null
+zmodload -F zsh/stat b:zstat 2>/dev/null
+function _prompt_trigger_rebuild {
+  local lock=$HOME/.cache/prompt-build.lock
+  local ttl=60
+
+  [[ -d ${lock:h} ]] || mkdir -p ${lock:h}
+
+  if [[ -d $lock ]]; then
+    local -a st
+    zstat -A st +mtime $lock 2>/dev/null
+    (( ${#st} && EPOCHSECONDS - st[1] > ttl )) && rmdir $lock 2>/dev/null
+  fi
+
+  mkdir $lock 2>/dev/null || return
+
+  ( cd $config_dir && pnpm build:prompt >/dev/null 2>&1; rmdir $lock 2>/dev/null ) &!
+}
+
 function _prompt_spawn_async {
+  emulate -L zsh
+  setopt extended_glob
   local pwd_at_spawn=$PWD
   (( _PROMPT_GEN++ ))
   local gen=$_PROMPT_GEN
@@ -72,8 +97,23 @@ function _prompt_spawn_async {
     unset "_PROMPT_FD_PWD[$_PROMPT_INFLIGHT_FD]"
   fi
 
+  # Prefer pre-built JS when fresh; fall back to TS (Node strip-types) when
+  # any input to the build is newer than the build output. Each glob uses
+  # `om[1]` to pick its newest member by mtime; dist must beat both. Inputs
+  # are prompt sources/tsconfig plus the root package.json/pnpm-lock (dep
+  # changes can affect emit semantics).
+  local entry=$config_dir/prompt/index.ts
+  local dist=$config_dir/prompt/dist/index.js
+  local newest_src=( $config_dir/prompt/(*.ts|tsconfig*.json)(om[1]) )
+  local newest_root=( $config_dir/(package.json|pnpm-lock.yaml)(om[1]) )
+  if [[ -f $dist && $dist -nt $newest_src[1] && $dist -nt $newest_root[1] ]]; then
+    entry=$dist
+  else
+    _prompt_trigger_rebuild
+  fi
+
   local fd
-  exec {fd}< <( "$prompt_command_node" "$config_dir/prompt" 2>/dev/null )
+  exec {fd}< <( "$prompt_command_node" "$entry" 2>/dev/null )
   _PROMPT_INFLIGHT_FD=$fd
   _PROMPT_INFLIGHT_PID=$!
   _PROMPT_FD_GEN[$fd]=$gen

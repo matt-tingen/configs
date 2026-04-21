@@ -1,12 +1,20 @@
 {
   "name": "configs",
   "version": "0.1.0",
+  "private": true,
+  "type": "module",
   "main": "index.js",
   "repository": "https://github.com/matt-tingen/configs.git",
   "author": "Matt Tingen <matt.tingen@gmail.com>",
   "scripts": {
-    "build": "npm run build:karabiner",
-    "build:karabiner": "mkdir -p karabiner && node --harmony util/karabinerConfig.js > karabiner/karabiner.json",
-    "chmod": "chmod +x git-commands/git-*"
+    "build": "pnpm run build:karabiner && pnpm run build:prompt",
+    "build:karabiner": "mkdir -p karabiner && node --harmony util/karabinerConfig.cjs > karabiner/karabiner.json",
+    "build:prompt": "tsgo -p prompt",
+    "chmod": "chmod +x git-commands/git-*",
+    "postinstall": "pnpm run build:prompt"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.0",
+    "@typescript/native-preview": "^7.0.0-dev.20260527.1"
   }
 }
