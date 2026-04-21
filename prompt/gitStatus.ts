@@ -1,10 +1,11 @@
-const git = require('./git');
-const fs = require('fs');
-const path = require('path');
-const { checkCache, updateCache } = require('./cache');
+import fs from 'node:fs';
+import path from 'node:path';
+import { checkCache, updateCache } from './cache.ts';
+import git from './git.ts';
+import type { BranchStatus, Change, GitState, GitStatus, TagInfo } from './types.ts';
 
 // https://git-scm.com/docs/git-status#_branch_headers
-const parseStatus = (message) => {
+const parseStatus = (message: string): { branch: BranchStatus; changes: Change[] } => {
   const lines = message.split('\n');
   const branchLines = lines.filter((line) => line.startsWith('#'));
   const changeLines = lines.slice(branchLines.length);
@@ -15,20 +16,22 @@ const parseStatus = (message) => {
   };
 };
 
-const parseBranchStatus = (lines) => {
+const parseBranchStatus = (lines: string[]): BranchStatus => {
   if (lines.length === 3) {
     // Upstream is set, but commit is not present.
     return { empty: true };
   }
 
   const upstream = lines.length > 2;
-  let ahead;
-  let behind;
+  let ahead: number | undefined;
+  let behind: number | undefined;
 
   if (upstream) {
     const abMatch = /branch\.ab \+(\d+) -(\d+)/.exec(lines[3]);
-    ahead = parseInt(abMatch[1]);
-    behind = parseInt(abMatch[2]);
+    if (abMatch) {
+      ahead = parseInt(abMatch[1]);
+      behind = parseInt(abMatch[2]);
+    }
   }
 
   const hash = lines[0].slice(13); // # branch.oid <oid>
@@ -49,32 +52,35 @@ const parseBranchStatus = (lines) => {
 };
 
 // https://git-scm.com/docs/git-status#_changed_tracked_entries
-const parseChangeStatus = (lines) => {
+const parseChangeStatus = (lines: string[]): Change[] => {
   const regex = /^(?:[12u] (..)|([\?!]))/;
-  return lines.map((line) => {
-    const match = regex.exec(line);
-    const flags = match[1] || match[2];
-    const x = flags[0];
-    // ? and ! are treated as `??` or `!!` as in the short status format.
-    const y = flags[1] || x;
-    return {
-      x: x === '.' ? null : x,
-      y: y === '.' ? null : y,
-    };
-  });
+  return lines
+    .map((line) => {
+      const match = regex.exec(line);
+      if (!match) return null;
+      const flags = match[1] || match[2];
+      const x = flags[0];
+      // ? and ! are treated as `??` or `!!` as in the short status format.
+      const y = flags[1] || x;
+      return {
+        x: x === '.' ? null : x,
+        y: y === '.' ? null : y,
+      };
+    })
+    .filter((c): c is Change => c !== null);
 };
 
-const getNotes = async () => {
+const getNotes = async (): Promise<string | null> => {
   try {
     return await git('log -n 1 --pretty=format:%s');
-  } catch (e) {
+  } catch {
     return null;
   }
 };
 
-const getState = async () => {
+const getState = async (): Promise<GitState | undefined> => {
   const gitRoot = await git('root');
-  const exists = (item) => fs.existsSync(path.join(gitRoot, '.git', item));
+  const exists = (item: string): boolean => fs.existsSync(path.join(gitRoot, '.git', item));
 
   if (exists('rebase-merge') || exists('rebase-apply')) {
     return 'rebase';
@@ -87,26 +93,28 @@ const getState = async () => {
   if (exists('BISECT_LOG')) {
     return 'bisect';
   }
+
+  return undefined;
 };
 
-const doesPromiseSucceed = async (promise) => {
+const doesPromiseSucceed = async (promise: Promise<unknown>): Promise<boolean> => {
   try {
     await promise;
     return true;
-  } catch (e) {
+  } catch {
     return false;
   }
 };
 
-const timeout = (promise, ms) =>
+const timeout = <T>(promise: Promise<T>, ms: number): Promise<T> =>
   Promise.race([
     promise,
-    new Promise((resolve, reject) => {
+    new Promise<T>((_resolve, reject) => {
       setTimeout(reject, ms);
     }),
   ]);
 
-const getTag = async () => {
+const getTag = async (): Promise<TagInfo> => {
   let description = '';
 
   const isTagged = await doesPromiseSucceed(
@@ -116,7 +124,7 @@ const getTag = async () => {
   if (isTagged) {
     try {
       description = await git('describe --tags --always');
-    } catch (ignore) {}
+    } catch {}
   }
 
   return {
@@ -125,14 +133,14 @@ const getTag = async () => {
   };
 };
 
-const shortenHash = (hash) => git(`rev-parse --short ${hash}`);
+const shortenHash = (hash: string): Promise<string> => git(`rev-parse --short ${hash}`);
 
-const status = async () => {
-  let message;
+const status = async (): Promise<GitStatus | null> => {
+  let message: string;
 
   try {
     message = await git('status --porcelain=v2 --branch');
-  } catch (e) {
+  } catch {
     return null;
   }
 
@@ -142,14 +150,14 @@ const status = async () => {
     return cached;
   }
 
-  const status = parseStatus(message);
+  const parsed = parseStatus(message);
 
-  if (!status.branch.empty) {
-    status.branch.hash = await shortenHash(status.branch.hash);
+  if (!parsed.branch.empty && parsed.branch.hash) {
+    parsed.branch.hash = await shortenHash(parsed.branch.hash);
   }
 
-  const output = {
-    ...status,
+  const output: GitStatus = {
+    ...parsed,
     tag: await getTag(),
     notes: await getNotes(),
     state: await getState(),
@@ -160,4 +168,4 @@ const status = async () => {
   return output;
 };
 
-module.exports = status;
+export default status;

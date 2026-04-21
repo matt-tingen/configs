@@ -1,11 +1,11 @@
-const exec = require('./exec');
-const color = require('./color');
-const git = require('./git');
-const fs = require('fs/promises');
-const path = require('path');
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import color from './color.ts';
+import exec from './exec.ts';
+import git from './git.ts';
 
-const lockfileStatus = async () => {
-  let root;
+const lockfileStatus = async (): Promise<string | null> => {
+  let root: string;
 
   try {
     root = await git('root');
@@ -24,4 +24,4 @@ const lockfileStatus = async () => {
   return null;
 };
 
-module.exports = lockfileStatus;
+export default lockfileStatus;

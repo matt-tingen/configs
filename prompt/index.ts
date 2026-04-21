@@ -1,21 +1,23 @@
-const color = require('./color');
-const gitStatus = require('./gitStatus');
-const getBranch = require('./branch');
-const getEmpty = require('./empty');
-const getFlags = require('./flags');
-const getUpstream = require('./upstream');
-const getState = require('./state');
-const flattenDeep = require('./flattenDeep');
-const cwd = require('./cwd');
-const vpnStatus = require('./vpn');
-const lockfileStatus = require('./lockfile');
+import getBranch from './branch.ts';
+import color from './color.ts';
+import cwd from './cwd.ts';
+import getEmpty from './empty.ts';
+import getFlags from './flags.ts';
+import flattenDeep from './flattenDeep.ts';
+import gitStatus from './gitStatus.ts';
+import lockfileStatus from './lockfile.ts';
+import getState from './state.ts';
+import getUpstream from './upstream.ts';
+import vpnStatus from './vpn.ts';
 
-const processPrompt = (components) =>
+type Component = string | number | false | null | undefined | Component[];
+
+const processPrompt = (components: Component[]): string =>
   flattenDeep(components)
-    .filter((comp) => comp && typeof comp === 'string')
+    .filter((comp): comp is string => typeof comp === 'string' && comp.length > 0)
     .join('');
 
-const buildGitPrompt = async () => {
+const buildGitPrompt = async (): Promise<string> => {
   const status = await gitStatus();
 
   if (!status) {
@@ -42,13 +44,13 @@ const buildGitPrompt = async () => {
   ]);
 };
 
-const buildTimestamp = () => {
+const buildTimestamp = (): Component[] => {
   const time = new Date().toLocaleTimeString();
 
   return [color('gray')('['), color('white')(time), color('gray')(']')];
 };
 
-const buildPrompt = async () => {
+const buildPrompt = async (): Promise<string> => {
   const showTimestamp = process.env.PROMPT_TIMESTAMP === '1';
   const gitPrompt = await buildGitPrompt();
 

@@ -1,7 +1,7 @@
-const exec = require('./exec');
-const color = require('./color');
+import color from './color.ts';
+import exec from './exec.ts';
 
-const vpnStatus = async () => {
+const vpnStatus = async (): Promise<string | null> => {
   const ip = process.env.PROMPT_VPN_IP;
 
   if (!ip) return null;
@@ -12,4 +12,4 @@ const vpnStatus = async () => {
   return connected ? null : color('red')('×VPN ');
 };
 
-module.exports = vpnStatus;
+export default vpnStatus;
