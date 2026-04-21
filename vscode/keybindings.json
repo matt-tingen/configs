@@ -184,5 +184,13 @@
   {
     "key": "cmd+j",
     "command": "workbench.action.terminal.focus"
-  }
+},
+{
+    "key": "shift+enter",
+    "command": "workbench.action.terminal.sendSequence",
+    "args": {
+        "text": "\u001b\r"
+    },
+    "when": "terminalFocus"
+}
 ]
