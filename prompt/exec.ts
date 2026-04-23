@@ -9,12 +9,16 @@ const exec = async (command: string, trim = true): Promise<string> => {
   const maybeTrim = (result: string): string => (trim ? result.trim() : result);
 
   try {
-    const { stdout } = await pExec(command, { maxBuffer: MAX_BUFFER });
+    const { stdout } = await pExec(command, {
+      maxBuffer: MAX_BUFFER,
+      timeout: 2000,
+    });
 
     return maybeTrim(stdout.toString());
   } catch (error) {
     const stderr = (error as { stderr?: string | Buffer }).stderr;
-    const message = typeof stderr === 'string' ? stderr : (stderr?.toString() ?? '');
+    const message =
+      typeof stderr === 'string' ? stderr : (stderr?.toString() ?? '');
     throw maybeTrim(message);
   }
 };

@@ -135,7 +135,25 @@ const getTag = async (): Promise<TagInfo> => {
 
 const shortenHash = (hash: string): Promise<string> => git(`rev-parse --short ${hash}`);
 
+const isBareRoot = async (): Promise<boolean> => {
+  try {
+    const [gitDir, commonDir] = await Promise.all([
+      git('rev-parse --git-dir'),
+      git('rev-parse --git-common-dir'),
+    ]);
+
+    return gitDir !== '.git' && path.resolve(gitDir) === path.resolve(commonDir);
+  } catch {
+    return false;
+  }
+};
+
 const status = async (): Promise<GitStatus | null> => {
+  // `git status` hangs in bare repo roots
+  if (await isBareRoot()) {
+    return null;
+  }
+
   let message: string;
 
   try {
