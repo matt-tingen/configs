@@ -2,11 +2,8 @@ autoload -Uz compinit && compinit
 
 source <(fzf --zsh)
 
-export PATH="/opt/homebrew/bin:$PATH"
-
 if [ -d "$PWD" ]; then
     [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
-    eval "$(~/.local/bin/mise activate zsh)"
 fi
 
 # Including this in the path allows git to effectively create automatic aliases
