@@ -1,27 +1,34 @@
-import fs from 'node:fs/promises';
 import path from 'node:path';
 import color from './color.ts';
 import exec from './exec.ts';
 import git from './git.ts';
 
+const sha256 = async (filepath: string): Promise<string> => {
+  const output = await exec(`sha256sum '${filepath}'`);
+  return output.split(' ')[0];
+};
+
 const lockfileStatus = async (): Promise<string | null> => {
   let root: string;
+  let current: string;
 
   try {
     root = await git('root');
-    await fs.access(path.join(root, 'pnpm-lock.yaml'));
+    current = await sha256(path.join(root, 'pnpm-lock.yaml'));
   } catch {
     return null;
   }
 
   try {
-    await exec(`sha256sum -c '${path.join(root, 'pnpm-lock.yaml.sha256')}'`);
-  } catch (error) {
-    if (typeof error === 'string' && error.includes('did NOT match'))
-      return color('red')('×pi ');
+    const installed = await sha256(
+      path.join(root, 'node_modules', '.pnpm', 'lock.yaml'),
+    );
+    if (current === installed) return null;
+  } catch {
+    // Missing installed lockfile → install needed.
   }
 
-  return null;
+  return color('red')('×pi ');
 };
 
 export default lockfileStatus;

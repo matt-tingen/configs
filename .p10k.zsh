@@ -31,6 +31,8 @@
 
   # The list of segments shown on the left. Fill it with the most important segments.
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
+    vpn_status              # red shield when PROMPT_VPN_IP is set but not in netstat -rn
+    lockfile_status         # red pnpm icon when pnpm-lock.yaml diverges from node_modules/.pnpm/lock.yaml
     # =========================[ Line #1 ]=========================
     # os_icon               # os identifier
     dir                     # current directory
@@ -445,7 +447,7 @@
     # ⇢42 if ahead of the push remote; no leading space if also behind: ⇠42⇢42.
     (( VCS_STATUS_PUSH_COMMITS_AHEAD  )) && res+="${clean}⇢${VCS_STATUS_PUSH_COMMITS_AHEAD}"
     # *42 if have stashes.
-    (( VCS_STATUS_STASHES        )) && res+=" ${clean}*${VCS_STATUS_STASHES}"
+    # (( VCS_STATUS_STASHES        )) && res+=" ${clean}*${VCS_STATUS_STASHES}"
     # 'merge' if the repo is in an unusual state.
     [[ -n $VCS_STATUS_ACTION     ]] && res+=" ${conflicted}${VCS_STATUS_ACTION}"
     # ~42 if have merge conflicts.
@@ -728,7 +730,7 @@
   typeset -g POWERLEVEL9K_RANGER_FOREGROUND=178
   # Custom icon.
   # typeset -g POWERLEVEL9K_RANGER_VISUAL_IDENTIFIER_EXPANSION='⭐'
-  
+
   ####################[ yazi: yazi shell (https://github.com/sxyazi/yazi) ]#####################
   # Yazi shell color.
   typeset -g POWERLEVEL9K_YAZI_FOREGROUND=178
@@ -1656,6 +1658,26 @@
   # Type `p10k help segment` for documentation and a more sophisticated example.
   function prompt_example() {
     p10k segment -f 208 -i '⭐' -t 'hello, %n'
+  }
+
+  function prompt_vpn_status() {
+    [[ -n $PROMPT_VPN_IP ]] || return
+    netstat -rn 2>/dev/null | grep -q -- "$PROMPT_VPN_IP" && return
+    p10k segment -f 196 -i '󰦝' -t 'VPN'
+  }
+
+  function prompt_lockfile_status() {
+    local root
+    root=$(git rev-parse --show-toplevel 2>/dev/null) || return
+    [[ -f $root/pnpm-lock.yaml ]] || return
+    local installed=$root/node_modules/.pnpm/lock.yaml
+    if [[ -f $installed ]]; then
+      local current_hash installed_hash
+      current_hash=$(sha256sum "$root/pnpm-lock.yaml" 2>/dev/null | awk '{print $1}')
+      installed_hash=$(sha256sum "$installed" 2>/dev/null | awk '{print $1}')
+      [[ -n $current_hash && $current_hash == $installed_hash ]] && return
+    fi
+    p10k segment -f 196 -i '' -t 'pnpm'
   }
 
   # User-defined prompt segments may optionally provide an instant_prompt_* function. Its job
