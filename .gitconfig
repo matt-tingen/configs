@@ -1,7 +1,7 @@
 [core]
 	editor = code --wait
 	abbrev = 7
-	fsmonitor = true
+	# fsmonitor = true
 [user]
 	name = Matt Tingen
 	email = matt.tingen@gmail.com
