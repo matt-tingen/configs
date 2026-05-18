@@ -19,6 +19,7 @@ alias joinspace="paste -sd \" \" -"
 alias g="git"
 alias p="pnpm"
 alias c="calc"
+alias pi="pnpm install"
 alias history='history -t $HISTTIMEFORMAT'
 alias rgf='rg --files | rg'
 alias cphash='git hash | pbcopy'
