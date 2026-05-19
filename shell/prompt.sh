@@ -89,7 +89,7 @@ function prompt_command {
     return
   fi
 
-  PS1="$PWD "
+  PS1="%F{cyan}%~%f "
 
   if [[ $PROMPT_TYPE == node ]]; then
     emulate -L zsh
