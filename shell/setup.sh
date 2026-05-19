@@ -24,12 +24,23 @@ export DO_NOT_TRACK=1
 # https://scriptingosx.com/2019/06/moving-to-zsh-part-3-shell-options/
 setopt EXTENDED_HISTORY
 setopt APPEND_HISTORY
+setopt INC_APPEND_HISTORY   # write each command to $HISTFILE immediately
+unsetopt SHARE_HISTORY      # ...but don't auto-import others' commands (keeps up-arrow per-shell)
 setopt HIST_REDUCE_BLANKS
 # http://man7.org/linux/man-pages/man3/strftime.3.html
 HISTTIMEFORMAT="%a %F %I:%M:%S %p - " # Thu 2019-05-16 02:44:14 PM
 HISTFILE=$HOME/.zsh_history
-SAVEHIST=5000
-HISTSIZE=2000
+HISTSIZE=100000
+SAVEHIST=100000
+
+# Make fzf's Ctrl+R see commands from every shell, while up-arrow stays local.
+# fc -RI reads only entries appended since the last read, so this is cheap.
+_shared_fzf_history_widget() {
+  fc -RI
+  fzf-history-widget
+}
+zle -N _shared_fzf_history_widget
+bindkey '^R' _shared_fzf_history_widget
 
 # Correct commands
 setopt CORRECT
