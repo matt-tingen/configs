@@ -2,7 +2,17 @@ export LSCOLORS=GxFxCxDxBxegedabagaced
 
 RPROMPT="%{%F{008}%}%D{%m/%d} %t"
 
-prompt_command_node=$(cd $config_dir && echo $(which node))
+() {
+  local cache=$HOME/.cache/prompt-command-node
+  local pin=$config_dir/mise.toml
+  if [[ -f $cache && $cache -nt $pin ]]; then
+    prompt_command_node=$(<$cache)
+  else
+    mkdir -p ${cache:h}
+    prompt_command_node=$(cd $config_dir && whence -p node)
+    print -r -- "$prompt_command_node" > $cache
+  fi
+}
 
 alias deactivatePrompt="export PROMPT_TYPE=bare"
 
