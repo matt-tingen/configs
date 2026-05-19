@@ -64,7 +64,10 @@ function _prompt_spawn_async {
   fi
   if [[ -n $_PROMPT_INFLIGHT_FD ]]; then
     zle -F $_PROMPT_INFLIGHT_FD 2>/dev/null
-    exec {_PROMPT_INFLIGHT_FD}<&- 2>/dev/null
+    # NOTE: no `2>/dev/null` here. `exec` with no command applies trailing
+    # redirections to the shell itself, permanently — that would silence
+    # all command stderr in this session. The close shouldn't fail anyway.
+    exec {_PROMPT_INFLIGHT_FD}<&-
     unset "_PROMPT_FD_GEN[$_PROMPT_INFLIGHT_FD]"
     unset "_PROMPT_FD_PWD[$_PROMPT_INFLIGHT_FD]"
   fi
