@@ -2,3 +2,4 @@ node_modules
 *.log
 karabiner
 prompt/.cache
+exports/
