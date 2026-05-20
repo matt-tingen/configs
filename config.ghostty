@@ -1,0 +1,9 @@
+working-directory = ~/Development/tanium
+
+font-feature = -calt
+font-feature = -liga
+font-feature = -dlig
+
+keybind = cmd+opt+left=previous_tab
+keybind = cmd+opt+right=next_tab
+keybind = f2=prompt_surface_title
