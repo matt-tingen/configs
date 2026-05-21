@@ -53,24 +53,14 @@ ln -si $config_dir/vscode/keybindings.json ~/Library/Application\ Support/Code/U
 ln -si $config_dir/karabiner ~/.config
 mkdir -p ~/Library/KeyBindings
 ln -si $config_dir/DefaultKeyBinding.dict ~/Library/KeyBindings/DefaultKeyBinding.dict
+mkdir -p ~/.config/mise/conf.d
+ln -si $config_dir/global_mise.toml ~/.config/mise/conf.d/personal.toml
 ```
 
 # Tools
 
-Homebrew:
-
 ```sh
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 curl https://mise.run | sh
-
-brew install \
-autojump \
-ripgrep \
-fd \
-jq \
-shellcheck \
-fzf \
-tree
 
 /usr/local/opt/fzf/install --key-bindings --completion --no-update-rc
 ```

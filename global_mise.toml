@@ -1,0 +1,8 @@
+[tools]
+node = "lts"
+fzf = "latest"
+ripgrep = "latest"
+zoxide = "latest"
+jq = "latest"
+pandoc = "latest"
+fd = "latest"

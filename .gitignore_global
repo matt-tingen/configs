@@ -3,3 +3,5 @@
 .ignore
 pnpm-lock.yaml.sha256
 .vscode/mostRecentFile.txt
+mise.local.toml
+mise.*.local.toml
