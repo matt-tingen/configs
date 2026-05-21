@@ -6,3 +6,5 @@ zoxide = "latest"
 jq = "latest"
 pandoc = "latest"
 fd = "latest"
+# Used for mise completions
+usage = "latest"

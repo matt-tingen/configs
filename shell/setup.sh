@@ -1,6 +1,10 @@
+fpath=("$config_dir/.zfunc" $fpath)
 autoload -Uz compinit && compinit
+autoload -Uz bashcompinit && bashcompinit
 
 source <(fzf --zsh)
+eval "$(zoxide init zsh)"
+eval "$(pandoc --bash-completion)"
 
 if [ -d "$PWD" ]; then
     [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh

@@ -79,4 +79,14 @@ else
   printf '\nSkipping fzf installer — %s not found or not executable\n' "$fzf_install"
 fi
 
+# 7. zsh completions for tools that emit a compdef file
+# (mise, rg, fd). Dynamic ones — zoxide, pandoc, npm — are evaluated at shell
+# startup from shell/setup.sh. jq has no canonical completion generator.
+log "Generating zsh completion files"
+zfunc="$config_dir/.zfunc"
+mkdir -p "$zfunc"
+mise completion zsh > "$zfunc/_mise"
+mise x -- rg --generate complete-zsh > "$zfunc/_rg"
+mise x -- fd --gen-completions zsh > "$zfunc/_fd"
+
 log "Done. Open a new shell to pick up changes."
