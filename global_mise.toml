@@ -1,8 +1,9 @@
 [settings]
-idiomatic_version_file_enable_tools = ["node"]
+idiomatic_version_file_enable_tools = ["node", "pnpm"]
 
 [tools]
 node = "lts"
+pnpm = "latest"
 fzf = "latest"
 ripgrep = "latest"
 zoxide = "latest"

@@ -88,5 +88,6 @@ mkdir -p "$zfunc"
 mise completion zsh > "$zfunc/_mise"
 mise x -- rg --generate complete-zsh > "$zfunc/_rg"
 mise x -- fd --gen-completions zsh > "$zfunc/_fd"
+mise x -- pnpm completion zsh > "$zfunc/_pnpm"
 
 log "Done. Open a new shell to pick up changes."
