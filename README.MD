@@ -1,37 +1,14 @@
-# Shell
+# Setup
 
-## Setup
-
-```sh
-cd configs
-mise install
-npm run build
-echo 'npm run build' > .git/hooks/post-merge && chmod +x .git/hooks/post-merge
-```
-
-## `.zshenv`
+For a new machine:
 
 ```sh
-export config_dir=$HOME/Development/configs
-source "$config_dir/.zshenv"
+./setup.sh
 ```
 
-## `.zshrc`
-
-```sh
-source "$config_dir/.zshrc"
-```
+This installs mise, bootstraps `~/.zshenv` / `~/.zshrc`, and creates symlinks for various configs. It is idempotent — safe to re-run.
 
 # Git
-
-## `.gitconfig`
-
-```ini
-[include]
-    path = /path/to/.gitconfig
-[core]
-    excludesfile = /path/to/.gitignore_global
-```
 
 ## Hooks
 
@@ -41,26 +18,3 @@ Hooks are installed per-repo. To install:
 1. Copy the files from `git-hooks` to `.git/hooks` in the target repo
 1. Rename each moved file to remove `.sh`
 1. `chmod +x` each of the files
-
-# Configs
-
-Config files can be linked to their corresponding directory:
-
-```sh
-ln -si $config_dir/.prettierrc ~/.prettierrc
-ln -si $config_dir/vscode/settings.json ~/Library/Application\ Support/Code/User/settings.json
-ln -si $config_dir/vscode/keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json
-ln -si $config_dir/karabiner ~/.config
-mkdir -p ~/Library/KeyBindings
-ln -si $config_dir/DefaultKeyBinding.dict ~/Library/KeyBindings/DefaultKeyBinding.dict
-mkdir -p ~/.config/mise/conf.d
-ln -si $config_dir/global_mise.toml ~/.config/mise/conf.d/personal.toml
-```
-
-# Tools
-
-```sh
-curl https://mise.run | sh
-
-/usr/local/opt/fzf/install --key-bindings --completion --no-update-rc
-```
