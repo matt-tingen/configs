@@ -136,23 +136,6 @@
     "command": "extension.jumpy-exit",
     "when": "editorTextFocus && jumpy.isJumpyMode"
   },
-
-  /*
-      Extension `when` contexts are not currently exposed (https://github.com/Microsoft/vscode/issues/10471)
-      This shortcut overrides `workbench.action.keepEditor` without the `when`.
-      {
-        "key": "cmd+k enter",
-        "command": "gitlens.openWorkingFile",
-        "when": "gitlens:activeIsRevision"
-      },
-    */
-  // This entry has to be after any chords.
-  // https://github.com/Microsoft/vscode/issues/43623#issuecomment-365640987
-  {
-    "key": "cmd+k",
-    "command": "workbench.action.terminal.clear",
-    "when": "terminalFocus"
-  },
   {
     "key": "alt+k",
     "command": "editor.action.marker.next",
@@ -184,13 +167,29 @@
   {
     "key": "cmd+j",
     "command": "workbench.action.terminal.focus"
-},
-{
+  },
+  {
     "key": "shift+enter",
     "command": "workbench.action.terminal.sendSequence",
     "args": {
-        "text": "\u001b\r"
+      "text": "\u001b\r"
     },
     "when": "terminalFocus"
-}
+  },
+  /*
+      Extension `when` contexts are not currently exposed (https://github.com/Microsoft/vscode/issues/10471)
+      This shortcut overrides `workbench.action.keepEditor` without the `when`.
+      {
+        "key": "cmd+k enter",
+        "command": "gitlens.openWorkingFile",
+        "when": "gitlens:activeIsRevision"
+      },
+    */
+  // This entry has to be after any chords.
+  // https://github.com/Microsoft/vscode/issues/43623#issuecomment-365640987
+  {
+    "key": "cmd+k",
+    "command": "workbench.action.terminal.clear",
+    "when": "terminalFocus"
+  }
 ]
