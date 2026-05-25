@@ -5,6 +5,7 @@
   "partialDiff.enableTelemetry": false,
   "redhat.telemetry.enabled": false,
   "telemetry.telemetryLevel": "off",
+  "telemetry.feedback.enabled": false,
   // #endregion
 
   // #region Workarounds
@@ -96,6 +97,9 @@
     "editor.rulers": [120],
     "rewrap.wrappingColumn": 120
   },
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
+  },
   "[go]": {
     "editor.defaultFormatter": "golang.go"
   },
@@ -133,7 +137,6 @@
     }
   },
   "explorer.autoReveal": false,
-  "workbench.sideBar.location": "left",
   "files.trimTrailingWhitespace": true,
   "terminal.integrated.fontSize": 12,
   "editor.rulers": [80, 120],
@@ -177,7 +180,6 @@
   "workbench.editor.showTabs": "multiple",
   "cssModules.camelCase": true,
   "window.title": "${rootName}${separator}${activeEditorMedium}",
-  "prettier.requireConfig": true,
   "editor.gotoLocation.multipleDeclarations": "goto",
   "editor.gotoLocation.multipleImplementations": "goto",
   "editor.acceptSuggestionOnCommitCharacter": false,
@@ -230,8 +232,6 @@
   "workbench.editor.customLabels.patterns": {
     "**/index.*": "/${dirname}.${extname}"
   },
-
-  // "typescript.tsserver.experimental.useVsCodeWatcher": false,
   "cursor-retrieval.canAttemptGithubLogin": false,
   "json.schemaDownload.trustedDomains": {
     "https://biomejs.dev": true,
@@ -243,6 +243,7 @@
     "https://raw.githubusercontent.com/microsoft/vscode/": true,
     "https://schemastore.azurewebsites.net/": true,
     "https://turbo.build/schema.json": true,
+    "https://ui.shadcn.com/schema.json": true,
     "https://www.schemastore.org/": true
   },
   "biome.lsp.trace.server": "verbose",
@@ -255,5 +256,27 @@
   "terminal.integrated.enableVisualBell": true,
   "accessibility.signals.terminalBell": {
     "sound": "on"
-  }
+  },
+  "scm.showHistoryGraph": false,
+  "prisma.showPrismaDataPlatformNotification": false,
+  "cSpell.enabledFileTypes": {
+    "*": false,
+    "markdown": true,
+    "plaintext": true
+  },
+  "editor.minimap.showRegionSectionHeaders": true,
+  "cSpell.userWords": ["Tingen"],
+  "github.copilot.enable": {
+    "*": false,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false
+  },
+  "terminal.integrated.suggest.quickSuggestions": {
+    "commands": "off",
+    "arguments": "off",
+    "unknown": "off"
+  },
+  "workbench.activityBar.orientation": "vertical",
+  "pnpmCatalogLens.enabled": true
 }
