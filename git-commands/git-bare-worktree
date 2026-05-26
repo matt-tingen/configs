@@ -33,7 +33,14 @@ if [[ ${bare:t} != .bare ]]; then
 fi
 
 root=${bare:h}
-default=$(git --git-dir="$bare" symbolic-ref --short HEAD)
+# Prefer the remote's tracked default (refs/remotes/origin/HEAD) over the bare repo's local
+# HEAD, which can drift to a non-existent branch depending on how the repo was initialized.
+# Fall back to local HEAD if origin/HEAD isn't set.
+if origin_head=$(git --git-dir="$bare" symbolic-ref --short refs/remotes/origin/HEAD 2>/dev/null); then
+    default=${origin_head#origin/}
+else
+    default=$(git --git-dir="$bare" symbolic-ref --short HEAD)
+fi
 main_wt=$root/$default
 new_wt=$root/$branch
 
