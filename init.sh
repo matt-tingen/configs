@@ -7,28 +7,42 @@ sentinel='>>> configs setup.sh >>>'
 
 log() { printf '\n=== %s ===\n' "$*"; }
 
-# 1. mise
-if ! command -v mise >/dev/null 2>&1; then
-  log "Installing mise"
-  curl https://mise.run | sh
-fi
+# 0. dirs needed during bootstrap
+log "Creating target directories"
+mkdir -p "$HOME/Library/Application Support/Code/User"
+mkdir -p "$HOME/Library/KeyBindings"
+mkdir -p "$HOME/.config/mise/conf.d"
+mkdir -p "$HOME/.config"
 
+# 1. mise
 mise_bin="$HOME/.local/bin/mise"
 if [ ! -x "$mise_bin" ] && command -v mise >/dev/null 2>&1; then
   mise_bin="$(command -v mise)"
 fi
+if [ ! -x "$mise_bin" ]; then
+  log "Installing mise"
+  curl https://mise.run | sh
+fi
+if [ ! -x "$mise_bin" ]; then
+  printf 'error: mise installer did not create an executable at %s\n' "$mise_bin" >&2
+  exit 1
+fi
 export PATH="$HOME/.local/bin:$PATH"
+export MISE_GLOBAL_CONFIG_FILE="$HOME/.config/mise/conf.d/personal.toml"
+
+log "Linking mise config"
+ln -sfn "$config_dir/global_mise.toml" "$MISE_GLOBAL_CONFIG_FILE"
 eval "$("$mise_bin" activate bash)"
 
 # 2. mise install + npm build
 log "Running mise install"
-(cd "$config_dir" && mise install)
+(cd "$config_dir" && "$mise_bin" install)
 
 log "Running npm run build"
-(cd "$config_dir" && npm run build)
+(cd "$config_dir" && "$mise_bin" x -- npm run build)
 
 log "Making git-commands executable"
-(cd "$config_dir" && npm run chmod)
+(cd "$config_dir" && "$mise_bin" x -- npm run chmod)
 
 # 3. gitconfig
 log "Configuring ~/.gitconfig"
@@ -55,23 +69,16 @@ append_block "$HOME/.zshenv" "export config_dir=\"$config_dir\"
 source \"\$config_dir/.zshenv\""
 append_block "$HOME/.zshrc" "source \"\$config_dir/.zshrc\""
 
-# 5. dirs + symlinks
-log "Creating target directories"
-mkdir -p "$HOME/Library/Application Support/Code/User"
-mkdir -p "$HOME/Library/KeyBindings"
-mkdir -p "$HOME/.config/mise/conf.d"
-mkdir -p "$HOME/.config"
-
+# 5. symlinks
 log "Creating symlinks"
 ln -sfn "$config_dir/.prettierrc" "$HOME/.prettierrc"
 ln -sfn "$config_dir/vscode/settings.json" "$HOME/Library/Application Support/Code/User/settings.json"
 ln -sfn "$config_dir/vscode/keybindings.json" "$HOME/Library/Application Support/Code/User/keybindings.json"
 ln -sfn "$config_dir/karabiner" "$HOME/.config/karabiner"
 ln -sfn "$config_dir/DefaultKeyBinding.dict" "$HOME/Library/KeyBindings/DefaultKeyBinding.dict"
-ln -sfn "$config_dir/global_mise.toml" "$HOME/.config/mise/conf.d/personal.toml"
 
 # 6. fzf keybindings/completion
-fzf_install="$(mise where fzf 2>/dev/null || true)/install"
+fzf_install="$("$mise_bin" where fzf 2>/dev/null || true)/install"
 if [ -x "$fzf_install" ]; then
   log "Running fzf installer"
   "$fzf_install" --key-bindings --completion --no-update-rc
@@ -85,9 +92,9 @@ fi
 log "Generating zsh completion files"
 zfunc="$config_dir/.zfunc"
 mkdir -p "$zfunc"
-mise completion zsh > "$zfunc/_mise"
-mise x -- rg --generate complete-zsh > "$zfunc/_rg"
-mise x -- fd --gen-completions zsh > "$zfunc/_fd"
-mise x -- pnpm completion zsh > "$zfunc/_pnpm"
+"$mise_bin" completion zsh > "$zfunc/_mise"
+"$mise_bin" x -- rg --generate complete-zsh > "$zfunc/_rg"
+"$mise_bin" x -- fd --gen-completions zsh > "$zfunc/_fd"
+"$mise_bin" x -- pnpm completion zsh > "$zfunc/_pnpm"
 
 log "Done. Open a new shell to pick up changes."

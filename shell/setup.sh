@@ -4,7 +4,11 @@ fi
 
 # Including this in the path allows git to effectively create automatic aliases
 # for `git-X` executables so they can be run with `git-X`.
-export PATH=$config_dir/git-commands:$PATH
+export PATH=$HOME/.local/bin:$config_dir/git-commands:$PATH
+
+if command -v mise >/dev/null 2>&1; then
+    eval "$(mise activate zsh)"
+fi
 
 # Variables
 base_config=$HOME/.zshrc
