@@ -3,7 +3,7 @@
 For a new machine:
 
 ```sh
-./setup.sh
+./init.sh
 ```
 
 This installs mise, bootstraps `~/.zshenv` / `~/.zshrc`, and creates symlinks for various configs. It is idempotent — safe to re-run.

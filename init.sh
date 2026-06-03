@@ -81,7 +81,7 @@ fi
 
 # 7. zsh completions for tools that emit a compdef file
 # (mise, rg, fd). Dynamic ones — zoxide, pandoc, npm — are evaluated at shell
-# startup from shell/setup.sh. jq has no canonical completion generator.
+# startup from shell/completions.sh. jq has no canonical completion generator.
 log "Generating zsh completion files"
 zfunc="$config_dir/.zfunc"
 mkdir -p "$zfunc"
