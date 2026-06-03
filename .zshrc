@@ -13,6 +13,7 @@ if [[ "$PROMPT_TYPE" == "p10k" ]]; then
 fi
 
 source "$config_dir/shell/setup.sh"
+source "$config_dir/shell/completions.sh"
 source "$config_dir/shell/aliases.sh"
 source "$config_dir/shell/functions.sh"
 

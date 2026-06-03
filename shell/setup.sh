@@ -1,11 +1,3 @@
-fpath=("$config_dir/.zfunc" $fpath)
-autoload -Uz compinit && compinit
-autoload -Uz bashcompinit && bashcompinit
-
-source <(fzf --zsh)
-eval "$(zoxide init zsh)"
-eval "$(pandoc --bash-completion)"
-
 if [ -d "$PWD" ]; then
     [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 fi
@@ -36,15 +28,6 @@ HISTTIMEFORMAT="%a %F %I:%M:%S %p - " # Thu 2019-05-16 02:44:14 PM
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=100000
 SAVEHIST=100000
-
-# Make fzf's Ctrl+R see commands from every shell, while up-arrow stays local.
-# fc -RI reads only entries appended since the last read, so this is cheap.
-_shared_fzf_history_widget() {
-  fc -RI
-  fzf-history-widget
-}
-zle -N _shared_fzf_history_widget
-bindkey '^R' _shared_fzf_history_widget
 
 # Correct commands
 setopt CORRECT
