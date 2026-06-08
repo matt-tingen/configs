@@ -12,3 +12,5 @@ pandoc = "latest"
 fd = "latest"
 # Used for mise completions
 usage = "latest"
+"github:tomasz-tomczyk/crit" = "0.16.1"
+"github:k1LoW/git-wt" = "latest"
