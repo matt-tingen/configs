@@ -95,3 +95,32 @@ random-open-port() {
 
 	python3 "$config_dir/util/random_open_port.py" "$1" "$2"
 }
+
+# Semantic diff via `sem`, excluding files matched by .semignore (which
+# `sem diff` itself ignores). Reads the repo's .semignore patterns and converts
+# them to git `:(exclude)` pathspecs so git filters before `sem diff --patch`
+# renders. With no args, diffs against the common ancestor with the base branch
+# (same scope as `git l` / `git rb`); otherwise the args pass through.
+semdiff() {
+	local -a range exclude
+	local root line pat
+	if [ $# -eq 0 ]; then
+		range=("$(git basebranch)...HEAD")
+	else
+		range=("$@")
+	fi
+	root="$(git rev-parse --show-toplevel)" || return
+	if [ -f "$root/.semignore" ]; then
+		while IFS= read -r line || [ -n "$line" ]; do
+			pat="${line%%#*}"                    # strip comments
+			pat="${pat#"${pat%%[![:space:]]*}"}" # ltrim
+			pat="${pat%"${pat##*[![:space:]]}"}" # rtrim
+			[ -z "$pat" ] && continue
+			case "$pat" in
+			*/) exclude+=(":(exclude)${pat}**") ;; # dir -> its contents
+			*) exclude+=(":(exclude)${pat}") ;;
+			esac
+		done < "$root/.semignore"
+	fi
+	git diff "${range[@]}" -- . "${exclude[@]}" | sem diff --patch
+}
