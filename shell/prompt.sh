@@ -89,10 +89,14 @@ function _prompt_spawn_async {
   fi
   if [[ -n $_PROMPT_INFLIGHT_FD ]]; then
     zle -F $_PROMPT_INFLIGHT_FD 2>/dev/null
-    # NOTE: no `2>/dev/null` here. `exec` with no command applies trailing
-    # redirections to the shell itself, permanently — that would silence
-    # all command stderr in this session. The close shouldn't fail anyway.
-    exec {_PROMPT_INFLIGHT_FD}<&-
+    # Brace-group the close so `2>/dev/null` scopes to the group, not to
+    # the shell. Plain `exec X<&- 2>/dev/null` would permanently redirect
+    # shell stderr, because exec without a command applies its redirections
+    # to the shell itself. The close legitimately fails (EBADF) when the
+    # async child has already exited and the process-substitution read end
+    # has been reaped before this cancel path runs — e.g. user runs a
+    # command before the async prompt resolves.
+    { exec {_PROMPT_INFLIGHT_FD}<&-; } 2>/dev/null
     unset "_PROMPT_FD_GEN[$_PROMPT_INFLIGHT_FD]"
     unset "_PROMPT_FD_PWD[$_PROMPT_INFLIGHT_FD]"
   fi
