@@ -14,6 +14,10 @@ if command -v pandoc >/dev/null 2>&1; then
     eval "$(pandoc --bash-completion)"
 fi
 
+if command -v git-wt >/dev/null 2>&1; then
+    eval "$(git wt --init zsh)"
+fi
+
 # Make fzf's Ctrl+R see commands from every shell, while up-arrow stays local.
 # fc -RI reads only entries appended since the last read, so this is cheap.
 _shared_fzf_history_widget() {

@@ -1,16 +1,3 @@
-fpath=("$config_dir/.zfunc" $fpath)
-autoload -Uz compinit && compinit
-autoload -Uz bashcompinit && bashcompinit
-
-source <(fzf --zsh)
-eval "$(zoxide init zsh)"
-eval "$(pandoc --bash-completion)"
-eval "$(git wt --init zsh)"
-
-if [ -d "$PWD" ]; then
-    [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
-fi
-
 # Including this in the path allows git to effectively create automatic aliases
 # for `git-X` executables so they can be run with `git-X`.
 export PATH=$HOME/.local/bin:$config_dir/git-commands:$PATH
