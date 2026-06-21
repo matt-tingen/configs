@@ -85,3 +85,13 @@ browsepackage() {
 wt() {
 	$ cd $(git-wt | fzf --header-lines=1 | awk '{if ($1 == "*") print $2; else print $1}')
 }
+
+# Find a random unused TCP port in [min, max).
+random-open-port() {
+	if [ -z "$2" ]; then
+		echo "Usage: random-open-port <min> <max>" >&2
+		return 1
+	fi
+
+	python3 "$config_dir/util/random_open_port.py" "$1" "$2"
+}
