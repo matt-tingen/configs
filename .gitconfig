@@ -27,6 +27,10 @@
 	detachedHead = false
 [init]
 	defaultBranch = main
+[wt-custom]
+	# Paths linked into new worktrees by common-wt-hook.sh (.gitignore syntax,
+	# multi-valued, like git-wt's wt.copy).
+	link = .ignore
 [alias]
 	debug = !GIT_TRACE=1 git
 	s = status

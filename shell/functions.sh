@@ -124,3 +124,49 @@ semdiff() {
 	fi
 	git diff "${range[@]}" -- . "${exclude[@]}" | sem diff --patch
 }
+
+function wt() {
+	[[ $(git rev-parse --is-inside-git-dir 2>/dev/null) == "true" ]] && { echo "Can't run inside \".git\" dir" >&2; return 128; }
+	[[ $(git rev-parse --is-inside-work-tree 2>/dev/null) != "true" ]] && { echo "Not a Git repo" >&2; return 128; }
+
+	local __git_prefix="/$(git rev-parse --show-prefix 2>/dev/null)"
+	local -a __fzf_args=()
+	# With an arg: pre-fill the filter and auto-select if only one fuzzy match.
+	[[ -n $1 ]] && __fzf_args=(--query="$1" --select-1)
+	local __wtcdpath=$(
+		git wt --json | \
+		jq -r '.[] | "\(.path)\t\(if .current then "*" else " " end) \(.branch)\t\(.head)"' | \
+		fzf \
+			"${__fzf_args[@]}" \
+			--cycle \
+			--wrap \
+			--layout=reverse \
+			--ghost=search \
+			--height=80% \
+			--delimiter=$'\t' \
+			--with-nth=2,3 \
+			--nth=1 \
+			--preview 'echo {} | cut -f1' \
+			--preview-label="[PATH | PWD: $__git_prefix]" \
+			--preview-label-pos=3 \
+			--preview-window='down,1,wrap,noinfo' \
+			--color 'preview-border:#99ffff,preview-label:#99ccff,preview-fg:#99cc99' \
+		| cut -f1
+	)
+	[[ $__wtcdpath && -d $__wtcdpath$__git_prefix ]] && __wtcdpath="$__wtcdpath$__git_prefix"
+	[[ $__wtcdpath && $__wtcdpath != $PWD ]] && cd -- "$__wtcdpath"
+}
+
+check-wt() {
+	local d root abs
+	d=$(git config --default .wt wt.basedir)
+	root=$(dirname "$(git rev-parse --path-format=absolute --git-common-dir)") || return
+	abs=$(realpath "$root/$d" 2>/dev/null)
+
+	if [ -f "$abs/.gitignore" ]; then
+		echo "$abs"
+	else
+		echo "no .gitignore in worktree basedir: $root/$d" >&2
+		return 1
+	fi
+}
