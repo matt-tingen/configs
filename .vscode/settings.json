@@ -2,5 +2,14 @@
   "search.exclude": {
     "pw/dict.txt": true
   },
-  "shellcheck.customArgs": ["--shell=ksh"]
+  "json.schemas": [
+    {
+      "fileMatch": ["vscode/settings.json"],
+      "url": "vscode://schemas/settings/user"
+    },
+    {
+      "fileMatch": ["vscode/keybindings.json"],
+      "url": "vscode://schemas/keybindings"
+    }
+  ]
 }
