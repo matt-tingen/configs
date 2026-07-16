@@ -17,7 +17,7 @@
   // #region Configuration
   "files.exclude": {
     ".vscode/.chrome": true,
-    ".*cache": true
+    ".*cache": true,
   },
   "search.exclude": {
     ".ignore/**": true,
@@ -29,25 +29,25 @@
     "**/.*cache": true,
     "**/jest-cache": true,
     "**/dist/**": true,
-    "**/tsconfig.tsbuildinfo": true
+    "**/tsconfig.tsbuildinfo": true,
   },
   "colorInfo.languages": [
     {
       "selector": "css",
-      "colors": "css"
+      "colors": "css",
     },
     {
       "selector": "sass",
-      "colors": "css"
+      "colors": "css",
     },
     {
       "selector": "scss",
-      "colors": "css"
+      "colors": "css",
     },
     {
       "selector": "less",
-      "colors": "css"
-    }
+      "colors": "css",
+    },
   ],
   "files.associations": {
     ".*rc": "jsonc",
@@ -60,18 +60,18 @@
     ".npmrc": "plaintext",
     ".nvmrc": "plaintext",
     ".yarnrc": "plaintext",
-    ".lnk": "xml"
+    ".lnk": "xml",
   },
   "emmet.includeLanguages": {
-    "postcss": "css"
+    "postcss": "css",
   },
   "emmet.syntaxProfiles": {
-    "postcss": "css"
+    "postcss": "css",
   },
   "terminal.external.osxExec": "Iterm.app",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "workbench.editorAssociations": {
-    "git-rebase-todo": "default"
+    "git-rebase-todo": "default",
   },
   "go.toolsManagement.autoUpdate": true,
   // #endregion
@@ -79,29 +79,29 @@
   // #region Language-Specific
   "[git-commit]": {
     "editor.rulers": [50, 72],
-    "rewrap.wrappingColumn": 72
+    "rewrap.wrappingColumn": 72,
   },
   "[git-rebase]": {
-    "editor.rulers": [50, 72]
+    "editor.rulers": [50, 72],
   },
   "[plaintext]": {
     "editor.wordWrap": "bounded",
     "editor.wrappingIndent": "same",
-    "editor.wordWrapColumn": 120
+    "editor.wordWrapColumn": 120,
   },
   "[markdown]": {
     // https://github.com/microsoft/vscode/issues/165232#issuecomment-1304203167
-    "editor.bracketPairColorization.enabled": false
+    "editor.bracketPairColorization.enabled": false,
   },
   "[graphql]": {
     "editor.rulers": [120],
-    "rewrap.wrappingColumn": 120
+    "rewrap.wrappingColumn": 120,
   },
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma",
   },
   "[go]": {
-    "editor.defaultFormatter": "golang.go"
+    "editor.defaultFormatter": "golang.go",
   },
   // #endregion
 
@@ -119,22 +119,22 @@
         {
           "scope": "meta.decorator",
           "settings": {
-            "fontStyle": "italic"
-          }
+            "fontStyle": "italic",
+          },
         },
         {
           "scope": "punctuation.decorator",
           "settings": {
-            "foreground": "#569CD6"
-          }
+            "foreground": "#569CD6",
+          },
         },
         // https://github.com/microsoft/vscode/issues/97373#issuecomment-626832698
         {
           "scope": ["variable.other.constant", "variable.other.enummember"],
-          "settings": { "foreground": "#9CDCFE" }
-        }
-      ]
-    }
+          "settings": { "foreground": "#9CDCFE" },
+        },
+      ],
+    },
   },
   "explorer.autoReveal": false,
   "files.trimTrailingWhitespace": true,
@@ -160,7 +160,7 @@
     "suppressFileNotUnderSourceControlWarning": false,
     "suppressGitVersionWarning": false,
     "suppressLineUncommittedWarning": false,
-    "suppressNoRepositoryWarning": false
+    "suppressNoRepositoryWarning": false,
   },
   "chat.commandCenter.enabled": false,
   "terminal.integrated.stickyScroll.enabled": false,
@@ -185,7 +185,7 @@
   "editor.acceptSuggestionOnCommitCharacter": false,
   "merge-conflict.diffViewPosition": "Below",
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
+    "source.fixAll.eslint": "explicit",
   },
   "editor.minimap.size": "fill",
   "editor.scrollPredominantAxis": true,
@@ -197,7 +197,7 @@
   "eslint.rules.customizations": [
     { "rule": "*", "fixable": true, "severity": "off" },
     { "rule": "*", "fixable": false, "severity": "warn" },
-    { "rule": "jest/expect-expect", "severity": "off" }
+    { "rule": "jest/expect-expect", "severity": "off" },
   ],
   "workbench.editor.languageDetection": false,
   "editor.guides.bracketPairs": true,
@@ -227,10 +227,10 @@
     "javascript",
     "typescript",
     "javascriptreact",
-    "typescriptreact"
+    "typescriptreact",
   ],
   "workbench.editor.customLabels.patterns": {
-    "**/index.*": "/${dirname}.${extname}"
+    "**/index.*": "/${dirname}.${extname}",
   },
   "cursor-retrieval.canAttemptGithubLogin": false,
   "json.schemaDownload.trustedDomains": {
@@ -281,4 +281,6 @@
   },
   "workbench.activityBar.orientation": "vertical",
   "pnpmCatalogLens.enabled": true,
+  "security.promptForLocalFileProtocolHandling": false,
+  "workbench.experimental.modernUI": true,
 }
