@@ -7,7 +7,7 @@ if command -v fzf >/dev/null 2>&1; then
 fi
 
 if command -v zoxide >/dev/null 2>&1; then
-    eval "$(zoxide init zsh)"
+    eval "$(zoxide init zsh --cmd j)"
 fi
 
 if command -v pandoc >/dev/null 2>&1; then

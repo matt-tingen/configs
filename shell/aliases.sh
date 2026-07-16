@@ -23,4 +23,4 @@ alias pi="pnpm install"
 alias history='history -t $HISTTIMEFORMAT'
 alias rgf='rg --files | rg'
 alias cphash='git hash | pbcopy'
-alias zwt="z $1 && wt"
+alias jwt="j $1 && wt"
