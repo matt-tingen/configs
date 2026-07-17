@@ -82,10 +82,6 @@ browsepackage() {
 	fi
 }
 
-wt() {
-	$ cd $(git-wt | fzf --header-lines=1 | awk '{if ($1 == "*") print $2; else print $1}')
-}
-
 # Find a random unused TCP port in [min, max).
 random-open-port() {
 	if [ -z "$2" ]; then
