@@ -1,7 +1,8 @@
 [core]
 	editor = code --wait
 	abbrev = 7
-	# fsmonitor = true
+	fsmonitor = true
+	untrackedcache = true
 [user]
 	name = Matt Tingen
 	email = matt.tingen@gmail.com
