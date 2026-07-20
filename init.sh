@@ -13,6 +13,7 @@ mkdir -p "$HOME/Library/Application Support/Code/User"
 mkdir -p "$HOME/Library/KeyBindings"
 mkdir -p "$HOME/.config/mise/conf.d"
 mkdir -p "$HOME/.config"
+mkdir -p "$HOME/.config/ghostty"
 
 # 1. mise
 mise_bin="$HOME/.local/bin/mise"
@@ -77,7 +78,22 @@ ln -sfn "$config_dir/vscode/keybindings.json" "$HOME/Library/Application Support
 ln -sfn "$config_dir/karabiner" "$HOME/.config/karabiner"
 ln -sfn "$config_dir/DefaultKeyBinding.dict" "$HOME/Library/KeyBindings/DefaultKeyBinding.dict"
 
-# 6. fzf keybindings/completion
+# 6. ghostty: ensure the machine-local config includes the shared repo config.
+# The local file (config.ghostty) also holds per-machine overrides such as
+# working-directory, so it can't be a plain symlink. Prepend the include line
+# (later local settings then override the shared config) if it's not present.
+log "Ensuring ghostty includes the shared config"
+ghostty_config="$HOME/.config/ghostty/config.ghostty"
+ghostty_include="config-file = $config_dir/config.ghostty"
+touch "$ghostty_config"
+if ! grep -qxF "$ghostty_include" "$ghostty_config"; then
+  tmp="$(mktemp)"
+  printf '%s\n' "$ghostty_include" > "$tmp"
+  cat "$ghostty_config" >> "$tmp"
+  mv "$tmp" "$ghostty_config"
+fi
+
+# 7. fzf keybindings/completion
 fzf_install="$("$mise_bin" where fzf 2>/dev/null || true)/install"
 if [ -x "$fzf_install" ]; then
   log "Running fzf installer"
@@ -86,7 +102,7 @@ else
   printf '\nSkipping fzf installer — %s not found or not executable\n' "$fzf_install"
 fi
 
-# 7. zsh completions for tools that emit a compdef file
+# 8. zsh completions for tools that emit a compdef file
 # (mise, rg, fd). Dynamic ones — zoxide, pandoc, npm — are evaluated at shell
 # startup from shell/completions.sh. jq has no canonical completion generator.
 log "Generating zsh completion files"
