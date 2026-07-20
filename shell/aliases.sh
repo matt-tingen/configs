@@ -24,3 +24,4 @@ alias history='history -t $HISTTIMEFORMAT'
 alias rgf='rg --files | rg'
 alias cphash='git hash | pbcopy'
 alias jwt="j $1 && wt"
+alias md="glow"

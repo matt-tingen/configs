@@ -11,6 +11,7 @@ jq = "latest"
 pandoc = "latest"
 fd = "latest"
 gh = "latest"
+glow = "latest"
 # Used for mise completions
 usage = "latest"
 "github:tomasz-tomczyk/crit" = "0.16.1"
