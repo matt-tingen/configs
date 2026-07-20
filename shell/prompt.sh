@@ -16,6 +16,23 @@ RPROMPT="%{%F{008}%}%D{%m/%d} %t"
 
 alias deactivatePrompt="export PROMPT_TYPE=bare"
 
+# Exit-code indicator, prepended to the prompt: red "^" when the last command
+# exited 1, red "^N" when it exited N>1, each followed by a space. Nothing on a
+# successful command.
+typeset -g _PROMPT_EXIT_INDICATOR=""
+function _prompt_capture_exit {
+  local code=$?  # must be first: later tests clobber $?
+  if (( code == 0 )); then
+    _PROMPT_EXIT_INDICATOR=""
+  elif (( code == 1 )); then
+    _PROMPT_EXIT_INDICATOR="%F{red}^%f "
+  else
+    _PROMPT_EXIT_INDICATOR="%F{red}^${code}%f "
+  fi
+}
+# Run first each precmd so $? reflects the user's command, not another hook's.
+precmd_functions=(_prompt_capture_exit ${precmd_functions:#_prompt_capture_exit})
+
 # Monotonic generation; bumped each precmd. Stale background results check
 # this against the gen captured at their spawn time and bail if newer.
 typeset -gi _PROMPT_GEN=0
@@ -50,7 +67,7 @@ function _prompt_async_handler {
   [[ $pwd_at_spawn != $PWD ]] && return
   [[ -z $new_ps1 ]] && return
 
-  PS1=$new_ps1
+  PS1="${_PROMPT_EXIT_INDICATOR}${new_ps1}"
   zle && zle reset-prompt
 }
 
@@ -132,11 +149,11 @@ function prompt_command {
   fi
 
   if [[ ! -d $PWD ]]; then
-    PS1="%F{red}ENOENT%f "
+    PS1="${_PROMPT_EXIT_INDICATOR}%F{red}ENOENT%f "
     return
   fi
 
-  PS1="%F{cyan}%~%f "
+  PS1="${_PROMPT_EXIT_INDICATOR}%F{cyan}%~%f "
 
   if [[ $PROMPT_TYPE == node ]]; then
     emulate -L zsh
