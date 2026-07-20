@@ -1,5 +1,5 @@
-# PROMPT_TYPE: p10k | node | bare (empty/invalid leaves the prompt at zsh default)
-PROMPT_TYPE=node
+# PROMPT_TYPE: p10k | node | starship | bare (empty/invalid leaves the prompt at zsh default)
+PROMPT_TYPE=${PROMPT_TYPE:-starship}
 
 if [[ "$PROMPT_TYPE" == "p10k" ]]; then
   source ~/Development/external/powerlevel10k/powerlevel10k.zsh-theme
@@ -24,5 +24,9 @@ case "$PROMPT_TYPE" in
     ;;
   node|bare)
     source "$config_dir/shell/prompt.sh"
+    ;;
+  starship)
+    export STARSHIP_CONFIG="$config_dir/starship.toml"
+    eval "$(starship init zsh)"
     ;;
 esac

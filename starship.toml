@@ -1,0 +1,91 @@
+add_newline = false
+
+format = '${custom.vpn}${custom.lockfile}$directory([\[](bright-black)$git_state$git_branch$git_commit${custom.gitlocal}$git_status[\]](bright-black) )$character'
+
+[directory]
+style = "cyan"
+truncation_length = 0
+truncate_to_repo = true
+truncation_symbol = ""
+read_only = ""
+format = "[$path]($style) "
+
+[git_branch]
+symbol = ""
+style = "blue"
+only_attached = true
+format = "[$branch]($style)"
+
+[git_commit]
+only_detached = true
+tag_disabled = false
+tag_symbol = " | "
+style = "yellow"
+format = "[$hash$tag]($style)"
+
+[git_state]
+style = "bold white"
+rebase = "rebasing"
+merge = "merging"
+bisect = "bisecting"
+format = '([$state( $progress_current/$progress_total)]($style) [-](bright-black) )'
+
+[git_status]
+style = "yellow"
+# layout: <ahead/behind> - <worktree flags>|<staged flags>
+# The space after "|" is unavoidable: starship has no whitespace-trim or join
+# primitive, so the first index var keeps its leading space.
+# https://github.com/starship/starship/issues/2274
+format = '( [$ahead_behind]($style))( [-](bright-black)$worktree_modified$untracked$worktree_added$worktree_deleted$worktree_typechanged( [|](bright-black)$index_modified$index_added$index_deleted$index_typechanged$renamed$conflicted))'
+stashed = ""
+up_to_date = ""
+worktree_modified    = " [${count}M](yellow)"
+worktree_added       = " [${count}A](green)"
+worktree_deleted     = " [${count}D](red)"
+worktree_typechanged = " [${count}T](white)"
+untracked            = " [${count}A](green)"
+index_modified       = " [${count}M](yellow)"
+index_added          = " [${count}A](green)"
+index_deleted        = " [${count}D](red)"
+index_typechanged    = " [${count}T](white)"
+renamed              = " [${count}R](green)"
+conflicted           = " [${count}U](magenta)"
+ahead = "[+${count}](green)"
+behind = "[-${count}](red)"
+diverged = "[+${ahead_count}](green) [-${behind_count}](red)"
+
+[character]
+success_symbol = "[❯](green)"
+error_symbol = "[❯](red)"
+
+[custom.gitlocal]
+description = "Yellow 'local' when on a branch with no upstream"
+command = "printf local"
+# On a branch (not detached) AND no upstream configured.
+when = 'git symbolic-ref -q HEAD >/dev/null 2>&1 && ! git rev-parse --abbrev-ref @{u} >/dev/null 2>&1'
+shell = ["bash", "--noprofile", "--norc"]
+style = "yellow"
+format = " [$output]($style)"
+
+[custom.vpn]
+description = "VPN is disconnected (PROMPT_VPN_IP not in the routing table)"
+command = "printf '󰅛'"  # nf-md-close_network
+when = 'test -n "$PROMPT_VPN_IP" && ! netstat -rn | grep -q "$PROMPT_VPN_IP"'
+shell = ["bash", "--noprofile", "--norc"]
+style = "red"
+format = "[$output]($style) "
+
+[custom.lockfile]
+description = "node_modules is out-of-sync with pnpm lockfile"
+detect_files = ["pnpm-lock.yaml"]
+command = "printf ''"  # nf-dev-pnpm
+when = '''
+root=$(git rev-parse --show-toplevel 2>/dev/null) || exit 1
+[ -f "$root/pnpm-lock.yaml" ] || exit 1
+current=$(sha256sum "$root/pnpm-lock.yaml" | cut -d' ' -f1)
+installed=$(sha256sum "$root/node_modules/.pnpm/lock.yaml" 2>/dev/null | cut -d' ' -f1)
+[ "$current" != "$installed" ]
+'''
+shell = ["bash", "--noprofile", "--norc"]
+style = "red"
+format = "[$output]($style) "
