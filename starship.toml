@@ -77,7 +77,6 @@ format = "[$output]($style) "
 
 [custom.lockfile]
 description = "node_modules is out-of-sync with pnpm lockfile"
-detect_files = ["pnpm-lock.yaml"]
 command = "printf ''"  # nf-dev-pnpm
 when = '''
 root=$(git rev-parse --show-toplevel 2>/dev/null) || exit 1
