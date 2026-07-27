@@ -108,7 +108,8 @@ semdiff() {
 	git diff "${range[@]}" -- . "${exclude[@]}" | sem diff --patch
 }
 
-function wt() {
+# Pick a worktree with fzf and print its root path to stdout.
+function __wt_pick() {
 	[[ $(git rev-parse --is-inside-git-dir 2>/dev/null) == "true" ]] && { echo "Can't run inside \".git\" dir" >&2; return 128; }
 	[[ $(git rev-parse --is-inside-work-tree 2>/dev/null) != "true" ]] && { echo "Not a Git repo" >&2; return 128; }
 
@@ -116,7 +117,7 @@ function wt() {
 	local -a __fzf_args=()
 	# With an arg: pre-fill the filter and auto-select if only one fuzzy match.
 	[[ -n $1 ]] && __fzf_args=(--query="$1" --select-1)
-	local __wtcdpath=$(
+	local __wtpath=$(
 		git wt --json | \
 		jq -r '.[] | "\(.path)\t\(if .current then "*" else " " end) \(.branch)\t\(.head)"' | \
 		fzf \
@@ -136,8 +137,36 @@ function wt() {
 			--color 'preview-border:#99ffff,preview-label:#99ccff,preview-fg:#99cc99' \
 		| cut -f1
 	)
-	[[ $__wtcdpath && -d $__wtcdpath$__git_prefix ]] && __wtcdpath="$__wtcdpath$__git_prefix"
-	[[ $__wtcdpath && $__wtcdpath != $PWD ]] && cd -- "$__wtcdpath"
+	[[ -z $__wtpath ]] && return 1
+	echo "$__wtpath"
+}
+
+# Map $PWD into the worktree rooted at $1, falling back to that root when the
+# current subdirectory doesn't exist there. Must run before any cd.
+function __wt_subpath() {
+	local __target="$1/$(git rev-parse --show-prefix 2>/dev/null)"
+	__target="${__target%/}"
+	[[ -d $__target ]] && echo "$__target" || echo "$1"
+}
+
+function wt() {
+	local __wtroot __wtcdpath
+	__wtroot=$(__wt_pick "$1") || return
+	__wtcdpath=$(__wt_subpath "$__wtroot")
+	# Let git-wt's shell integration own the switch (it honors wt.nocd etc.);
+	# it only ever lands on the worktree root, so re-enter the subdir after.
+	git wt "$__wtroot" || return
+	[[ $__wtcdpath != $PWD ]] && cd -- "$__wtcdpath"
+	return 0
+}
+
+# Like `wt`, but opens the resulting path in the editor instead of switching to it.
+function wte() {
+	local __wtroot __wtepath
+	__wtroot=$(__wt_pick "$1") || return
+	__wtepath=$(__wt_subpath "$__wtroot")
+	git wt --nocd "$__wtroot" || return
+	e "$__wtepath"
 }
 
 check-wt() {
