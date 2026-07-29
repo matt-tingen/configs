@@ -19,3 +19,4 @@ usage = "latest"
 "github:k1LoW/git-wt" = "latest"
 rust = "latest"
 "cargo:https://github.com/Ataraxy-Labs/sem" = { version = "tag:v0.9.0", crate = "sem-cli", features = "vendored-openssl" }
+"cargo:forgejo-cli" = "latest"
