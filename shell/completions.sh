@@ -2,7 +2,7 @@ fpath=("$config_dir/.zfunc" $fpath)
 autoload -Uz compinit && compinit
 autoload -Uz bashcompinit && bashcompinit
 
-if command -v fzf >/dev/null 2>&1; then
+if [[ -t 0 ]] && command -v fzf >/dev/null 2>&1; then
     source <(fzf --zsh)
 fi
 

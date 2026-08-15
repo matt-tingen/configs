@@ -12,6 +12,6 @@ case "$PROMPT_TYPE" in
     ;;
   starship)
     export STARSHIP_CONFIG="$config_dir/starship.toml"
-    eval "$(starship init zsh)"
+    [[ $TERM != dumb ]] && eval "$(starship init zsh)"
     ;;
 esac
