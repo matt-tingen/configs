@@ -39,8 +39,13 @@ eval "$("$mise_bin" activate bash)"
 log "Running mise install"
 (cd "$config_dir" && "$mise_bin" install)
 
-log "Running npm run build"
-(cd "$config_dir" && "$mise_bin" x -- npm run build)
+log "Running pnpm install"
+(cd "$config_dir" && "$mise_bin" x -- pnpm install)
+
+if [ "$(uname)" = Darwin ]; then
+  log "Building karabiner config"
+  (cd "$config_dir" && "$mise_bin" x -- pnpm run build:karabiner)
+fi
 
 log "Making git-commands executable"
 (cd "$config_dir" && "$mise_bin" x -- npm run chmod)
