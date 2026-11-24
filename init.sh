@@ -3,7 +3,8 @@ set -euo pipefail
 
 config_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-sentinel='>>> configs setup.sh >>>'
+block_start='# >>> configs setup.sh >>>'
+block_end='# <<< configs setup.sh <<<'
 
 log() { printf '\n=== %s ===\n' "$*"; }
 
@@ -51,24 +52,25 @@ git config --global --replace-all include.path "$config_dir/.gitconfig"
 git config --global core.excludesfile "$config_dir/.gitignore_global"
 
 # 4. zshenv / zshrc snippets
-append_block() {
-  local file="$1"
-  local body="$2"
+# Replaces the marked block in place, or appends it if absent.
+write_block() {
+  local file="$1" tmp
   touch "$file"
-  if grep -qF "$sentinel" "$file"; then
-    return
-  fi
-  {
-    printf '\n# %s\n' "$sentinel"
-    printf '%s\n' "$body"
-    printf '# <<< configs setup.sh <<<\n'
-  } >> "$file"
+  tmp="$(mktemp)"
+  BLOCK_BODY="$2" awk -v start="$block_start" -v end="$block_end" '
+    $0 == start { print; print ENVIRON["BLOCK_BODY"]; skip = 1; found = 1; next }
+    skip { if ($0 == end) { print; skip = 0 }; next }
+    { print }
+    END { if (!found) printf "\n%s\n%s\n%s\n", start, ENVIRON["BLOCK_BODY"], end }
+  ' "$file" >"$tmp"
+  cat "$tmp" >"$file"
+  rm "$tmp"
 }
 
 log "Updating ~/.zshenv and ~/.zshrc"
-append_block "$HOME/.zshenv" "export config_dir=\"$config_dir\"
+write_block "$HOME/.zshenv" "export config_dir=\"$config_dir\"
 source \"\$config_dir/.zshenv\""
-append_block "$HOME/.zshrc" "source \"\$config_dir/.zshrc\""
+write_block "$HOME/.zshrc" "source \"\$config_dir/.zshrc\""
 
 # 5. symlinks
 log "Creating symlinks"
