@@ -42,11 +42,6 @@ log "Running mise install"
 log "Running pnpm install"
 (cd "$config_dir" && "$mise_bin" x -- pnpm install)
 
-if [ "$(uname)" = Darwin ]; then
-  log "Building karabiner config"
-  (cd "$config_dir" && "$mise_bin" x -- pnpm run build:karabiner)
-fi
-
 log "Making git-commands executable"
 (cd "$config_dir" && "$mise_bin" x -- npm run chmod)
 
@@ -80,7 +75,6 @@ log "Creating symlinks"
 ln -sfn "$config_dir/.prettierrc" "$HOME/.prettierrc"
 ln -sfn "$config_dir/vscode/settings.json" "$HOME/Library/Application Support/Code/User/settings.json"
 ln -sfn "$config_dir/vscode/keybindings.json" "$HOME/Library/Application Support/Code/User/keybindings.json"
-ln -sfn "$config_dir/karabiner" "$HOME/.config/karabiner"
 ln -sfn "$config_dir/DefaultKeyBinding.dict" "$HOME/Library/KeyBindings/DefaultKeyBinding.dict"
 
 # 6. ghostty: ensure the machine-local config includes the shared repo config.

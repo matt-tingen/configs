@@ -7,8 +7,7 @@
   "repository": "https://github.com/matt-tingen/configs.git",
   "author": "Matt Tingen <matt.tingen@gmail.com>",
   "scripts": {
-    "build": "pnpm run build:karabiner && pnpm run build:prompt",
-    "build:karabiner": "mkdir -p karabiner && node --harmony util/karabinerConfig.cjs > karabiner/karabiner.json",
+    "build": "pnpm run build:prompt",
     "build:prompt": "tsgo -p prompt",
     "chmod": "chmod +x git-commands/git-*",
     "postinstall": "pnpm run build:prompt"
