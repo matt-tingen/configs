@@ -237,6 +237,7 @@
   "json.schemaDownload.trustedDomains": {
     "https://biomejs.dev": true,
     "https://developer.microsoft.com/json-schemas/": true,
+    "https://docs.renovatebot.com/renovate-schema.json": true,
     "https://json-schema.org/": true,
     "https://json.schemastore.org/": true,
     "https://models.dev/model-schema.json": true,
@@ -268,7 +269,7 @@
     "plaintext": true
   },
   "editor.minimap.showRegionSectionHeaders": true,
-  "cSpell.userWords": ["Tingen"],
+  "cSpell.userWords": ["Financials", "Muxer", "Tingen"],
   "github.copilot.enable": {
     "*": false,
     "plaintext": false,
@@ -284,5 +285,6 @@
   "pnpmCatalogLens.enabled": true,
   "security.promptForLocalFileProtocolHandling": false,
   "workbench.experimental.modernUI": true,
-  "terminal.integrated.initialHint": false
+  "terminal.integrated.initialHint": false,
+  "js/ts.experimental.useTsgo": true
 }
